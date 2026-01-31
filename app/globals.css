@@ -146,3 +146,13 @@
     transform: translateX(0);
   }
 }
+
+/* Hero hive background - subtle pulse */
+@keyframes hivePulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.hero-hive-pattern {
+  animation: hivePulse 8s ease-in-out infinite;
+}

@@ -12,6 +12,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.superguardian.com.au"),
+  icons: {
+    icon: "/sg_logo_favicon.png",
+  },
   title: {
     default: "SuperGuardian | SMSF Admin Made Simple",
     template: "%s | SuperGuardian",

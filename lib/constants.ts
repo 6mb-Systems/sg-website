@@ -24,8 +24,8 @@ export const siteConfig = {
     },
   },
   social: {
-    linkedin: "https://www.linkedin.com/company/superguardian",
-    facebook: "https://www.facebook.com/superguardian",
+    linkedin: "https://www.linkedin.com/company/superguardian-pty-ltd/",
+    facebook: "https://www.facebook.com/SuperGuardianPtyLtd",
   },
   externalLinks: {
     login: "https://app.class.com.au/my/login",

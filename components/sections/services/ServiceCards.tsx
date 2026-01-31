@@ -1,7 +1,7 @@
 import { FileText, Settings, Calculator, ClipboardCheck, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/constants";
-import { FadeIn, StaggerContainer } from "@/components/ui/fade-in";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const services = [
   {
@@ -76,9 +76,9 @@ export function ServiceCards() {
   return (
     <section className="section-padding bg-gray-50">
       <div className="container-width">
-        <StaggerContainer className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {services.map((service) => (
-            <FadeIn key={service.id} direction="up">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {services.map((service, index) => (
+            <FadeIn key={service.id} direction="up" delay={index * 0.1}>
               <div
                 id={service.id}
                 className="h-full rounded-xl border border-gray-200 bg-white p-8 hover:border-brand-blue hover:shadow-md transition-all"
@@ -127,7 +127,7 @@ export function ServiceCards() {
               </div>
             </FadeIn>
           ))}
-        </StaggerContainer>
+        </div>
       </div>
     </section>
   );

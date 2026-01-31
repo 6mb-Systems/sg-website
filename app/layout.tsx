@@ -4,7 +4,6 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
-import { PageTransition } from "@/components/ui/page-transition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -60,9 +59,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans`}>
         <GoogleAnalytics />
         <Header />
-        <PageTransition>
-          <main className="min-h-screen">{children}</main>
-        </PageTransition>
+        <main className="min-h-screen">{children}</main>
         <Footer />
       </body>
     </html>

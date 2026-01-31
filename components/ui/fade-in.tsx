@@ -1,77 +1,60 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { useRef, useEffect, useState, ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface FadeInProps {
   children: ReactNode;
   direction?: "up" | "down" | "left" | "right";
   delay?: number;
-  duration?: number;
   className?: string;
 }
 
 export function FadeIn({
   children,
-  direction,
+  direction = "up",
   delay = 0,
-  duration = 0.5,
   className = "",
 }: FadeInProps) {
-  const directions = {
-    up: { y: 20, x: 0 },
-    down: { y: -20, x: 0 },
-    left: { x: 20, y: 0 },
-    right: { x: -20, y: 0 },
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "-20px" }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const directionClasses = {
+    up: "animate-fade-in-up",
+    down: "animate-fade-in-down",
+    left: "animate-fade-in-left",
+    right: "animate-fade-in-right",
   };
 
-  const initial = direction ? directions[direction] : { x: 0, y: 0 };
-
   return (
-    <motion.div
-      initial={{ ...initial, opacity: 0 }}
-      whileInView={{ x: 0, y: 0, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{
-        duration,
-        delay,
-        ease: "easeOut",
-      }}
-      className={className}
+    <div
+      ref={ref}
+      className={cn(
+        "opacity-0",
+        isVisible && directionClasses[direction],
+        className
+      )}
+      style={isVisible && delay > 0 ? { animationDelay: `${delay}s` } : undefined}
     >
       {children}
-    </motion.div>
-  );
-}
-
-interface StaggerContainerProps {
-  children: ReactNode;
-  delay?: number;
-  className?: string;
-}
-
-export function StaggerContainer({
-  children,
-  delay = 0,
-  className = "",
-}: StaggerContainerProps) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.25 }}
-      variants={{
-        hidden: {},
-        show: {
-          transition: {
-            staggerChildren: 0.1,
-            delayChildren: delay,
-          },
-        },
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    </div>
   );
 }

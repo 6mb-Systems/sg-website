@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Search, FileText, Video, Calendar, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FadeIn, StaggerContainer } from "@/components/ui/fade-in";
+import { FadeIn } from "@/components/ui/fade-in";
 import { motion, AnimatePresence } from "framer-motion";
 
 const tabs = [
@@ -212,9 +212,9 @@ export function EducationHub() {
                 </div>
 
                 {/* Articles Grid */}
-                <StaggerContainer className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {filteredArticles.map((article) => (
-                    <FadeIn key={article.slug} direction="up">
+                <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {filteredArticles.map((article, index) => (
+                    <FadeIn key={article.slug} direction="up" delay={index * 0.05}>
                       <article
                         className="group h-full flex flex-col rounded-xl border border-gray-200 bg-white p-6 hover:border-brand-blue transition-colors"
                       >
@@ -247,7 +247,7 @@ export function EducationHub() {
                       </article>
                     </FadeIn>
                   ))}
-                </StaggerContainer>
+                </div>
               </motion.div>
             )}
 
@@ -269,9 +269,9 @@ export function EducationHub() {
                   </p>
                 </div>
 
-                <StaggerContainer className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-                  {webinars.map((webinar) => (
-                    <FadeIn key={webinar.slug} direction="up">
+                <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+                  {webinars.map((webinar, index) => (
+                    <FadeIn key={webinar.slug} direction="up" delay={index * 0.1}>
                       <article
                         className="h-full flex flex-col rounded-xl border border-gray-200 bg-white p-6"
                       >
@@ -320,7 +320,7 @@ export function EducationHub() {
                       </article>
                     </FadeIn>
                   ))}
-                </StaggerContainer>
+                </div>
               </motion.div>
             )}
 

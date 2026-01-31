@@ -1,5 +1,5 @@
 import { Shield, Clock, Users } from "lucide-react";
-import { FadeIn, StaggerContainer } from "@/components/ui/fade-in";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const features = [
   {
@@ -26,9 +26,9 @@ export function FeatureCards() {
   return (
     <section className="section-padding bg-gray-50">
       <div className="container-width">
-        <StaggerContainer className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {features.map((feature) => (
-            <FadeIn key={feature.title} direction="up">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {features.map((feature, index) => (
+            <FadeIn key={feature.title} direction="up" delay={index * 0.1}>
               <div className="h-full rounded-xl bg-white p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all hover:-translate-y-1">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-blue-50 text-brand-blue">
                   <feature.icon className="h-6 w-6" />
@@ -42,7 +42,7 @@ export function FeatureCards() {
               </div>
             </FadeIn>
           ))}
-        </StaggerContainer>
+        </div>
       </div>
     </section>
   );

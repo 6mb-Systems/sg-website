@@ -2,7 +2,7 @@ import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/constants";
-import { FadeIn, StaggerContainer } from "@/components/ui/fade-in";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const plans = [
   {
@@ -73,9 +73,9 @@ export function PricingCards() {
           </div>
         </FadeIn>
 
-        <StaggerContainer className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {plans.map((plan) => (
-            <FadeIn key={plan.name} direction="up">
+        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {plans.map((plan, index) => (
+            <FadeIn key={plan.name} direction="up" delay={index * 0.1}>
               <div
                 className={cn(
                   "h-full rounded-xl border bg-white p-8 transition-all hover:shadow-lg hover:-translate-y-1",
@@ -142,7 +142,7 @@ export function PricingCards() {
               </div>
             </FadeIn>
           ))}
-        </StaggerContainer>
+        </div>
       </div>
     </section>
   );

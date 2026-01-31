@@ -1,4 +1,4 @@
-import { FadeIn, StaggerContainer } from "@/components/ui/fade-in";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const stats = [
   { value: "3000+", label: "Funds" },
@@ -43,16 +43,16 @@ export function AboutIntro() {
             </FadeIn>
 
             {/* Stats */}
-            <StaggerContainer className="mt-8 grid grid-cols-3 gap-8" delay={0.4}>
-              {stats.map((stat) => (
-                <FadeIn key={stat.label} direction="up">
+            <div className="mt-8 grid grid-cols-3 gap-8">
+              {stats.map((stat, index) => (
+                <FadeIn key={stat.label} direction="up" delay={0.4 + index * 0.1}>
                   <div className="text-3xl font-bold text-brand-orange">
                     {stat.value}
                   </div>
                   <div className="mt-1 text-sm text-gray-600">{stat.label}</div>
                 </FadeIn>
               ))}
-            </StaggerContainer>
+            </div>
           </div>
 
           {/* Image placeholder */}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { FadeIn, StaggerContainer } from "@/components/ui/fade-in";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const audiences = [
   {
@@ -41,9 +41,9 @@ export function WhoWeHelpPreview() {
           </div>
         </FadeIn>
 
-        <StaggerContainer className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-          {audiences.map((audience) => (
-            <FadeIn key={audience.title} direction="up">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+          {audiences.map((audience, index) => (
+            <FadeIn key={audience.title} direction="up" delay={0.1 + index * 0.1}>
               <Link
                 href={audience.href}
                 className="group h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1"
@@ -64,7 +64,7 @@ export function WhoWeHelpPreview() {
               </Link>
             </FadeIn>
           ))}
-        </StaggerContainer>
+        </div>
       </div>
     </section>
   );

@@ -38,7 +38,7 @@ export function CTASection({
         <FadeIn direction="up" delay={0.2}>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             {isExternal ? (
-              <Button size="lg" variant="secondary" asChild>
+              <Button size="lg" variant="secondary" className="w-full max-w-[280px] sm:w-auto sm:max-w-none" asChild>
                 <a
                   href={primaryButtonHref}
                   target="_blank"
@@ -49,7 +49,7 @@ export function CTASection({
                 </a>
               </Button>
             ) : (
-              <Button size="lg" variant="secondary" asChild>
+              <Button size="lg" variant="secondary" className="w-full max-w-[280px] sm:w-auto sm:max-w-none" asChild>
                 <Link href={primaryButtonHref}>
                   <Sparkles className="mr-2 h-4 w-4" />
                   {primaryButtonText}
@@ -60,7 +60,7 @@ export function CTASection({
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-brand-blue"
+                className="w-full max-w-[280px] sm:w-auto sm:max-w-none border-white text-white hover:bg-white hover:text-brand-blue"
                 asChild
               >
                 <Link href={secondaryButtonHref}>{secondaryButtonText}</Link>

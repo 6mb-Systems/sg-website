@@ -173,7 +173,7 @@ export function Hero() {
             decisions and to maximise wealth creation
           </p>
           <div className="animate-fade-in-up animate-delay-300 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" variant="secondary" asChild>
+            <Button size="lg" variant="secondary" className="w-full max-w-[280px] sm:w-auto sm:max-w-none" asChild>
               <a
                 href="https://applications.superguardian.com.au/"
                 target="_blank"
@@ -182,7 +182,7 @@ export function Hero() {
                 Get Started Today
               </a>
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-brand-blue" asChild>
+            <Button size="lg" variant="outline" className="w-full max-w-[280px] sm:w-auto sm:max-w-none border-white text-white hover:bg-white hover:text-brand-blue" asChild>
               <Link href="/what-we-do">Learn More</Link>
             </Button>
           </div>

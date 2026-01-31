@@ -1,9 +1,10 @@
 import { FadeIn } from "@/components/ui/fade-in";
+import { CountUp } from "@/components/ui/count-up";
 
-const stats = [
-  { value: "3000+", label: "Funds" },
-  { value: "4.8★", label: "Client Satisfaction" },
-  { value: "20+", label: "Years Industry Experience" },
+const stats: { end: number; suffix: string; label: string; decimals?: number }[] = [
+  { end: 3000, suffix: "+", label: "Funds" },
+  { end: 4.8, suffix: "★", decimals: 1, label: "Client Satisfaction" },
+  { end: 20, suffix: "+", label: "Years Industry Experience" },
 ];
 
 export function AboutIntro() {
@@ -47,7 +48,13 @@ export function AboutIntro() {
               {stats.map((stat, index) => (
                 <FadeIn key={stat.label} direction="up" delay={0.4 + index * 0.1}>
                   <div className="text-3xl font-bold text-brand-orange">
-                    {stat.value}
+                    <CountUp
+                      end={stat.end}
+                      suffix={stat.suffix}
+                      decimals={stat.decimals ?? 0}
+                      duration={2000}
+                      startOnView
+                    />
                   </div>
                   <div className="mt-1 text-sm text-gray-600">{stat.label}</div>
                 </FadeIn>

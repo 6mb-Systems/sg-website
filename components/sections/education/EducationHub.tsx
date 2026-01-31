@@ -216,7 +216,7 @@ export function EducationHub() {
                   {filteredArticles.map((article, index) => (
                     <FadeIn key={article.slug} direction="up" delay={index * 0.05}>
                       <article
-                        className="group h-full flex flex-col rounded-xl border border-gray-200 bg-white p-6 hover:border-brand-blue transition-colors"
+                        className="group h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1"
                       >
                         <div className="flex items-center justify-between">
                           <span className="rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
@@ -273,7 +273,7 @@ export function EducationHub() {
                   {webinars.map((webinar, index) => (
                     <FadeIn key={webinar.slug} direction="up" delay={index * 0.1}>
                       <article
-                        className="h-full flex flex-col rounded-xl border border-gray-200 bg-white p-6"
+                        className="h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1"
                       >
                         <div className="flex items-center justify-between">
                           <span

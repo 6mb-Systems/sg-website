@@ -1,3 +1,5 @@
+import { FadeIn } from "@/components/ui/fade-in";
+
 const team = [
   {
     name: "Joshua Williams",
@@ -25,32 +27,36 @@ export function LeadershipTeam() {
   return (
     <section className="section-padding bg-gray-50">
       <div className="container-width">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-            Leadership Team
-          </h2>
-          <p className="mt-4 text-gray-600">
-            Meet the experts leading SuperGuardian
-          </p>
-        </div>
+        <FadeIn direction="up">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
+              Leadership Team
+            </h2>
+            <p className="mt-4 text-gray-600">
+              Meet the experts leading SuperGuardian
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {team.map((member) => (
-            <div key={member.name} className="text-center">
-              {/* Avatar placeholder */}
-              <div className="mx-auto h-32 w-32 overflow-hidden rounded-full bg-gradient-to-br from-brand-orange-200 to-brand-orange-400">
-                <div className="flex h-full items-center justify-center text-white text-4xl font-bold">
-                  {member.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
+          {team.map((member, index) => (
+            <FadeIn key={member.name} direction="up" delay={index * 0.1}>
+              <div className="text-center">
+                {/* Avatar placeholder */}
+                <div className="mx-auto h-32 w-32 overflow-hidden rounded-full bg-gradient-to-br from-brand-orange-200 to-brand-orange-400">
+                  <div className="flex h-full items-center justify-center text-white text-4xl font-bold">
+                    {member.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </div>
                 </div>
+                <h3 className="mt-4 text-lg font-semibold text-gray-900">
+                  {member.name}
+                </h3>
+                <p className="mt-1 text-sm text-brand-orange">{member.role}</p>
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                {member.name}
-              </h3>
-              <p className="mt-1 text-sm text-brand-orange">{member.role}</p>
-            </div>
+            </FadeIn>
           ))}
         </div>
       </div>

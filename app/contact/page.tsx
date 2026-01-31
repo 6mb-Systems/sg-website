@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/sections/contact/ContactForm";
 import { ContactInfo } from "@/components/sections/contact/ContactInfo";
 import { OfficeLocations } from "@/components/sections/contact/OfficeLocations";
+import { PageHero } from "@/components/sections/shared/PageHero";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -12,20 +13,10 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="section-padding bg-white">
-        <div className="container-width">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-bold text-brand-blue md:text-5xl">
-              Talk to one of our experts
-            </h1>
-            <p className="mt-6 text-lg text-gray-600">
-              If you would like to find out further information on the
-              SuperGuardian service please give us a call.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Talk to one of our experts"
+        description="If you would like to find out further information on the SuperGuardian service please give us a call"
+      />
 
       {/* Contact Form and Info */}
       <section className="section-padding bg-gray-50">

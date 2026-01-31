@@ -23,11 +23,11 @@ export function CTASection({
   isExternal = true,
 }: CTASectionProps) {
   return (
-    <section className="bg-brand-blue-950 py-16 md:py-20 overflow-hidden">
+    <section className="relative bg-brand-blue py-16 md:py-20 overflow-hidden">
+      {/* Lighter blue gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-blue-600 to-brand-blue-800" />
+      
       <div className="container-width text-center relative">
-        {/* Background decorative elements */}
-        <div className="absolute -top-24 -left-24 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-brand-blue/20 rounded-full blur-3xl" />
 
         <FadeIn direction="up">
           <h2 className="text-3xl font-bold text-white md:text-4xl">{title}</h2>

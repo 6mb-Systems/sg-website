@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const enquiryTypes = [
   { id: "general", label: "General Enquiry" },
@@ -28,7 +29,8 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-8">
+    <FadeIn direction="up">
+      <div className="rounded-xl border border-gray-200 bg-white p-8">
       {/* Tab Navigation */}
       <div className="flex border-b border-gray-200">
         {enquiryTypes.map((type) => (
@@ -182,6 +184,7 @@ export function ContactForm() {
           {isSubmitting ? "Sending..." : "Send Message"}
         </Button>
       </form>
-    </div>
+      </div>
+    </FadeIn>
   );
 }

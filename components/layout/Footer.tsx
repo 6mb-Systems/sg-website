@@ -4,7 +4,7 @@ import { siteConfig, navigation } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="bg-brand-blue-950 text-white">
+    <footer className="bg-gray-950 text-white">
       {/* Main Footer */}
       <div className="container-width py-12 md:py-16">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -93,7 +93,7 @@ export function Footer() {
       </div>
 
       {/* Disclaimer Section */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-transparent">
         <div className="container-width py-6">
           <div className="text-xs text-gray-400 space-y-4">
             <p>
@@ -124,7 +124,7 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-transparent">
         <div className="container-width py-4">
           <div className="flex flex-col items-center justify-between gap-4 text-center text-xs text-gray-400 md:flex-row">
             <p>

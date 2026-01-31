@@ -29,7 +29,7 @@ const insights = [
 
 export function LatestInsights() {
   return (
-    <section className="section-padding bg-gray-50">
+    <section className="section-padding bg-white">
       <div className="container-width">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div>
@@ -52,7 +52,7 @@ export function LatestInsights() {
           {insights.map((insight) => (
             <article
               key={insight.slug}
-              className="group rounded-xl border border-gray-200 bg-white p-6 hover:border-brand-blue hover:shadow-md transition-all"
+              className="group h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1"
             >
               <div className="flex items-center justify-between">
                 <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">

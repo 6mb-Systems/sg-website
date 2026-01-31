@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | SuperGuardian",
   },
   description:
-    "SuperGuardian is an independently owned Chartered Accounting firm and specialist self-managed super fund (SMSF) Administrator with more than 20 years experience.",
+    "SuperGuardian is an independently owned Chartered Accounting firm and specialist self-managed super fund (SMSF) Administrator with more than 20 years experience",
   keywords: [
     "SMSF",
     "self-managed super fund",

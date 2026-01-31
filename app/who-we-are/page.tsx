@@ -4,6 +4,7 @@ import { Mission } from "@/components/sections/about/Mission";
 import { Values } from "@/components/sections/about/Values";
 import { LeadershipTeam } from "@/components/sections/about/LeadershipTeam";
 import { CTASection } from "@/components/sections/shared/CTASection";
+import { PageHero } from "@/components/sections/shared/PageHero";
 
 export const metadata: Metadata = {
   title: "Who We Are",
@@ -14,6 +15,10 @@ export const metadata: Metadata = {
 export default function WhoWeArePage() {
   return (
     <>
+      <PageHero
+        title="Who We Are"
+        description="A trusted Chartered Accounting firm and specialist SMSF administrator with over 20 years of experience"
+      />
       <AboutIntro />
       <Mission />
       <Values />

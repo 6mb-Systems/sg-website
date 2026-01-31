@@ -78,7 +78,7 @@ export function PricingCards() {
             <FadeIn key={plan.name} direction="up" delay={index * 0.1}>
               <div
                 className={cn(
-                  "h-full rounded-xl border bg-white p-8 transition-all hover:shadow-lg hover:-translate-y-1",
+                  "h-full flex flex-col rounded-xl border p-6 transition-all hover:border-brand-blue hover:shadow-md hover:-translate-y-1",
                   plan.popular
                     ? "border-brand-blue ring-2 ring-brand-blue"
                     : "border-gray-200"

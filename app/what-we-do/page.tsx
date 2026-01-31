@@ -3,6 +3,7 @@ import { ServiceCards } from "@/components/sections/services/ServiceCards";
 import { ProcessSteps } from "@/components/sections/services/ProcessSteps";
 import { SpecialistServices } from "@/components/sections/services/SpecialistServices";
 import { CTASection } from "@/components/sections/shared/CTASection";
+import { PageHero } from "@/components/sections/shared/PageHero";
 
 export const metadata: Metadata = {
   title: "What We Do",
@@ -13,21 +14,10 @@ export const metadata: Metadata = {
 export default function WhatWeDoPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="section-padding bg-white">
-        <div className="container-width">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-bold text-brand-blue md:text-5xl">
-              What We Do
-            </h1>
-            <p className="mt-6 text-lg text-gray-600">
-              Comprehensive SMSF services designed to take the complexity out of
-              self-managed superannuation, allowing you to focus on what matters
-              most.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="What We Do"
+        description="Comprehensive SMSF services designed to take the complexity out of self-managed superannuation, allowing you to focus on what matters most"
+      />
 
       <ServiceCards />
       <ProcessSteps />

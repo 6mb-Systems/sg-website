@@ -1,11 +1,13 @@
 import { Phone, Mail } from "lucide-react";
 import { siteConfig } from "@/lib/constants";
+import { FadeIn } from "@/components/ui/fade-in";
 
 export function ContactInfo() {
   return (
     <div className="space-y-6">
       {/* Call Us */}
-      <div className="rounded-xl border border-gray-200 bg-white p-6">
+      <FadeIn direction="up" delay={0.1}>
+        <div className="rounded-xl border border-gray-200 bg-white p-6">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-blue-50 text-brand-blue">
             <Phone className="h-5 w-5" />
@@ -27,10 +29,12 @@ export function ContactInfo() {
             Monday – Friday: 8:30 AM – 5:00 PM (ACST)
           </p>
         </div>
-      </div>
+        </div>
+      </FadeIn>
 
       {/* Email Support */}
-      <div className="rounded-xl border border-gray-200 bg-white p-6">
+      <FadeIn direction="up" delay={0.2}>
+        <div className="rounded-xl border border-gray-200 bg-white p-6">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-blue-50 text-brand-blue">
             <Mail className="h-5 w-5" />
@@ -66,7 +70,8 @@ export function ContactInfo() {
             </a>
           </div>
         </div>
-      </div>
+        </div>
+      </FadeIn>
     </div>
   );
 }

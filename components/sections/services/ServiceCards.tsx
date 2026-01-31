@@ -81,7 +81,7 @@ export function ServiceCards() {
             <FadeIn key={service.id} direction="up" delay={index * 0.1}>
               <div
                 id={service.id}
-                className="h-full rounded-xl border border-gray-200 bg-white p-8 hover:border-brand-blue hover:shadow-md transition-all"
+                className="h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-blue-50 text-brand-blue shrink-0">

@@ -13,9 +13,9 @@ export function AboutIntro() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <FadeIn direction="up">
-              <h1 className="text-4xl font-bold text-brand-blue md:text-5xl">
+              <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
                 About SuperGuardian
-              </h1>
+              </h2>
             </FadeIn>
             <FadeIn direction="up" delay={0.1}>
               <p className="mt-6 text-lg font-medium text-gray-900">

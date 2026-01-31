@@ -1,4 +1,5 @@
 import { CheckCircle } from "lucide-react";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const associations = [
   {
@@ -35,21 +36,21 @@ export function IndustryAssociations() {
   return (
     <section className="section-padding bg-gray-50">
       <div className="container-width">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-            Industry Associations
-          </h2>
-          <p className="mt-4 text-gray-600">
-            Active membership in leading professional bodies
-          </p>
-        </div>
+        <FadeIn direction="up">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
+              Industry Associations
+            </h2>
+            <p className="mt-4 text-gray-600">
+              Active membership in leading professional bodies
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {associations.map((assoc) => (
-            <div
-              key={assoc.name}
-              className="rounded-xl border border-gray-200 bg-white p-6"
-            >
+          {associations.map((assoc, index) => (
+            <FadeIn key={assoc.name} direction="up" delay={index * 0.1}>
+              <div className="h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">
@@ -73,7 +74,8 @@ export function IndustryAssociations() {
                   </li>
                 ))}
               </ul>
-            </div>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>

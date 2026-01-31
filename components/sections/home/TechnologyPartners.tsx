@@ -10,7 +10,7 @@ const partners = [
 
 export function TechnologyPartners() {
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-gray-50">
       <div className="container-width">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">

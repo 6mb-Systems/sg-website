@@ -1,4 +1,5 @@
 import { Shield, FileCheck, Lock, CheckCircle } from "lucide-react";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const certifications = [
   {
@@ -46,22 +47,22 @@ export function Certifications() {
   return (
     <section className="section-padding bg-gray-50">
       <div className="container-width">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-            Our Certifications
-          </h2>
-          <p className="mt-4 text-gray-600">
-            SuperGuardian holds industry-leading security certifications that
-            demonstrate our commitment to protecting your data
-          </p>
-        </div>
+        <FadeIn direction="up">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
+              Our Certifications
+            </h2>
+            <p className="mt-4 text-gray-600">
+              SuperGuardian holds industry-leading security certifications that
+              demonstrate our commitment to protecting your data
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {certifications.map((cert) => (
-            <div
-              key={cert.name}
-              className="rounded-xl border border-gray-200 bg-white p-8"
-            >
+          {certifications.map((cert, index) => (
+            <FadeIn key={cert.name} direction="up" delay={index * 0.1}>
+              <div className="h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-blue-50 text-brand-blue">
                   <cert.icon className="h-6 w-6" />
@@ -87,7 +88,8 @@ export function Certifications() {
                   </li>
                 ))}
               </ul>
-            </div>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>

@@ -170,7 +170,7 @@ export function Hero() {
           <p className="animate-fade-in-up animate-delay-200 mt-6 text-lg text-gray-200 max-w-2xl mx-auto">
             We ensure Accountants, Trustees and Financial Advisers have ready
             access to the facts, tools and support they need to make informed
-            decisions and to maximise wealth creation.
+            decisions and to maximise wealth creation
           </p>
           <div className="animate-fade-in-up animate-delay-300 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" variant="secondary" asChild>
@@ -179,7 +179,7 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Get Started Today →
+                Get Started Today
               </a>
             </Button>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-brand-blue" asChild>

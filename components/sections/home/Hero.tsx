@@ -175,7 +175,7 @@ export function Hero() {
           <div className="animate-fade-in-up animate-delay-300 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" variant="secondary" asChild>
               <a
-                href={siteConfig.externalLinks.getStarted}
+                href="https://applications.superguardian.com.au/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

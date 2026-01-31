@@ -19,7 +19,7 @@ export function ValueProposition() {
               decisions and to maximise wealth creation. By combining the latest
               web-based technology with a high level of personal service, we
               provide a premium SMSF administration service that represents value
-              for money
+              for money.
             </p>
           </FadeIn>
         </div>

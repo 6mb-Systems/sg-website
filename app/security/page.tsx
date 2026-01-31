@@ -7,7 +7,7 @@ import { PageHero } from "@/components/sections/shared/PageHero";
 export const metadata: Metadata = {
   title: "Security",
   description:
-    "Your trust is our priority. We maintain the highest standards of security and compliance to protect your sensitive SMSF data.",
+    "We maintain the highest standards of security and compliance to protect your sensitive SMSF data.",
 };
 
 export default function SecurityPage() {
@@ -15,7 +15,7 @@ export default function SecurityPage() {
     <>
       <PageHero
         title="Security at SuperGuardian"
-        description="Your trust is our priority. We maintain the highest standards of security and compliance to protect your sensitive SMSF data"
+        description="We maintain the highest standards of security and compliance to protect your sensitive SMSF data"
       />
 
       <Certifications />

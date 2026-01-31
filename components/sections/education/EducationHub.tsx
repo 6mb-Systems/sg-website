@@ -4,6 +4,8 @@ import * as React from "react";
 import Link from "next/link";
 import { Search, FileText, Video, Calendar, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FadeIn, StaggerContainer } from "@/components/ui/fade-in";
+import { motion, AnimatePresence } from "framer-motion";
 
 const tabs = [
   { id: "articles", label: "Fact Sheets & Articles", icon: FileText },
@@ -172,153 +174,176 @@ export function EducationHub() {
 
         {/* Content */}
         <div className="mt-12">
-          {/* Articles Tab */}
-          {activeTab === "articles" && (
-            <>
-              <div className="text-center">
-                <h2 className="text-2xl font-bold text-brand-blue">
-                  Fact Sheets & Articles
-                </h2>
-                <p className="mt-2 text-gray-600">
-                  Stay informed with our expert insights and guides
-                </p>
-              </div>
+          <AnimatePresence mode="wait">
+            {/* Articles Tab */}
+            {activeTab === "articles" && (
+              <motion.div
+                key="articles"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold text-brand-blue">
+                    Fact Sheets & Articles
+                  </h2>
+                  <p className="mt-2 text-gray-600">
+                    Stay informed with our expert insights and guides
+                  </p>
+                </div>
 
-              {/* Category Filter */}
-              <div className="mt-8 flex flex-wrap justify-center gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={cn(
-                      "rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                      selectedCategory === category
-                        ? "bg-brand-blue text-white"
-                        : "bg-white text-gray-600 hover:bg-gray-100"
-                    )}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-
-              {/* Articles Grid */}
-              <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {filteredArticles.map((article) => (
-                  <article
-                    key={article.slug}
-                    className="group rounded-xl border border-gray-200 bg-white p-6 hover:border-brand-blue transition-colors"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
-                        {article.category}
-                      </span>
-                      <span className="flex items-center gap-1 text-xs text-gray-500">
-                        <Download className="h-3 w-3" />
-                        {article.downloads}
-                      </span>
-                    </div>
-                    <h3 className="mt-4 text-lg font-semibold text-gray-900 group-hover:text-brand-blue">
-                      {article.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-gray-600 line-clamp-2">
-                      {article.excerpt}
-                    </p>
-                    <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-                      <span>📅 {article.date}</span>
-                      <span>⏱ {article.readTime}</span>
-                    </div>
-                    <Link
-                      href={`/education/${article.slug}`}
-                      className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange hover:text-brand-orange-600"
-                    >
-                      <FileText className="mr-1 h-4 w-4" />
-                      Download PDF
-                    </Link>
-                  </article>
-                ))}
-              </div>
-            </>
-          )}
-
-          {/* Webinars Tab */}
-          {activeTab === "webinars" && (
-            <>
-              <div className="text-center">
-                <h2 className="text-2xl font-bold text-brand-blue">
-                  Webinars & Videos
-                </h2>
-                <p className="mt-2 text-gray-600">
-                  Interactive learning with our SMSF experts
-                </p>
-              </div>
-
-              <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-                {webinars.map((webinar) => (
-                  <article
-                    key={webinar.slug}
-                    className="rounded-xl border border-gray-200 bg-white p-6"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span
-                        className={cn(
-                          "rounded-full px-3 py-1 text-xs font-medium",
-                          webinar.status === "Upcoming"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-gray-100 text-gray-600"
-                        )}
-                      >
-                        {webinar.status}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {webinar.category}
-                      </span>
-                    </div>
-                    <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                      {webinar.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-gray-600">
-                      {webinar.excerpt}
-                    </p>
-                    <p className="mt-2 text-sm text-brand-orange">
-                      Presented by {webinar.presenter}
-                    </p>
-                    <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-                      <span>📅 {webinar.date}</span>
-                      <span>⏱ {webinar.duration}</span>
-                    </div>
-                    <div className="mt-2 text-xs text-gray-500">
-                      👥 {webinar.attendees} attendees
-                    </div>
+                {/* Category Filter */}
+                <div className="mt-8 flex flex-wrap justify-center gap-2">
+                  {categories.map((category) => (
                     <button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
                       className={cn(
-                        "mt-4 w-full rounded-lg py-3 text-sm font-medium transition-colors",
-                        webinar.status === "Upcoming"
-                          ? "bg-brand-blue text-white hover:bg-brand-blue-600"
-                          : "bg-brand-orange text-white hover:bg-brand-orange-600"
+                        "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                        selectedCategory === category
+                          ? "bg-brand-blue text-white"
+                          : "bg-white text-gray-600 hover:bg-gray-100"
                       )}
                     >
-                      <Video className="mr-2 inline h-4 w-4" />
-                      {webinar.status === "Upcoming" ? "Register Now" : "Watch Now"}
+                      {category}
                     </button>
-                  </article>
-                ))}
-              </div>
-            </>
-          )}
+                  ))}
+                </div>
 
-          {/* Events Tab */}
-          {activeTab === "events" && (
-            <div className="text-center py-12">
-              <Calendar className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                Coming Soon
-              </h3>
-              <p className="mt-2 text-sm text-gray-600">
-                We&apos;re planning exciting events. Check back soon!
-              </p>
-            </div>
-          )}
+                {/* Articles Grid */}
+                <StaggerContainer className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {filteredArticles.map((article) => (
+                    <FadeIn key={article.slug} direction="up">
+                      <article
+                        className="group h-full flex flex-col rounded-xl border border-gray-200 bg-white p-6 hover:border-brand-blue transition-colors"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
+                            {article.category}
+                          </span>
+                          <span className="flex items-center gap-1 text-xs text-gray-500">
+                            <Download className="h-3 w-3" />
+                            {article.downloads}
+                          </span>
+                        </div>
+                        <h3 className="mt-4 text-lg font-semibold text-gray-900 group-hover:text-brand-blue">
+                          {article.title}
+                        </h3>
+                        <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-grow">
+                          {article.excerpt}
+                        </p>
+                        <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
+                          <span>📅 {article.date}</span>
+                          <span>⏱ {article.readTime}</span>
+                        </div>
+                        <Link
+                          href={`/education/${article.slug}`}
+                          className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange hover:text-brand-orange-600"
+                        >
+                          <FileText className="mr-1 h-4 w-4" />
+                          Download PDF
+                        </Link>
+                      </article>
+                    </FadeIn>
+                  ))}
+                </StaggerContainer>
+              </motion.div>
+            )}
+
+            {/* Webinars Tab */}
+            {activeTab === "webinars" && (
+              <motion.div
+                key="webinars"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold text-brand-blue">
+                    Webinars & Videos
+                  </h2>
+                  <p className="mt-2 text-gray-600">
+                    Interactive learning with our SMSF experts
+                  </p>
+                </div>
+
+                <StaggerContainer className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+                  {webinars.map((webinar) => (
+                    <FadeIn key={webinar.slug} direction="up">
+                      <article
+                        className="h-full flex flex-col rounded-xl border border-gray-200 bg-white p-6"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span
+                            className={cn(
+                              "rounded-full px-3 py-1 text-xs font-medium",
+                              webinar.status === "Upcoming"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-gray-100 text-gray-600"
+                            )}
+                          >
+                            {webinar.status}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {webinar.category}
+                          </span>
+                        </div>
+                        <h3 className="mt-4 text-lg font-semibold text-gray-900">
+                          {webinar.title}
+                        </h3>
+                        <p className="mt-2 text-sm text-gray-600 flex-grow">
+                          {webinar.excerpt}
+                        </p>
+                        <p className="mt-2 text-sm text-brand-orange">
+                          Presented by {webinar.presenter}
+                        </p>
+                        <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
+                          <span>📅 {webinar.date}</span>
+                          <span>⏱ {webinar.duration}</span>
+                        </div>
+                        <div className="mt-2 text-xs text-gray-500">
+                          👥 {webinar.attendees} attendees
+                        </div>
+                        <button
+                          className={cn(
+                            "mt-4 w-full rounded-lg py-3 text-sm font-medium transition-colors",
+                            webinar.status === "Upcoming"
+                              ? "bg-brand-blue text-white hover:bg-brand-blue-600"
+                              : "bg-brand-orange text-white hover:bg-brand-orange-600"
+                          )}
+                        >
+                          <Video className="mr-2 inline h-4 w-4" />
+                          {webinar.status === "Upcoming" ? "Register Now" : "Watch Now"}
+                        </button>
+                      </article>
+                    </FadeIn>
+                  ))}
+                </StaggerContainer>
+              </motion.div>
+            )}
+
+            {/* Events Tab */}
+            {activeTab === "events" && (
+              <motion.div
+                key="events"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="text-center py-12"
+              >
+                <Calendar className="mx-auto h-12 w-12 text-gray-400" />
+                <h3 className="mt-4 text-lg font-semibold text-gray-900">
+                  Coming Soon
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  We&apos;re planning exciting events. Check back soon!
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>

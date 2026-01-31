@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/constants";
+import { FadeIn } from "@/components/ui/fade-in";
 
 export function Hero() {
   return (
@@ -16,31 +17,39 @@ export function Hero() {
 
       <div className="container-width relative py-20 md:py-28 lg:py-32">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-            SMSF Admin Made Simple
-          </h1>
-          <p className="mt-4 text-xl text-brand-orange font-medium">
-            Expert Compliance & Reporting
-          </p>
-          <p className="mt-6 text-lg text-gray-200 max-w-2xl mx-auto">
-            We ensure Accountants, Trustees and Financial Advisers have ready
-            access to the facts, tools and support they need to make informed
-            decisions and to maximise wealth creation.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" variant="secondary" asChild>
-              <a
-                href={siteConfig.externalLinks.getStarted}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Get Started Today →
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-brand-blue" asChild>
-              <Link href="/what-we-do">Learn More</Link>
-            </Button>
-          </div>
+          <FadeIn direction="up">
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+              SMSF Admin Made Simple
+            </h1>
+          </FadeIn>
+          <FadeIn direction="up" delay={0.1}>
+            <p className="mt-4 text-xl text-brand-orange font-medium">
+              Expert Compliance & Reporting
+            </p>
+          </FadeIn>
+          <FadeIn direction="up" delay={0.2}>
+            <p className="mt-6 text-lg text-gray-200 max-w-2xl mx-auto">
+              We ensure Accountants, Trustees and Financial Advisers have ready
+              access to the facts, tools and support they need to make informed
+              decisions and to maximise wealth creation.
+            </p>
+          </FadeIn>
+          <FadeIn direction="up" delay={0.3}>
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button size="lg" variant="secondary" asChild>
+                <a
+                  href={siteConfig.externalLinks.getStarted}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Get Started Today →
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-brand-blue" asChild>
+                <Link href="/what-we-do">Learn More</Link>
+              </Button>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>

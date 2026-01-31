@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -13,18 +14,17 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <nav className="container-width flex h-16 items-center justify-between">
+      <nav className="container-width flex h-20 items-center justify-between md:h-24">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="relative h-10 w-10">
-            <div className="flex h-10 w-10 items-center justify-center rounded bg-brand-blue">
-              <div className="h-6 w-4 rounded-sm bg-brand-orange" />
-            </div>
-          </div>
-          <span className="text-lg font-semibold">
-            <span className="text-brand-orange">Super</span>
-            <span className="text-brand-blue">Guardian</span>
-          </span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/sg_logo.svg"
+            alt="SuperGuardian"
+            width={360}
+            height={80}
+            className="h-12 w-auto md:h-20"
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation */}

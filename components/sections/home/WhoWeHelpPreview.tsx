@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { FadeIn, StaggerContainer } from "@/components/ui/fade-in";
 
 const audiences = [
   {
@@ -29,38 +30,41 @@ export function WhoWeHelpPreview() {
   return (
     <section className="section-padding bg-white">
       <div className="container-width">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-            Who We Help
-          </h2>
-          <p className="mt-4 text-gray-600">
-            Tailored solutions for every type of SMSF professional
-          </p>
-        </div>
+        <FadeIn direction="up">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
+              Who We Help
+            </h2>
+            <p className="mt-4 text-gray-600">
+              Tailored solutions for every type of SMSF professional
+            </p>
+          </div>
+        </FadeIn>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <StaggerContainer className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
           {audiences.map((audience) => (
-            <Link
-              key={audience.title}
-              href={audience.href}
-              className="group rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all"
-            >
-              <span className="inline-block rounded-full bg-brand-blue px-3 py-1 text-xs font-medium text-white">
-                {audience.tag}
-              </span>
-              <h3 className="mt-4 text-xl font-semibold text-gray-900 group-hover:text-brand-blue">
-                {audience.title}
-              </h3>
-              <p className="mt-2 text-sm text-gray-600">
-                {audience.description}
-              </p>
-              <span className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange group-hover:text-brand-orange-600">
-                Learn more
-                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </Link>
+            <FadeIn key={audience.title} direction="up">
+              <Link
+                href={audience.href}
+                className="group h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1"
+              >
+                <span className="inline-block w-fit rounded-full bg-brand-blue px-3 py-1 text-xs font-medium text-white">
+                  {audience.tag}
+                </span>
+                <h3 className="mt-4 text-xl font-semibold text-gray-900 group-hover:text-brand-blue">
+                  {audience.title}
+                </h3>
+                <p className="mt-2 text-sm text-gray-600 flex-grow">
+                  {audience.description}
+                </p>
+                <span className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange group-hover:text-brand-orange-600">
+                  Learn more
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            </FadeIn>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

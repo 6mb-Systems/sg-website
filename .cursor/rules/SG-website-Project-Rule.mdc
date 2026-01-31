@@ -1,0 +1,14 @@
+---
+description: 
+alwaysApply: true
+---
+
+# Project Rules (Always Apply)
+
+- Stack: Next.js App Router (app/), TypeScript, Tailwind, shadcn/ui.
+- Hosting: Vercel. Assume serverless/stateless; no runtime filesystem writes.
+- Components: Server Components by default. Add "use client" only when necessary.
+- Blog: Sanity is the source of truth. Never expose Sanity write tokens to the client.
+- Forms: Validate server-side; implement basic spam protection patterns.
+- Dependencies: Do not add new dependencies without explaining why and alternatives.
+- Quality: Keep changes PR-sized. Run lint + typecheck after edits and fix issues.

@@ -1,21 +1,22 @@
-import { Shield, Clock, Users } from "lucide-react";
+import { ShieldCheck, Zap, UserRoundCheck } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 const features = [
   {
-    icon: Shield,
+    icon: ShieldCheck,
     title: "Expert Compliance",
     description:
       "Stay compliant with our expert team handling all regulatory requirements and reporting obligations.",
   },
   {
-    icon: Clock,
+    icon: Zap,
     title: "Time Efficient",
     description:
       "Streamlined processes and technology integrations save you hours every week on SMSF administration.",
   },
   {
-    icon: Users,
+    icon: UserRoundCheck,
     title: "Dedicated Client Managers",
     description:
       "SuperGuardian clients value their Client Managers – a dedicated SMSF specialist providing personalised, trusted support.",
@@ -29,17 +30,22 @@ export function FeatureCards() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {features.map((feature, index) => (
             <FadeIn key={feature.title} direction="up" delay={index * 0.1}>
-              <div className="h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-blue-50 text-brand-blue">
-                  <feature.icon className="h-6 w-6" />
+              <SpotlightCard variant="dark" className="h-full">
+                <div className="flex flex-col p-6">
+                  <div
+                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white"
+                    aria-hidden
+                  >
+                    <feature.icon className="h-7 w-7" strokeWidth={1.75} />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-brand-orange">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-white/95 leading-relaxed flex-grow">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-brand-blue">
-                  {feature.title}
-                </h3>
-                <p className="mt-2 text-sm text-gray-600 leading-relaxed flex-grow">
-                  {feature.description}
-                </p>
-              </div>
+              </SpotlightCard>
             </FadeIn>
           ))}
         </div>

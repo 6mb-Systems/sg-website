@@ -20,8 +20,8 @@ export default function HomePage() {
         description="Join hundreds of professionals who trust SuperGuardian with their clients' retirement futures"
         primaryButtonText="Get Started Today"
         primaryButtonHref="https://applications.superguardian.com.au/"
-        secondaryButtonText="View Pricing"
-        secondaryButtonHref="/pricing"
+        secondaryButtonText="Learn More"
+        secondaryButtonHref="/what-we-do"
       />
     </>
   );

@@ -59,7 +59,7 @@ export function TechnologyPartners() {
           <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
             Our Partners
           </h2>
-          <p className="mt-4 text-gray-600">
+          <p className="mt-4 text-lg text-gray-700 leading-7 font-medium">
             Seamlessly integrated with leading SMSF platforms
           </p>
         </div>

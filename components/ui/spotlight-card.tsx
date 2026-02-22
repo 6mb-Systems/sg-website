@@ -79,9 +79,9 @@ export function SpotlightCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative overflow-hidden rounded-xl transition-all duration-300",
+        "relative overflow-hidden rounded-xl transition-all duration-300 h-full flex flex-col",
         isDark
-          ? "border border-white/20 bg-brand-blue hover:border-brand-orange/60 hover:shadow-lg hover:shadow-brand-orange/10"
+          ? "border border-white/20 bg-brand-blue hover:shadow-lg hover:shadow-brand-orange/10"
           : "border border-gray-200 bg-white hover:border-brand-blue/50 hover:shadow-lg",
         className
       )}
@@ -90,14 +90,14 @@ export function SpotlightCard({
       {isDark && <HoneycombBg patternId={patternId} />}
       {/* Spotlight gradient overlay */}
       <div
-        className="pointer-events-none absolute inset-0 transition-opacity duration-300"
+        className="pointer-events-none absolute inset-0 transition-opacity duration-300 z-20"
         style={{
           opacity,
           background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${color}, transparent 40%)`,
         }}
       />
       {/* Content */}
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-10 flex flex-col flex-grow">{children}</div>
     </div>
   );
 }

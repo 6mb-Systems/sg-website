@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 const audiences = [
   {
@@ -26,37 +27,6 @@ const audiences = [
   },
 ];
 
-/** Light grey honeycomb pattern for Who We Help cards */
-function HoneycombBgLight({ patternId }: { patternId: string }) {
-  return (
-    <svg
-      className="absolute inset-0 h-full w-full"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-    >
-      <defs>
-        <pattern
-          id={patternId}
-          x="0"
-          y="0"
-          width="60"
-          height="34.64"
-          patternUnits="userSpaceOnUse"
-          patternTransform="scale(1.2)"
-        >
-          <path
-            d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60"
-            fill="none"
-            stroke="rgba(0,0,0,0.06)"
-            strokeWidth="1"
-          />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill={`url(#${patternId})`} />
-    </svg>
-  );
-}
-
 export function WhoWeHelpPreview() {
   return (
     <section className="section-padding bg-white">
@@ -66,7 +36,7 @@ export function WhoWeHelpPreview() {
             <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
               Who We Help
             </h2>
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-lg text-gray-700 leading-7 font-medium">
               Tailored solutions for every type of SMSF professional
             </p>
           </div>
@@ -74,25 +44,25 @@ export function WhoWeHelpPreview() {
 
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
           {audiences.map((audience, index) => (
-            <FadeIn key={audience.title} direction="up" delay={0.1 + index * 0.1}>
-              <Link
-                href={audience.href}
-                className="group relative h-full flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50/50 p-6 hover:border-brand-blue hover:shadow-md transition-all"
-              >
-                <HoneycombBgLight patternId={`who-we-help-hive-${index}`} />
-                <span className="relative z-10 inline-block w-fit rounded-full bg-brand-blue px-3 py-1 text-xs font-medium text-white">
-                  {audience.tag}
-                </span>
-                <h3 className="relative z-10 mt-4 text-xl font-semibold text-gray-900 group-hover:text-brand-blue">
-                  {audience.title}
-                </h3>
-                <p className="relative z-10 mt-2 text-sm text-gray-600 flex-grow">
-                  {audience.description}
-                </p>
-                <span className="relative z-10 mt-4 inline-flex items-center text-sm font-medium text-brand-orange group-hover:text-brand-orange-600">
-                  Learn more
-                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
+            <FadeIn key={audience.title} direction="up" delay={0.1 + index * 0.1} className="h-full">
+              <Link href={audience.href} className="block h-full group">
+                <SpotlightCard variant="dark" className="h-full">
+                  <div className="flex flex-col h-full p-6">
+                    <span className="relative z-10 inline-block w-fit rounded-full bg-white/10 border border-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                      {audience.tag}
+                    </span>
+                    <h3 className="relative z-10 mt-4 text-xl font-semibold text-brand-orange">
+                      {audience.title}
+                    </h3>
+                    <p className="relative z-10 mt-2 text-sm text-white/90 flex-grow">
+                      {audience.description}
+                    </p>
+                    <span className="relative z-10 mt-4 inline-flex items-center text-sm font-medium text-white group-hover:text-brand-orange transition-colors">
+                      Learn more
+                      <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </SpotlightCard>
               </Link>
             </FadeIn>
           ))}

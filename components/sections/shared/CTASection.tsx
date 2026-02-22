@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Sparkles } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { HivePattern } from "@/components/sections/shared/PageHero";
 
 interface CTASectionProps {
   title: string;
-  description: string;
+  subtitle?: string;
+  description?: string;
   primaryButtonText: string;
   primaryButtonHref: string;
   secondaryButtonText?: string;
@@ -15,6 +16,7 @@ interface CTASectionProps {
 
 export function CTASection({
   title,
+  subtitle,
   description,
   primaryButtonText,
   primaryButtonHref,
@@ -23,51 +25,62 @@ export function CTASection({
   isExternal = true,
 }: CTASectionProps) {
   return (
-    <section className="relative bg-brand-blue py-16 md:py-20 overflow-hidden">
-      {/* Lighter blue gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-blue-600 to-brand-blue-800" />
+    <section className="relative bg-brand-blue overflow-hidden">
+      {/* Base gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-blue-700 to-brand-blue-950 opacity-95" />
       
-      <div className="container-width text-center relative">
-
-        <FadeIn direction="up">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">{title}</h2>
-        </FadeIn>
-        <FadeIn direction="up" delay={0.1}>
-          <p className="mt-4 text-lg text-gray-300">{description}</p>
-        </FadeIn>
-        <FadeIn direction="up" delay={0.2}>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            {isExternal ? (
-              <Button size="lg" variant="secondary" className="w-full max-w-[280px] sm:w-auto sm:max-w-none" asChild>
-                <a
-                  href={primaryButtonHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
+      {/* Hive / honeycomb pattern */}
+      <HivePattern />
+      
+      <div className="container-width relative py-12 md:py-16">
+        <div className="mx-auto max-w-3xl text-center relative z-10">
+          <FadeIn direction="up">
+            <h2 className="text-4xl font-bold text-white md:text-5xl">{title}</h2>
+          </FadeIn>
+          {subtitle && (
+            <FadeIn direction="up" delay={0.1}>
+              <p className="mt-4 text-xl text-brand-orange font-medium">{subtitle}</p>
+            </FadeIn>
+          )}
+          {description && (
+            <FadeIn direction="up" delay={subtitle ? 0.2 : 0.1}>
+              <p className="mt-4 text-xl text-brand-orange font-medium max-w-2xl mx-auto">
+                {description}
+              </p>
+            </FadeIn>
+          )}
+          <FadeIn direction="up" delay={0.3}>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              {isExternal ? (
+                <Button size="lg" variant="secondary" className="w-full max-w-[280px] sm:w-auto sm:max-w-none" asChild>
+                  <a
+                    href={primaryButtonHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {primaryButtonText}
+                  </a>
+                </Button>
+              ) : (
+                <Button size="lg" variant="secondary" className="w-full max-w-[280px] sm:w-auto sm:max-w-none" asChild>
+                  <Link href={primaryButtonHref}>
+                    {primaryButtonText}
+                  </Link>
+                </Button>
+              )}
+              {secondaryButtonText && secondaryButtonHref && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full max-w-[280px] sm:w-auto sm:max-w-none border-white bg-white text-brand-blue hover:bg-gray-200"
+                  asChild
                 >
-                  <Sparkles className="mr-2 h-4 w-4" />
-                  {primaryButtonText}
-                </a>
-              </Button>
-            ) : (
-              <Button size="lg" variant="secondary" className="w-full max-w-[280px] sm:w-auto sm:max-w-none" asChild>
-                <Link href={primaryButtonHref}>
-                  <Sparkles className="mr-2 h-4 w-4" />
-                  {primaryButtonText}
-                </Link>
-              </Button>
-            )}
-            {secondaryButtonText && secondaryButtonHref && (
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full max-w-[280px] sm:w-auto sm:max-w-none border-white text-white hover:bg-white hover:text-brand-blue"
-                asChild
-              >
-                <Link href={secondaryButtonHref}>{secondaryButtonText}</Link>
-              </Button>
-            )}
-          </div>
-        </FadeIn>
+                  <Link href={secondaryButtonHref}>{secondaryButtonText}</Link>
+                </Button>
+              )}
+            </div>
+          </FadeIn>
+        </div>
       </div>
     </section>
   );

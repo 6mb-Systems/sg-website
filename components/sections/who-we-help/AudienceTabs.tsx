@@ -146,7 +146,29 @@ function isTrustees(audience: Audience): audience is TrusteesAudience {
 
 export function AudienceTabs() {
   const [activeTab, setActiveTab] = React.useState<string>("advisers");
+
+  React.useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && audiences.some((a) => a.id === hash)) {
+        setActiveTab(hash);
+      }
+    };
+
+    // Check hash on initial load
+    handleHashChange();
+
+    // Listen for subsequent hash changes
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
   const activeAudience = audiences.find((a) => a.id === activeTab)!;
+
+  const handleTabClick = (id: string) => {
+    setActiveTab(id);
+    window.history.pushState(null, "", `#${id}`);
+  };
 
   return (
     <section className="section-padding bg-gray-50">
@@ -157,7 +179,7 @@ export function AudienceTabs() {
             {audiences.map((audience) => (
               <button
                 key={audience.id}
-                onClick={() => setActiveTab(audience.id)}
+                onClick={() => handleTabClick(audience.id)}
                 className={cn(
                   "flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all",
                   activeTab === audience.id

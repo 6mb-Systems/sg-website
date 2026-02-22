@@ -159,18 +159,16 @@ export function Hero() {
         {/* Pattern is now the primary decorative element */}
       </div>
 
-      <div className="container-width relative py-20 md:py-28 lg:py-32">
+      <div className="container-width relative py-16 md:py-24 lg:py-28">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="animate-fade-in-up text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
             SMSF Admin Made Simple
           </h1>
           <p className="animate-fade-in-up animate-delay-100 mt-4 text-xl text-brand-orange font-medium">
-            Expert Compliance & Reporting
+            Administration, Taxation & Compliance
           </p>
           <p className="animate-fade-in-up animate-delay-200 mt-6 text-lg text-gray-200 max-w-2xl mx-auto">
-            We ensure Accountants, Trustees and Financial Advisers have ready
-            access to the facts, tools and support they need to make informed
-            decisions and to maximise wealth creation
+            By combining the latest web-based technology with a high level of personal service, we provide a premium SMSF administration service that represents value for money
           </p>
           <div className="animate-fade-in-up animate-delay-300 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" variant="secondary" className="w-full max-w-[280px] sm:w-auto sm:max-w-none" asChild>
@@ -182,7 +180,7 @@ export function Hero() {
                 Get Started Today
               </a>
             </Button>
-            <Button size="lg" variant="outline" className="w-full max-w-[280px] sm:w-auto sm:max-w-none border-white text-white hover:bg-white hover:text-brand-blue" asChild>
+            <Button size="lg" variant="outline" className="w-full max-w-[280px] sm:w-auto sm:max-w-none border-white bg-white text-brand-blue hover:bg-gray-200" asChild>
               <Link href="/what-we-do">Learn More</Link>
             </Button>
           </div>

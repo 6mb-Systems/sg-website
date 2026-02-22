@@ -43,10 +43,10 @@ export function Footer() {
           {/* Services Column */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider">
-              Services
+              Navigate
             </h3>
             <ul className="mt-4 space-y-2">
-              {navigation.services.map((item) => (
+              {navigation.navigate.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -87,6 +87,15 @@ export function Footer() {
                 <span>📍</span>
                 <span>Melbourne | Adelaide</span>
               </li>
+              <li className="flex items-center gap-2">
+                <span>💼</span>
+                <Link
+                  href="/careers"
+                  className="text-sm text-gray-300 hover:text-brand-orange transition-colors"
+                >
+                  Careers
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -96,6 +105,10 @@ export function Footer() {
       <div className="border-t border-transparent">
         <div className="container-width py-6">
           <div className="text-xs text-gray-400 space-y-4">
+            <p>
+              SuperGuardian is a registered tax agent with the Tax Practitioners Board (TPB) and is bound by the TPB Code of Professional Conduct.
+              If you have a concern about the services we provide, you can make a complaint to the TPB via their website: <a href="https://www.tpb.gov.au/complaints" className="hover:text-brand-orange transition-colors" target="_blank" rel="noopener noreferrer">www.tpb.gov.au/complaints</a>
+            </p>
             <p>
               <strong>Disclaimer:</strong> Any information that is financial
               product advice is provided by SuperGuardian Pty Ltd (AFSL No.{" "}
@@ -128,13 +141,25 @@ export function Footer() {
         <div className="container-width py-4">
           <div className="flex flex-col items-center justify-between gap-4 text-center text-xs text-gray-400 md:flex-row">
             <p>
-              AFSL {siteConfig.afsl} | ABN {siteConfig.abn}
+              AFSL {siteConfig.afsl} | ABN {siteConfig.abn} | TAN {siteConfig.tan}
             </p>
             <p>
               © {new Date().getFullYear()} SuperGuardian Pty Ltd. All rights
               reserved.
             </p>
-            <p>
+            <div className="flex flex-col items-center gap-2 md:flex-row md:gap-4">
+              <Link
+                href="/privacy-policy"
+                className="hover:text-brand-orange transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="#"
+                className="hover:text-brand-orange transition-colors hidden md:block"
+              >
+                |
+              </Link>
               <Link
                 href="#"
                 className="hover:text-brand-orange transition-colors"
@@ -142,7 +167,7 @@ export function Footer() {
                 Liability limited by a scheme approved under Professional
                 Standards Legislation
               </Link>
-            </p>
+            </div>
           </div>
         </div>
       </div>

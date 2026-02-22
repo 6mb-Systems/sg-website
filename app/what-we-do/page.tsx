@@ -28,8 +28,8 @@ export default function WhatWeDoPage() {
         description="Take the first step with our free consultation and transparent pricing"
         primaryButtonText="Start Free Consultation"
         primaryButtonHref="https://applications.superguardian.com.au/"
-        secondaryButtonText="View Pricing"
-        secondaryButtonHref="/pricing"
+        secondaryButtonText="Learn More"
+        secondaryButtonHref="/what-we-do"
       />
     </>
   );

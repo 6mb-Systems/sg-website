@@ -160,15 +160,16 @@ export function ClientManagers() {
             return (
               <FadeIn key={member.name} direction="up" delay={index * 0.03}>
                 <div className="flex flex-col">
-                  <div className="relative mx-auto h-40 w-40 shrink-0 overflow-hidden rounded-full bg-gray-100">
+                  <div className="relative mx-auto h-56 w-56 shrink-0 overflow-hidden rounded-full bg-gray-100 md:h-64 md:w-64">
                     {"image" in member && member.image ? (
                       <Image
                         src={member.image}
                         alt={member.name}
-                        width={160}
-                        height={160}
+                        width={512}
+                        height={512}
+                        quality={90}
                         className="h-full w-full object-cover"
-                        sizes="160px"
+                        sizes="(max-width: 768px) 448px, 512px"
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-orange-200 to-brand-orange-400 text-2xl font-bold text-white">

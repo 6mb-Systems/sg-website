@@ -102,14 +102,15 @@ export function LeadershipTeam() {
             return (
               <FadeIn key={member.name} direction="up" delay={index * 0.05}>
                 <div className="flex flex-col">
-                  <div className="relative mx-auto h-40 w-40 shrink-0 overflow-hidden rounded-full bg-gray-100">
+                  <div className="relative mx-auto h-56 w-56 shrink-0 overflow-hidden rounded-full bg-gray-100 md:h-64 md:w-64">
                     <Image
                       src={member.image}
                       alt={member.name}
-                      width={160}
-                      height={160}
+                      width={512}
+                      height={512}
+                      quality={90}
                       className="h-full w-full object-cover"
-                      sizes="160px"
+                      sizes="(max-width: 768px) 448px, 512px"
                     />
                   </div>
                   <h3 className="mt-4 text-center text-lg font-semibold text-gray-900">

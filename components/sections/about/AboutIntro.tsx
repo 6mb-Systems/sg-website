@@ -92,8 +92,8 @@ export function AboutIntro() {
           <FadeIn direction="left" delay={0.2}>
             <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
               <Image 
-                src="/About SuperGuardian Photo.png" 
-                alt="SuperGuardian Team" 
+                src="/About SuperGuardian.jpg" 
+                alt="SuperGuardian team at reception" 
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

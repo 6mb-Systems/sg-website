@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const partners = [
   { name: "ASF Audits", logo: "/partner_logo_asf.svg", url: "https://asfaudits.com.au/" },
@@ -142,37 +143,39 @@ export function TechnologyPartners() {
       {/* Bottom fade gradient */}
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white/60 to-transparent pointer-events-none z-10" />
       <HoneycombBg />
-      <div className="container-width relative z-10">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-            Our Partners
-          </h2>
-          <p className="mt-4 text-lg text-gray-700 leading-7 font-medium">
-            Trusted partners in delivering quality SMSF services
-          </p>
-        </div>
+      <FadeIn>
+        <div className="container-width relative z-10">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
+              Our Partners
+            </h2>
+            <p className="mt-4 text-lg text-gray-700 leading-7 font-medium">
+              Trusted partners in delivering quality SMSF services
+            </p>
+          </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 md:gap-10">
-          {partners.map((partner) => (
-            <a
-              key={partner.name}
-              href={partner.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-20 w-40 items-center justify-center rounded-lg bg-white px-4 py-3 shadow-sm md:h-24 md:w-48"
-            >
-              <Image
-                src={partner.logo}
-                alt={partner.name}
-                width={180}
-                height={80}
-                className="h-auto w-full object-contain"
-                sizes="(max-width: 768px) 25vw, 180px"
-              />
-            </a>
-          ))}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            {partners.map((partner) => (
+              <a
+                key={partner.name}
+                href={partner.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-20 w-40 items-center justify-center rounded-lg bg-white px-4 py-3 shadow-sm md:h-24 md:w-48"
+              >
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  width={180}
+                  height={80}
+                  className="h-auto w-full object-contain"
+                  sizes="(max-width: 768px) 25vw, 180px"
+                />
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
+      </FadeIn>
     </section>
   );
 }

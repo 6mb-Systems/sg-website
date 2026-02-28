@@ -27,6 +27,11 @@
   }
 }
 
+/* Offset hash scroll so sticky header doesn’t cover section titles (e.g. What We Do, Who We Help) */
+html {
+  scroll-padding-top: 1rem; /* ~header height so full hero is visible */
+}
+
 @layer base {
   * {
     @apply border-border;

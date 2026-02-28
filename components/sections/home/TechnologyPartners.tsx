@@ -137,23 +137,19 @@ function HoneycombBg() {
 
 export function TechnologyPartners() {
   return (
-    <section className="relative overflow-hidden section-padding bg-[#FFE4B3]">
-      {/* Top fade gradient */}
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/60 to-transparent pointer-events-none z-10" />
-      {/* Bottom fade gradient */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white/60 to-transparent pointer-events-none z-10" />
+    <section className="relative overflow-hidden section-padding bg-[#FFE4B3] py-16 md:py-24">
       <HoneycombBg />
-      <FadeIn>
-        <div className="container-width relative z-10">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-              Our Partners
-            </h2>
-            <p className="mt-4 text-lg text-gray-700 leading-7 font-medium">
-              Trusted partners in delivering quality SMSF services
-            </p>
-          </div>
+      <div className="container-width relative z-20">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
+            Our Partners
+          </h2>
+          <p className="mt-4 text-lg text-gray-700 leading-7 font-medium">
+            Trusted partners in delivering quality SMSF services
+          </p>
+        </div>
 
+        <FadeIn>
           <div className="mt-12 flex flex-wrap items-center justify-center gap-6 md:gap-10">
             {partners.map((partner) => (
               <a
@@ -174,8 +170,11 @@ export function TechnologyPartners() {
               </a>
             ))}
           </div>
-        </div>
-      </FadeIn>
+        </FadeIn>
+      </div>
+      {/* Edge fade out - same as Our Values section */}
+      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-white to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white to-transparent pointer-events-none z-10" />
     </section>
   );
 }

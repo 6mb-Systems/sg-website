@@ -25,7 +25,7 @@ const team = [
 
 export function LeadershipTeam() {
   return (
-    <section className="section-padding bg-gray-50">
+    <section className="section-padding bg-white">
       <div className="container-width">
         <FadeIn direction="up">
           <div className="text-center">

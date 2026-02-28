@@ -147,20 +147,32 @@ function isTrustees(audience: Audience): audience is TrusteesAudience {
 export function AudienceTabs() {
   const [activeTab, setActiveTab] = React.useState<string>("advisers");
 
+  const initialHashHandled = React.useRef(false);
+
   React.useEffect(() => {
-    const handleHashChange = () => {
+    const handleHashChange = (isInitial: boolean) => {
       const hash = window.location.hash.replace("#", "");
       if (hash && audiences.some((a) => a.id === hash)) {
         setActiveTab(hash);
+        // On initial load only: for accountants/trustees, scroll to Who We Help hero so title section is visible (same as advisers)
+        if (isInitial && (hash === "accountants" || hash === "trustees")) {
+          const hero = document.getElementById("advisers");
+          hero?.scrollIntoView({ behavior: "instant", block: "start" });
+        }
       }
     };
 
-    // Check hash on initial load
-    handleHashChange();
+    if (!initialHashHandled.current) {
+      initialHashHandled.current = true;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => handleHashChange(true));
+      });
+    }
 
-    // Listen for subsequent hash changes
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    const onHashChange = () => handleHashChange(false);
+
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
   const activeAudience = audiences.find((a) => a.id === activeTab)!;
@@ -179,6 +191,7 @@ export function AudienceTabs() {
             {audiences.map((audience) => (
               <button
                 key={audience.id}
+                id={audience.id}
                 onClick={() => handleTabClick(audience.id)}
                 className={cn(
                   "flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all",

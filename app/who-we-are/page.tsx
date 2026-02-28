@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AboutIntro } from "@/components/sections/about/AboutIntro";
-import { Mission } from "@/components/sections/about/Mission";
 import { Values } from "@/components/sections/about/Values";
 import { LeadershipTeam } from "@/components/sections/about/LeadershipTeam";
 import { ServiceCards } from "@/components/sections/services/ServiceCards";
@@ -24,12 +23,11 @@ export default function WhoWeArePage() {
         description="SuperGuardian has been passionately supporting Trustees, Financial Advisers and Accountants for over 24 years."
       />
       <AboutIntro />
-      <Mission />
       <Values />
       <LeadershipTeam />
       
-      {/* What We Do Section */}
-      <div id="what-we-do" className="pt-20 -mt-20">
+      {/* What We Do Section - scroll-margin so hash link shows full hero below header */}
+      <div id="what-we-do" className="scroll-mt-[8rem]">
         <PageHero
           title="What We Do"
           description="Comprehensive SMSF services designed to take the complexity out of self-managed superannuation, allowing you to focus on what matters most."
@@ -39,12 +37,18 @@ export default function WhoWeArePage() {
         <SpecialistServices />
       </div>
 
-      {/* Who We Help Section */}
-      <div id="who-we-help" className="pt-20 -mt-20">
-        <PageHero
-          title="Who We Help"
-          description="Tailored SMSF solutions for financial advisers, accounting practices, and SMSF trustees across Australia."
-        />
+      {/* Who We Help Section - scroll-margin so hash link shows full hero below header */}
+      <div id="who-we-help" className="scroll-mt-[8rem]">
+        <div>
+          <div id="advisers" className="scroll-mt-[8rem]">
+            <PageHero
+              title="Who We Help"
+              description="Tailored SMSF solutions for financial advisers, accounting practices, and SMSF trustees across Australia."
+            />
+          </div>
+        </div>
+        <div id="accountants" className="scroll-mt-[8rem]" />
+        <div id="trustees" className="scroll-mt-[8rem]" />
         <AudienceTabs />
       </div>
 

@@ -9,21 +9,21 @@ const audiences = [
     title: "Financial Advisers",
     description:
       "Comprehensive SMSF services to support your clients' retirement strategies",
-    href: "/who-we-help#advisers",
+    href: "/who-we-are#advisers",
   },
   {
     tag: "For Accountants",
     title: "Accounting Practices",
     description:
       "Seamless integration with your existing systems and workflow processes",
-    href: "/who-we-help#accountants",
+    href: "/who-we-are#accountants",
   },
   {
     tag: "For Trustees",
     title: "SMSF Trustees",
     description:
       "Simple, transparent SMSF management with clear guidance every step",
-    href: "/who-we-help#trustees",
+    href: "/who-we-are#trustees",
   },
 ];
 
@@ -37,7 +37,7 @@ export function WhoWeHelpPreview() {
               Who We Help
             </h2>
             <p className="mt-4 text-lg text-gray-700 leading-7 font-medium">
-              Tailored solutions for every type of SMSF professional
+              Tailored solutions for every type of SMSF role
             </p>
           </div>
         </FadeIn>

@@ -16,7 +16,7 @@ const stats: { end: number; suffix: string; label: string; decimals?: number; li
 
 export function AboutIntro() {
   return (
-    <section className="section-padding bg-white" id="about">
+    <section className="section-padding bg-white pb-0" id="about">
       <div className="container-width">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
           <div>

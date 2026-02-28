@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AboutIntro } from "@/components/sections/about/AboutIntro";
 import { Values } from "@/components/sections/about/Values";
 import { LeadershipTeam } from "@/components/sections/about/LeadershipTeam";
+import { ClientManagers } from "@/components/sections/about/ClientManagers";
 import { ServiceCards } from "@/components/sections/services/ServiceCards";
 import { ProcessSteps } from "@/components/sections/services/ProcessSteps";
 import { SpecialistServices } from "@/components/sections/services/SpecialistServices";
@@ -25,7 +26,8 @@ export default function WhoWeArePage() {
       <AboutIntro />
       <Values />
       <LeadershipTeam />
-      
+      <ClientManagers />
+
       {/* What We Do Section - scroll-margin so hash link shows full hero below header */}
       <div id="what-we-do" className="scroll-mt-[8rem]">
         <PageHero

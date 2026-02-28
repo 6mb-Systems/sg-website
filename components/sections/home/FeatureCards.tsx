@@ -41,7 +41,7 @@ export function FeatureCards() {
                     src={feature.image}
                     alt={feature.title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   {/* Overlay to ensure text readability */}

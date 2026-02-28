@@ -59,7 +59,7 @@ export function WhoWeHelpPreview() {
                     </p>
                     <span className="relative z-10 mt-4 inline-flex items-center text-sm font-medium text-white group-hover:text-brand-orange transition-colors">
                       Learn more
-                      <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="ml-1 h-4 w-4" />
                     </span>
                   </div>
                 </SpotlightCard>

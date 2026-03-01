@@ -172,14 +172,15 @@ export function Footer() {
                 <p>© {new Date().getFullYear()} SuperGuardian Pty Ltd. All rights reserved.</p>
               </div>
             </div>
-            {/* Row 2: Liability link (left) */}
-            <div className="flex justify-start">
+            {/* Row 2: Liability (left), Website designed by (right) */}
+            <div className="flex flex-col items-center justify-between gap-2 md:flex-row md:items-center">
               <Link
                 href="#"
                 className="hover:text-brand-orange transition-colors"
               >
                 Liability limited by a scheme approved under Professional Standards Legislation
               </Link>
+              <p>Website designed by 6mb Systems</p>
             </div>
           </div>
         </div>

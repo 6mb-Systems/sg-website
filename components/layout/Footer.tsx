@@ -34,7 +34,7 @@ export function Footer() {
               <h3 className="text-lg font-semibold">SuperGuardian</h3>
               <p className="mt-2 text-sm text-gray-300">
                 Professional SMSF administration, accounting, and compliance
-                services for advisers, accountants, and trustees across
+                services for advisers, accountants and trustees across
                 Australia.
               </p>
             </div>

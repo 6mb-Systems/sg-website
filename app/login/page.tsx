@@ -83,7 +83,7 @@ export default function LoginPage() {
 
       <CTASection
         title="Let's Talk"
-        description={`If you would like to find out further information on the SuperGuardian service please give us a call. ${siteConfig.phone}`}
+        description={`If you would like to find out further information on the SuperGuardian service please give us a call on ${siteConfig.phone}`}
         primaryButtonText="Book for a FREE Consultation"
         primaryButtonHref="/contact"
         isExternal={false}

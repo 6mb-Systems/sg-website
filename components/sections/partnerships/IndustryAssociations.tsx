@@ -4,37 +4,36 @@ import { FadeIn } from "@/components/ui/fade-in";
 const associations = [
   {
     name: "SMSF Association",
-    type: "Professional Body",
-    membershipType: "Corporate Member",
-    description: "Peak professional body for the SMSF sector",
-    benefits: ["Industry advocacy", "Professional development", "Technical updates"],
+    type: "Professional Body | Corporate Sponsor",
+    description: [
+      "The peak professional body representing Australia's self managed super fund sector. SuperGuardian proudly supports the SMSF Association as a corporate sponsor, with our SMSF experts accredited as SMSF Specialist Advisors (SSA®).",
+    ],
+    benefitsLabel: "Key benefits of the SMSF Association:",
+    benefits: [
+      "Industry advocacy for the SMSF sector",
+      "Professional development and CPD opportunities",
+      "Technical updates and resources to stay at the forefront of SMSF compliance",
+    ],
   },
   {
-    name: "Financial Planning Association",
-    type: "Professional Body",
-    membershipType: "Associate Member",
-    description: "Australia's largest professional body for financial planners",
-    benefits: ["Professional standards", "Networking", "Continuing education"],
-  },
-  {
-    name: "CPA Australia",
-    type: "Accounting Body",
-    membershipType: "Corporate Partner",
-    description: "One of the world's largest accounting bodies",
-    benefits: ["Technical resources", "Professional development", "Industry updates"],
-  },
-  {
-    name: "Chartered Accountants ANZ",
-    type: "Accounting Body",
-    membershipType: "Practice Member",
-    description: "Professional accounting body serving Australia and New Zealand",
-    benefits: ["Technical support", "Professional standards", "Knowledge sharing"],
+    name: "Chartered Accountants Australia & New Zealand (CA ANZ)",
+    type: "Professional Body | Corporate Sponsor",
+    description: [
+      "Chartered Accountants Australia and New Zealand are the peak professional accounting body, representing over 140,000 Chartered Accountants across Australia, New Zealand, and internationally. CA ANZ focuses on professional education, advocacy, and leadership in the finance profession.",
+      "Our SMSF experts hold advanced SMSF specialist recognition and, where applicable, CA ANZ specialist pathways, reflecting our commitment to the highest standards of technical excellence.",
+    ],
+    benefitsLabel: "Key benefits of CA ANZ:",
+    benefits: [
+      "Leading professional development, CPD, and specialist programs in accounting and SMSF practice",
+      "Advocacy and thought leadership shaping industry and regulatory developments",
+      "Access to a broad global network of Chartered Accounting professionals and resources",
+    ],
   },
 ];
 
 export function IndustryAssociations() {
   return (
-    <section className="section-padding bg-gray-50">
+    <section className="section-padding bg-white">
       <div className="container-width">
         <FadeIn direction="up">
           <div className="text-center">
@@ -51,29 +50,33 @@ export function IndustryAssociations() {
           {associations.map((assoc, index) => (
             <FadeIn key={assoc.name} direction="up" delay={index * 0.1}>
               <div className="h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1">
-              <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">
                     {assoc.name}
                   </h3>
-                  <p className="text-sm text-brand-orange">{assoc.type}</p>
+                  <p className="mt-1 text-sm text-brand-orange">{assoc.type}</p>
                 </div>
-                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-                  {assoc.membershipType}
-                </span>
-              </div>
-              <p className="mt-4 text-sm text-gray-600">{assoc.description}</p>
-              <ul className="mt-4 space-y-2">
-                {assoc.benefits.map((benefit) => (
-                  <li
-                    key={benefit}
-                    className="flex items-center gap-2 text-sm text-gray-600"
-                  >
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
+                <div className="mt-4 space-y-3">
+                  {assoc.description.map((para, i) => (
+                    <p key={i} className="text-sm text-gray-600 leading-relaxed">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+                <p className="mt-4 text-sm font-medium text-gray-800">
+                  {assoc.benefitsLabel}
+                </p>
+                <ul className="mt-2 space-y-2">
+                  {assoc.benefits.map((benefit) => (
+                    <li
+                      key={benefit}
+                      className="flex items-start gap-2 text-sm text-gray-600"
+                    >
+                      <CheckCircle className="h-4 w-4 shrink-0 text-green-500 mt-0.5" />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </FadeIn>
           ))}

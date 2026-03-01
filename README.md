@@ -79,9 +79,7 @@ Marketing website for SuperGuardian - SMSF administration services.
 | Page | Route | Description |
 |------|-------|-------------|
 | Home | `/` | Landing page with hero, features, testimonials |
-| What We Do | `/what-we-do` | Services overview |
-| Who We Are | `/who-we-are` | About company, team, values |
-| Who We Help | `/who-we-help` | Audience-specific content |
+| Who We Are | `/who-we-are` | About, what we do (services), and who we help (audiences) |
 | Partnerships | `/partnerships` | Technology & industry partners |
 | Pricing | `/pricing` | Pricing plans & process |
 | Security | `/security` | Security certifications |

@@ -181,7 +181,7 @@ export function Hero() {
               </a>
             </Button>
             <Button size="lg" variant="outline" className="w-full max-w-[280px] sm:w-auto sm:max-w-none border-white bg-white text-brand-blue hover:bg-gray-300" asChild>
-              <Link href="/what-we-do">Learn More</Link>
+              <Link href="/who-we-are#what-we-do">Learn More</Link>
             </Button>
           </div>
         </div>

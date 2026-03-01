@@ -38,6 +38,15 @@ const config: Config = {
   					'900': '#78350f',
   					'950': '#451a03',
   					DEFAULT: '#f59e0b'
+  				},
+  				yellow: {
+  					'50': '#fefce8',
+  					'100': '#fef9c3',
+  					'200': '#fef08a',
+  					'300': '#fde047',
+  					'400': '#facc15',
+  					'500': '#eab308',
+  					DEFAULT: '#facc15'
   				}
   			},
   			border: 'hsl(var(--border))',

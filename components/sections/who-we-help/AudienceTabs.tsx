@@ -40,7 +40,6 @@ interface AdvisersAccountantsAudience extends BaseAudience {
   id: "advisers" | "accountants";
   features: FeatureWithItems[];
   benefits: Benefit[];
-  partners?: string[];
 }
 
 interface TrusteesAudience extends BaseAudience {
@@ -108,12 +107,10 @@ const audiences: Audience[] = [
       },
     ],
     benefits: [
-      { title: "Integration Partners", description: "We work directly with leading SMSF software providers" },
       { title: "Practice Growth", description: "Resources to help you expand your SMSF client base" },
       { title: "Technical Excellence", description: "Stay current with regulatory changes and best practices" },
       { title: "Flexible Service Levels", description: "Choose the level of involvement that suits your practice" },
     ],
-    partners: ["Class", "BGL", "MYOB", "Xero"],
   },
   {
     id: "trustees",
@@ -185,23 +182,30 @@ export function AudienceTabs() {
   return (
     <section className="section-padding bg-gray-50">
       <div className="container-width">
-        {/* Tab Navigation */}
+        {/* Tab Navigation - segmented control: clear selected state, neutral container */}
         <div className="flex justify-center">
-          <div className="inline-flex rounded-full bg-white p-1 shadow-sm border">
+          <div
+            className="inline-flex rounded-xl border border-gray-200 bg-white p-1 shadow-sm"
+            role="tablist"
+            aria-label="Audience"
+          >
             {audiences.map((audience) => (
               <button
                 key={audience.id}
                 id={audience.id}
+                role="tab"
+                aria-selected={activeTab === audience.id}
+                aria-controls={`panel-${audience.id}`}
                 onClick={() => handleTabClick(audience.id)}
                 className={cn(
-                  "flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all",
+                  "flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-medium transition-all duration-200",
                   activeTab === audience.id
-                    ? "bg-brand-blue text-white"
-                    : "text-gray-600 hover:text-brand-blue"
+                    ? "bg-brand-blue text-white shadow-sm"
+                    : "text-gray-600 hover:bg-gray-50 hover:text-brand-blue"
                 )}
               >
-                <audience.icon className="h-4 w-4" />
-                {audience.label}
+                <audience.icon className="h-4 w-4 shrink-0" aria-hidden />
+                <span>{audience.label}</span>
               </button>
             ))}
           </div>
@@ -260,27 +264,7 @@ export function AudienceTabs() {
                 </div>
               </div>
 
-              {/* Integration Partners for Accountants */}
-              {activeAudience.partners && (
-                <div className="mt-8">
-                  <h3 className="text-center text-lg font-semibold text-gray-900">
-                    Integration Partners
-                  </h3>
-                  <p className="mt-2 text-center text-sm text-gray-600">
-                    We work directly with leading SMSF software providers
-                  </p>
-                  <div className="mt-6 flex flex-wrap justify-center gap-4">
-                    {activeAudience.partners.map((partner) => (
-                      <div
-                        key={partner}
-                        className="rounded-lg border border-gray-200 bg-white px-8 py-3 font-medium text-gray-700"
-                      >
-                        {partner}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* Integration Partners - removed for Accountants */}
             </>
           )}
 

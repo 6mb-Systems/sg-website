@@ -21,7 +21,7 @@ export default function HomePage() {
         primaryButtonText="Get Started Today"
         primaryButtonHref="https://applications.superguardian.com.au/"
         secondaryButtonText="Learn More"
-        secondaryButtonHref="/what-we-do"
+        secondaryButtonHref="/who-we-are#what-we-do"
       />
     </>
   );

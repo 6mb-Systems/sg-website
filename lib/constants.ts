@@ -13,15 +13,13 @@ export const siteConfig = {
       name: "Adelaide",
       address: "65 Gilbert Street",
       city: "Adelaide SA 5000",
-      phone: "1300 787 576",
-      hours: "Monday – Friday: 8:30 AM – 5:00 PM (ACST)",
+      hours: "Monday – Friday: 8:30 AM – 5:00 PM (ACDT)",
     },
     melbourne: {
       name: "Melbourne",
       address: "Collins Place, Level 30, 35 Collins Street",
       city: "Melbourne VIC 3000",
-      phone: "1300 787 576",
-      hours: "Monday – Friday: 8:30 AM – 5:00 PM (ACST)",
+      hours: "Monday – Friday: 8:30 AM – 5:00 PM (AEST)",
     },
   },
   social: {
@@ -52,7 +50,7 @@ export const navigation = {
     { name: "Education", href: "/education" },
     {
       name: "Contact",
-      href: "#",
+      href: "/contact",
       children: [
         { name: "Contact Us", href: "/contact" },
         { name: "Careers", href: "/careers" },

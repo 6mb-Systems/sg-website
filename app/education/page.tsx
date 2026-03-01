@@ -13,7 +13,7 @@ export default function EducationPage() {
     <>
       <PageHero
         title="SMSF Education Hub"
-        description="Comprehensive resources to help you navigate the SMSF landscape with confidence"
+        description="Whether it's catching up on the latest changes to the SMSF environment, or refreshing your memory on those issues that only arise every so often we've got your SMSF professional development needs covered"
       />
 
       <EducationHub />

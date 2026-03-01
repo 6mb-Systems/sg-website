@@ -100,9 +100,9 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <span>📍</span>
                 <span className="min-w-0">
-                  <strong className="text-white">{siteConfig.locations.adelaide.name}:</strong> {siteConfig.locations.adelaide.address}, {siteConfig.locations.adelaide.city}
+                  {siteConfig.locations.adelaide.address}, {siteConfig.locations.adelaide.city}
                   <br />
-                  <strong className="text-white">{siteConfig.locations.melbourne.name}:</strong> {siteConfig.locations.melbourne.address}, {siteConfig.locations.melbourne.city}
+                  {siteConfig.locations.melbourne.address}, {siteConfig.locations.melbourne.city}
                 </span>
               </li>
               <li className="flex items-center gap-2">

@@ -40,27 +40,41 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Services Column */}
+          {/* Navigate Column - two columns, top-aligned */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider">
               Navigate
             </h3>
-            <ul className="mt-4 space-y-2">
-              {navigation.navigate.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-gray-300 hover:text-brand-orange transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className="mt-4 grid grid-cols-2 gap-x-8 gap-y-2 items-start">
+              <ul className="space-y-2">
+                {navigation.navigate.slice(0, 5).map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-gray-300 hover:text-brand-orange transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <ul className="space-y-2">
+                {navigation.navigate.slice(5, 10).map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-gray-300 hover:text-brand-orange transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Contact Column */}
-          <div>
+          {/* Contact Column - wider for full addresses */}
+          <div className="lg:col-span-2">
             <h3 className="text-sm font-semibold uppercase tracking-wider">
               Contact
             </h3>
@@ -85,7 +99,11 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <span>📍</span>
-                <span>Melbourne | Adelaide</span>
+                <span className="min-w-0">
+                  <strong className="text-white">{siteConfig.locations.adelaide.name}:</strong> {siteConfig.locations.adelaide.address}, {siteConfig.locations.adelaide.city}
+                  <br />
+                  <strong className="text-white">{siteConfig.locations.melbourne.name}:</strong> {siteConfig.locations.melbourne.address}, {siteConfig.locations.melbourne.city}
+                </span>
               </li>
               <li className="flex items-center gap-2">
                 <span>💼</span>

@@ -17,7 +17,7 @@ export const siteConfig = {
     },
     melbourne: {
       name: "Melbourne",
-      address: "Collins Place, Level 30, 35 Collins Street",
+      address: "Level 30, 35 Collins Street",
       city: "Melbourne VIC 3000",
       hours: "Monday – Friday: 8:30 AM – 5:00 PM (AEST)",
     },
@@ -27,8 +27,13 @@ export const siteConfig = {
     facebook: "https://www.facebook.com/SuperGuardianPtyLtd",
   },
   externalLinks: {
-    login: "https://app.class.com.au/my/login",
+    /** Landing page for Log In button in header */
+    login: "/login",
     getStarted: "https://applications.superguardian.com.au/",
+    /** Direct links to Class portals (used on /login page) */
+    clientLogin: "https://client.class.com.au/my/login?whitelabel=superguardian-superguardian",
+    adviserLogin: "https://client.class.com.au/my/login?whitelabel=superguardian-superguardian",
+    keyDocumentsLogin: "https://shareddocuments.sharepoint.com/sites/SGClientShare/Shared%20Documents/Forms/AllItems.aspx",
   },
 };
 
@@ -69,6 +74,7 @@ export const navigation = {
     { name: "Who We Are", href: "/who-we-are" },
     { name: "Who We Help", href: "/who-we-are#who-we-help" },
     { name: "Partnerships", href: "/partnerships" },
+    { name: "Hive", href: "/hive" },
     { name: "Pricing", href: "/pricing" },
     { name: "Security", href: "/security" },
     { name: "Education", href: "/education" },

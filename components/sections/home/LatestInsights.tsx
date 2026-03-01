@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { FadeIn } from "@/components/ui/fade-in";
 import Image from "next/image";
 
 // Placeholder data - will be replaced with Sanity data later
@@ -46,14 +46,38 @@ export function LatestInsights() {
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-          {insights.map((insight) => (
-            <Link
-              key={insight.slug}
-              href={`/education/${insight.slug}`}
-              className="group relative h-full flex flex-col overflow-hidden rounded-xl bg-white shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
-            >
+          {insights.map((insight, index) => (
+            <FadeIn key={insight.slug} direction="up" delay={index * 0.1}>
+              <Link
+                href={`/education/${insight.slug}`}
+                className="relative block h-full overflow-hidden rounded-xl border border-gray-200"
+              >
+              {/* Light grey hex gradient background (match Certifications style) */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
+              <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
+                <defs>
+                  <pattern
+                    id={`insight-hex-${index}`}
+                    x="0"
+                    y="0"
+                    width="60"
+                    height="34.64"
+                    patternUnits="userSpaceOnUse"
+                    patternTransform="scale(2)"
+                  >
+                    <path
+                      d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60"
+                      fill="none"
+                      stroke="#d1d5db"
+                      strokeWidth="0.55"
+                    />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill={`url(#insight-hex-${index})`} />
+              </svg>
+
               {/* Image Section */}
-              <div className="relative h-48 w-full overflow-hidden bg-brand-blue/5">
+              <div className="relative z-10 h-48 w-full overflow-hidden bg-brand-blue/5">
                 <Image
                   src={insight.image}
                   alt={insight.title}
@@ -64,23 +88,24 @@ export function LatestInsights() {
               </div>
 
               {/* Content Section */}
-              <div className="flex flex-col flex-grow p-6">
+              <div className="relative z-10 flex flex-col flex-grow p-6">
                 <div className="flex items-center justify-between">
                   <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
                     {insight.type}
                   </span>
                   <span className="text-xs text-gray-500">{insight.date}</span>
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-gray-900 group-hover:text-brand-blue">
+                <h3 className="mt-4 text-lg font-semibold text-gray-900">
                   {insight.title}
                 </h3>
                 <p className="mt-2 text-sm text-gray-600 flex-grow">{insight.description}</p>
-                <span className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange group-hover:text-brand-orange-600">
+                <span className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange">
                   <FileText className="mr-1 h-4 w-4" />
                   Read more
                 </span>
               </div>
             </Link>
+            </FadeIn>
           ))}
         </div>
 

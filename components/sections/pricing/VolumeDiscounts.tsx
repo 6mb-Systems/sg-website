@@ -27,7 +27,17 @@ export function VolumeDiscounts() {
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {tiers.map((tier, index) => (
             <FadeIn key={tier.range} direction="up" delay={index * 0.1}>
-              <div className="h-full flex flex-col rounded-xl border border-gray-200 p-6 text-center hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1">
+              <div className="relative h-full overflow-hidden rounded-xl border border-gray-200">
+                <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
+                <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
+                  <defs>
+                    <pattern id={`vol-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                      <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#vol-hex-${index})`} />
+                </svg>
+                <div className="relative z-10 flex flex-col p-6 text-center">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-brand-orange-50 text-brand-orange">
                   <DollarSign className="h-6 w-6" />
                 </div>
@@ -35,6 +45,7 @@ export function VolumeDiscounts() {
                   {tier.range}
                 </h3>
                 <p className="mt-2 text-brand-blue font-medium">{tier.discount}</p>
+                </div>
               </div>
             </FadeIn>
           ))}

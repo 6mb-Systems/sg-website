@@ -215,9 +215,17 @@ export function EducationHub() {
                 <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {filteredArticles.map((article, index) => (
                     <FadeIn key={article.slug} direction="up" delay={index * 0.05}>
-                      <article
-                        className="group h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1"
-                      >
+                      <article className="relative h-full overflow-hidden rounded-xl border border-gray-200">
+                        <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
+                        <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
+                          <defs>
+                            <pattern id={`edu-article-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                              <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
+                            </pattern>
+                          </defs>
+                          <rect width="100%" height="100%" fill={`url(#edu-article-hex-${index})`} />
+                        </svg>
+                        <div className="relative z-10 flex flex-col p-6">
                         <div className="flex items-center justify-between">
                           <span className="rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
                             {article.category}
@@ -227,7 +235,7 @@ export function EducationHub() {
                             {article.downloads}
                           </span>
                         </div>
-                        <h3 className="mt-4 text-lg font-semibold text-gray-900 group-hover:text-brand-blue">
+                        <h3 className="mt-4 text-lg font-semibold text-gray-900">
                           {article.title}
                         </h3>
                         <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-grow">
@@ -239,11 +247,12 @@ export function EducationHub() {
                         </div>
                         <Link
                           href={`/education/${article.slug}`}
-                          className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange hover:text-brand-orange-600"
+                          className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange"
                         >
                           <FileText className="mr-1 h-4 w-4" />
                           Download PDF
                         </Link>
+                        </div>
                       </article>
                     </FadeIn>
                   ))}
@@ -272,9 +281,17 @@ export function EducationHub() {
                 <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
                   {webinars.map((webinar, index) => (
                     <FadeIn key={webinar.slug} direction="up" delay={index * 0.1}>
-                      <article
-                        className="h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1"
-                      >
+                      <article className="relative h-full overflow-hidden rounded-xl border border-gray-200">
+                        <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
+                        <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
+                          <defs>
+                            <pattern id={`edu-webinar-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                              <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
+                            </pattern>
+                          </defs>
+                          <rect width="100%" height="100%" fill={`url(#edu-webinar-hex-${index})`} />
+                        </svg>
+                        <div className="relative z-10 flex flex-col p-6">
                         <div className="flex items-center justify-between">
                           <span
                             className={cn(
@@ -317,6 +334,7 @@ export function EducationHub() {
                           <Video className="mr-2 inline h-4 w-4" />
                           {webinar.status === "Upcoming" ? "Register Now" : "Watch Now"}
                         </button>
+                        </div>
                       </article>
                     </FadeIn>
                   ))}

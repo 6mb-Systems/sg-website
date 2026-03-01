@@ -75,10 +75,6 @@ export function OfficeLocations() {
                     </div>
                   </div>
                 </div>
-                {/* Map - full street label above (Google pin may show number only) */}
-                <p className="bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 border-t border-gray-200">
-                  {index === 0 ? "65 Gilbert Street" : "35 Collins Street"}
-                </p>
                 <div className="aspect-[4/3] min-h-[240px]">
                   <iframe
                     title={index === 0 ? "SuperGuardian Adelaide office - 65 Gilbert Street" : "SuperGuardian Melbourne office - 35 Collins Street"}

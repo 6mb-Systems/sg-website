@@ -81,8 +81,18 @@ export function ServiceCards() {
             <FadeIn key={service.id} direction="up" delay={index * 0.1}>
               <div
                 id={service.id}
-                className="h-full flex flex-col rounded-xl border border-gray-200 p-6 hover:border-brand-blue hover:shadow-md transition-all hover:-translate-y-1"
+                className="relative h-full overflow-hidden rounded-xl border border-gray-200"
               >
+                <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
+                <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
+                  <defs>
+                    <pattern id={`service-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                      <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#service-hex-${index})`} />
+                </svg>
+                <div className="relative z-10 flex flex-col p-6">
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-blue-50 text-brand-blue shrink-0">
                     <service.icon className="h-6 w-6" />
@@ -124,6 +134,7 @@ export function ServiceCards() {
                     Get Started
                   </a>
                 </Button>
+                </div>
               </div>
             </FadeIn>
           ))}

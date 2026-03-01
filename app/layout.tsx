@@ -62,7 +62,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans`}>
         <GoogleAnalytics />
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

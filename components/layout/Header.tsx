@@ -78,13 +78,17 @@ export function Header() {
         {/* Desktop CTA Buttons */}
         <div className="hidden lg:flex lg:items-center lg:gap-3 mb-2 md:mb-4">
           <Button variant="secondary" size="sm" asChild>
-            <a
-              href={siteConfig.externalLinks.login}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Log In
-            </a>
+            {siteConfig.externalLinks.login.startsWith("/") ? (
+              <Link href={siteConfig.externalLinks.login}>Log In</Link>
+            ) : (
+              <a
+                href={siteConfig.externalLinks.login}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Log In
+              </a>
+            )}
           </Button>
           <Button size="sm" asChild>
             <a
@@ -167,13 +171,19 @@ export function Header() {
             )}
             <div className="pt-4 flex flex-col gap-2">
               <Button variant="secondary" asChild>
-                <a
-                  href={siteConfig.externalLinks.login}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Log In
-                </a>
+                {siteConfig.externalLinks.login.startsWith("/") ? (
+                  <Link href={siteConfig.externalLinks.login} onClick={() => setMobileMenuOpen(false)}>
+                    Log In
+                  </Link>
+                ) : (
+                  <a
+                    href={siteConfig.externalLinks.login}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Log In
+                  </a>
+                )}
               </Button>
               <Button asChild>
                 <a

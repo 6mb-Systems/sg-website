@@ -12,18 +12,18 @@ export default function CareersPage() {
       
       <section className="section-padding bg-white">
         <div className="container-width">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold text-brand-blue">Why work with us?</h2>
-            <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-brand-blue">Why work with us?</h2>
+            <p className="mt-4 text-gray-600">
               SuperGuardian is an independently owned Chartered Accounting firm and specialist self-managed super fund (SMSF) Administrator. With more than 24 years of experience, we provide a premium service to Accountants, Financial Advisers, and Trustees.
             </p>
-            <p className="mt-4 text-lg text-gray-600 leading-relaxed">
+            <p className="mt-4 text-gray-600">
               We are always on the lookout for talented, motivated individuals to join our team in Adelaide and Melbourne. We offer a supportive, flexible, and rewarding environment where your professional development is a priority.
             </p>
           </div>
 
           <div className="mt-16 text-center">
-            <h3 className="text-2xl font-bold text-gray-900">Current Opportunities</h3>
+            <h3 className="text-2xl font-bold text-brand-blue">Current Opportunities</h3>
             <p className="mt-4 text-gray-600">
               All of our current job openings are advertised on SEEK. Click the link below to view our active listings and apply directly.
             </p>

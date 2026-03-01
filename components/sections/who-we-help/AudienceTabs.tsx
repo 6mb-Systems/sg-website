@@ -226,11 +226,21 @@ export function AudienceTabs() {
           {isAdvisersOrAccountants(activeAudience) && (
             <>
               <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-                {activeAudience.features.map((feature) => (
+                {activeAudience.features.map((feature, index) => (
                   <div
                     key={feature.title}
-                    className="rounded-xl border border-gray-200 bg-white p-6"
+                    className="relative overflow-hidden rounded-xl border border-gray-200"
                   >
+                    <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
+                    <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
+                      <defs>
+                        <pattern id={`audience-feature-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                          <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill={`url(#audience-feature-hex-${index})`} />
+                    </svg>
+                    <div className="relative z-10 p-6">
                     <h3 className="text-lg font-semibold text-gray-900">
                       {feature.title}
                     </h3>
@@ -245,6 +255,7 @@ export function AudienceTabs() {
                         </li>
                       ))}
                     </ul>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -276,14 +287,25 @@ export function AudienceTabs() {
                   Your SMSF Journey
                 </h3>
                 <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-                  {activeAudience.journeySteps.map((step) => (
-                    <div key={step.number} className="rounded-xl border border-gray-200 bg-white p-6">
+                  {activeAudience.journeySteps.map((step, index) => (
+                    <div key={step.number} className="relative overflow-hidden rounded-xl border border-gray-200">
+                      <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
+                      <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
+                        <defs>
+                          <pattern id={`audience-step-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                            <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
+                          </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill={`url(#audience-step-hex-${index})`} />
+                      </svg>
+                      <div className="relative z-10 p-6">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-orange text-white font-bold">
                         {step.number}
                       </div>
                       <h4 className="mt-4 font-semibold text-gray-900">{step.title}</h4>
                       <p className="text-sm text-brand-orange">{step.time}</p>
                       <p className="mt-2 text-sm text-gray-600">{step.description}</p>
+                      </div>
                     </div>
                   ))}
                 </div>

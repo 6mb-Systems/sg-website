@@ -78,12 +78,22 @@ export function PricingCards() {
             <FadeIn key={plan.name} direction="up" delay={index * 0.1}>
               <div
                 className={cn(
-                  "h-full flex flex-col rounded-xl border p-6 transition-all hover:border-brand-blue hover:shadow-md hover:-translate-y-1",
+                  "relative h-full overflow-hidden rounded-xl border",
                   plan.popular
                     ? "border-brand-blue ring-2 ring-brand-blue"
                     : "border-gray-200"
                 )}
               >
+                <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
+                <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
+                  <defs>
+                    <pattern id={`pricing-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                      <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#pricing-hex-${index})`} />
+                </svg>
+                <div className="relative z-10 flex flex-col p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">
@@ -139,6 +149,7 @@ export function PricingCards() {
                     Get Started
                   </a>
                 </Button>
+                </div>
               </div>
             </FadeIn>
           ))}

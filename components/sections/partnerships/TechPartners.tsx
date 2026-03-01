@@ -116,6 +116,7 @@ const partners = [
   {
     name: "Class",
     logo: "/partner_logo_class.png",
+    url: "https://www.class.com.au/",
     description:
       "Class is a leading Australian provider of cloud based SMSF administration and reporting software, trusted by accountants and advisers to streamline compliance, reporting and data management.",
     relationship:
@@ -124,6 +125,7 @@ const partners = [
   {
     name: "ASF Audits",
     logo: "/partner_logo_asf.png",
+    url: "https://asfaudits.com.au/",
     description:
       "ASF Audits is an independent Australian firm that specialises in ASIC-registered self-managed super fund (SMSF) audit services, providing professional audit reports, management letters, and real-time workflow tools to accountants, administrators, and other industry professionals.",
     relationship:
@@ -132,6 +134,7 @@ const partners = [
   {
     name: "Accurium",
     logo: "/partner_logo_accurium_webp.webp",
+    url: "https://www.accurium.com.au/",
     description:
       "Accurium is a specialist SMSF actuarial and education provider in Australia who supplies actuarial certificates, SMSF focused compliance consulting, and professional education and training for accountants and advisers.",
     relationship:
@@ -140,6 +143,7 @@ const partners = [
   {
     name: "Smarter SMSF",
     logo: "/partner_logo_smart_smsf.png",
+    url: "https://smartersmsf.com/",
     description:
       "Smarter SMSF is an Australian SMSF specialist education and document solutions provider that offers accredited CPD training, regular webinars, courses, and resources to help accountants, financial advisers and other professionals stay up to date with SMSF compliance, technical issues, and strategies.",
     relationship:
@@ -166,10 +170,12 @@ export function TechPartners() {
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {partners.map((partner, index) => (
             <FadeIn key={partner.name} direction="up" delay={index * 0.08}>
-              <div
-                className="flex h-full cursor-default flex-col rounded-xl border border-gray-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm"
-                role="article"
-                aria-label={partner.name}
+              <a
+                href={partner.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-full cursor-pointer flex-col rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                aria-label={`${partner.name} – visit website`}
               >
                 <div className="flex min-h-[115px] items-center justify-center">
                   {partner.logo ? (
@@ -193,7 +199,7 @@ export function TechPartners() {
                 <p className="mt-3 text-sm leading-relaxed text-gray-700">
                   {partner.relationship}
                 </p>
-              </div>
+              </a>
             </FadeIn>
           ))}
         </div>

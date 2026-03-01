@@ -9,6 +9,7 @@ const partners = [
   { name: "Class", logo: "/partner_logo_class.png", url: "https://www.class.com.au/" },
   { name: "SmarterSMSF", logo: "/partner_logo_smart_smsf.png", url: "https://smartersmsf.com/" },
   { name: "SMSF Association", logo: "/partner_logo_smsf_association.png", url: "https://www.smsfassociation.com/" },
+  { name: "Accurium", logo: "/partner_logo_accurium_webp.webp", url: "https://www.accurium.com.au/" },
 ];
 
 /** Honeycomb pattern with localized hover effect - white stroke follows cursor */

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const TAGLINE =
-  "A collaborative space connecting adviser, administrator and client with facts, tools and support to make informed decisions to maximise wealth creation.";
+  "A collaborative space connecting adviser, administrator and client with facts, tools and support to make informed decisions to maximise wealth creation";
 
 const KEY_FEATURES = [
   "Consolidated, up-to-date fund information and identification of strategic opportunities (1-click to high value datasets)",

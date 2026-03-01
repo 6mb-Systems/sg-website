@@ -154,36 +154,31 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* Bottom Bar - two rows */}
       <div className="border-t border-transparent">
         <div className="container-width py-4">
-          <div className="flex flex-col items-center justify-between gap-4 text-center text-xs text-gray-400 md:flex-row">
-            <p>
-              AFSL {siteConfig.afsl} | ABN {siteConfig.abn} | TAN {siteConfig.tan}
-            </p>
-            <p>
-              © {new Date().getFullYear()} SuperGuardian Pty Ltd. All rights
-              reserved.
-            </p>
-            <div className="flex flex-col items-center gap-2 md:flex-row md:gap-4">
-              <Link
-                href="/privacy-policy"
-                className="hover:text-brand-orange transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="#"
-                className="hover:text-brand-orange transition-colors hidden md:block"
-              >
-                |
-              </Link>
+          <div className="flex flex-col gap-1 text-center text-xs text-gray-400">
+            {/* Row 1: AFSL/ABN/TAN (left); Privacy Policy | copyright (right) */}
+            <div className="flex flex-col items-center justify-between gap-2 md:flex-row md:gap-4">
+              <p>AFSL {siteConfig.afsl} | ABN {siteConfig.abn} | TAN {siteConfig.tan}</p>
+              <div className="flex flex-wrap items-center justify-center gap-x-2">
+                <Link
+                  href="/privacy-policy"
+                  className="hover:text-brand-orange transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+                <span>|</span>
+                <p>© {new Date().getFullYear()} SuperGuardian Pty Ltd. All rights reserved.</p>
+              </div>
+            </div>
+            {/* Row 2: Liability link (left) */}
+            <div className="flex justify-start">
               <Link
                 href="#"
                 className="hover:text-brand-orange transition-colors"
               >
-                Liability limited by a scheme approved under Professional
-                Standards Legislation
+                Liability limited by a scheme approved under Professional Standards Legislation
               </Link>
             </div>
           </div>

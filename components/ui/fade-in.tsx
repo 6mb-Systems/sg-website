@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState, ReactNode } from "react";
+import { useRef, useEffect, useState, ReactNode, Key } from "react";
 import { cn } from "@/lib/utils";
 
 interface FadeInProps {
@@ -8,6 +8,7 @@ interface FadeInProps {
   direction?: "up" | "down" | "left" | "right";
   delay?: number;
   className?: string;
+  key?: Key;
 }
 
 export function FadeIn({

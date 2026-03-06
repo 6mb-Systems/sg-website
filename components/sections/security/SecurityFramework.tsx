@@ -17,7 +17,7 @@ const measures = [
   {
     title: "Data Encryption",
     description:
-      "Encryption for all data in transit (TLS) and at rest, using industry-standard protocols.",
+      "Encryption for all data in transit (TLS) and at rest, using industry-standard protocols",
     image: "/security_framework_Data_Encryption.png",
   },
   {
@@ -58,26 +58,28 @@ export function SecurityFramework() {
 
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {measures.map((measure, index) => (
-            <FadeIn key={measure.title} direction="up" delay={index * 0.1}>
-              <div className="relative h-full overflow-hidden rounded-xl">
-                <Image
-                  src={measure.image}
-                  alt=""
-                  width={400}
-                  height={280}
-                  className="h-56 w-full object-cover object-center"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-blue/95 via-brand-blue/80 to-transparent p-5 pt-12">
-                  <h3 className="text-lg font-semibold text-white">
-                    {measure.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-white/95 leading-relaxed">
-                    {measure.description}
-                  </p>
+            <div key={measure.title}>
+              <FadeIn direction="up" delay={index * 0.1}>
+                <div className="relative h-full overflow-hidden rounded-xl">
+                  <Image
+                    src={measure.image}
+                    alt=""
+                    width={400}
+                    height={280}
+                    className="h-56 w-full object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-blue/95 via-brand-blue/80 to-transparent p-5 pt-12">
+                    <h3 className="text-lg font-semibold text-white">
+                      {measure.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-white/95 leading-relaxed">
+                      {measure.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </FadeIn>
+              </FadeIn>
+            </div>
           ))}
         </div>
       </div>

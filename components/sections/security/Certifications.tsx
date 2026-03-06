@@ -51,11 +51,11 @@ export function Certifications() {
         <FadeIn direction="up">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-              Our Compliancy
+              Our Compliance
             </h2>
             <p className="mt-4 text-gray-600">
-              SuperGuardian holds industry-leading security compliance that
-              demonstrate our commitment to protecting your data
+              SuperGuardian maintains industry-leading security compliance that
+              demonstrates our commitment to protecting your data
             </p>
           </div>
         </FadeIn>

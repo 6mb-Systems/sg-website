@@ -29,7 +29,7 @@ export default function SecurityPage() {
             As a service provider, we understand the importance of providing clear information about our security practices, so that our clients can feel confident in choosing us as a trusted provider. We are proactive about identifying and mitigating risks, implementing best practices, and continuously developing ways to improve.
             </p>
 <p className="mt-4 text-gray-700 leading-relaxed">
-            SuperGuardian follows internationally recognised compliance frameworks that demonstrate our adherence to industry leading security guidelines and practices.
+            SuperGuardian follows internationally recognised compliance frameworks that demonstrate our adherence to industry-leading security guidelines and practices.
             </p>
           </FadeIn>
         </div>
@@ -40,7 +40,7 @@ export default function SecurityPage() {
 
       <CTASection
         title="Questions About Our Security?"
-        description="Our team is happy to discuss our security practices and compliances in detail"
+        description="Our team is happy to discuss our security practices and compliance in detail"
         primaryButtonText="Chat to our Leadership"
         primaryButtonHref="/contact"
         isExternal={false}

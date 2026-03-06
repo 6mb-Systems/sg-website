@@ -17,7 +17,7 @@ const measures = [
   {
     title: "Data Encryption",
     description:
-      "End-to-end encryption for all data in transit and at rest using industry-standard protocols",
+      "Encryption for all data in transit (TLS) and at rest, using industry-standard protocols.",
     image: "/security_framework_Data_Encryption.png",
   },
   {
@@ -29,7 +29,7 @@ const measures = [
   {
     title: "Secure Infrastructure",
     description:
-      "Australian-based data centers with 24/7 monitoring and redundant backup systems",
+      "Australian-based data centres with 24/7 monitoring and redundant backup systems",
     image: "/security_framework_Secure_Infrastructure.png",
   },
   {

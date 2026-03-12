@@ -28,7 +28,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex lg:items-center lg:gap-1 mb-2 md:mb-4">
+        <div className="hidden lg:flex lg:items-center lg:gap-1 mt-[3px] mb-[-4px]">
           {navigation.main.map((item) =>
             item.children ? (
               <div key={item.name} className="relative group">
@@ -76,7 +76,7 @@ export function Header() {
         </div>
 
         {/* Desktop CTA Buttons */}
-        <div className="hidden lg:flex lg:items-center lg:gap-3 mb-2 md:mb-4">
+        <div className="hidden lg:flex lg:items-center lg:gap-3 mt-1 mb-1">
           <Button variant="secondary" size="sm" asChild>
             {siteConfig.externalLinks.login.startsWith("/") ? (
               <Link href={siteConfig.externalLinks.login}>Log In</Link>

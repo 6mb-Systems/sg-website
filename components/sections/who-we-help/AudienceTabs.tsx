@@ -25,7 +25,7 @@ interface Benefit {
 
 interface FAQ {
   question: string;
-  answer: string;
+  answer: React.ReactNode;
 }
 
 interface BaseAudience {
@@ -125,7 +125,23 @@ const audiences: Audience[] = [
       { number: 4, title: "Ongoing Support", time: "Ongoing", description: "Regular monitoring, reporting, and compliance management" },
     ],
     faqs: [
-      { question: "What are my responsibilities as an SMSF trustee?", answer: "As a trustee, you're responsible for ensuring your SMSF complies with super laws and is run for the sole purpose of providing retirement benefits." },
+      {
+        question: "What are my responsibilities as an SMSF trustee?",
+        answer: (
+          <>
+            As a trustee, you're responsible for ensuring your SMSF complies with super laws and is run for the sole purpose of providing retirement benefits. For more information on the implications of having a self-managed super fund (SMSF), please review{" "}
+            <a
+              href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf/before-you-start-an-smsf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-blue underline hover:text-brand-blue-700"
+            >
+              Before you start an SMSF
+            </a>{" "}
+            on the ATO website.
+          </>
+        ),
+      },
       { question: "How much does it cost to run an SMSF?", answer: "Costs vary based on fund complexity. Our services start from $215/month for administration." },
       { question: "Can I invest in property through my SMSF?", answer: "Yes, SMSFs can invest in property, including residential and commercial real estate, subject to certain rules." },
       { question: "What happens if I make a mistake?", answer: "We're here to help you stay compliant. Our proactive monitoring helps identify and resolve issues before they become problems." },
@@ -274,8 +290,6 @@ export function AudienceTabs() {
                   ))}
                 </div>
               </div>
-
-              {/* Integration Partners - removed for Accountants */}
             </>
           )}
 

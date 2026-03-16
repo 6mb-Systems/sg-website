@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AboutIntro } from "@/components/sections/about/AboutIntro";
 import { Values } from "@/components/sections/about/Values";
 import { FeatureCards } from "@/components/sections/home/FeatureCards";
+import { TestimonialCarousel } from "@/components/sections/who-we-help/TestimonialCarousel";
 import { LeadershipTeam } from "@/components/sections/about/LeadershipTeam";
 import { ClientManagers } from "@/components/sections/about/ClientManagers";
 import { ServiceCards } from "@/components/sections/services/ServiceCards";
@@ -55,6 +56,17 @@ export default function WhoWeArePage() {
         <div id="trustees" className="scroll-mt-[8rem]" />
         <AudienceTabs />
       </div>
+
+      <section className="section-padding bg-white">
+        <div className="container-width">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
+              What Our Clients Say
+            </h2>
+          </div>
+          <TestimonialCarousel />
+        </div>
+      </section>
 
       <CTASection
         title="Ready to Work With Us?"

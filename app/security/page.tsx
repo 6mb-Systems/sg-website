@@ -8,7 +8,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 export const metadata: Metadata = {
   title: "Security",
   description:
-    "We maintain the highest standards of security and compliance to protect your sensitive SMSF data.",
+    "SuperGuardian follows internationally recognised compliance frameworks that demonstrate our adherence to industry-leading security guidelines and practices.",
 };
 
 export default function SecurityPage() {
@@ -16,20 +16,14 @@ export default function SecurityPage() {
     <>
       <PageHero
         title="Security at SuperGuardian"
-        description="We maintain the highest standards of security and compliance to protect your sensitive SMSF data"
+        description="SuperGuardian follows internationally recognised compliance frameworks that demonstrate our adherence to industry-leading security guidelines and practices"
       />
 
       <section className="section-padding bg-white">
         <div className="container-width">
           <FadeIn direction="up">
-<p className="text-gray-700 leading-relaxed">
-            SuperGuardian recognises that the confidentiality, integrity and availability of information and data created, maintained, and hosted by us are vital to the success of the business and privacy of our clients and partners.
-            </p>
-<p className="mt-4 text-gray-700 leading-relaxed">
-            As a service provider, we understand the importance of providing clear information about our security practices, so that our clients can feel confident in choosing us as a trusted provider. We are proactive about identifying and mitigating risks, implementing best practices, and continuously developing ways to improve.
-            </p>
-<p className="mt-4 text-gray-700 leading-relaxed">
-            SuperGuardian follows internationally recognised compliance frameworks that demonstrate our adherence to industry-leading security guidelines and practices.
+            <p className="text-gray-700 leading-relaxed">
+              SuperGuardian recognises that the confidentiality, integrity and availability of information and data created, maintained, and hosted by us are vital to the success of the business and privacy of our clients and partners.
             </p>
           </FadeIn>
         </div>

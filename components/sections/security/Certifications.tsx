@@ -54,8 +54,7 @@ export function Certifications() {
               Our Compliance
             </h2>
             <p className="mt-4 text-gray-600">
-              SuperGuardian maintains industry-leading security compliance that
-              demonstrates our commitment to protecting your data
+            As a service provider, we understand the importance of providing clear information about our security practices, so that our clients can feel confident in choosing us as a trusted provider. We are proactive about identifying and mitigating risks, implementing best practices and continuously developing ways to improve.
             </p>
           </div>
         </FadeIn>

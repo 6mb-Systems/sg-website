@@ -10,7 +10,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { HiveDemoSection } from "@/components/sections/hive/HiveDemoSection";
 
 export const metadata: Metadata = {
   title: "Hive by SuperGuardian",
@@ -148,8 +147,6 @@ export default function HivePage() {
           </div>
         </div>
       </section>
-
-      <HiveDemoSection />
 
       {/* Strategic Value and Expected Advantages */}
       <section className="section-padding bg-white">

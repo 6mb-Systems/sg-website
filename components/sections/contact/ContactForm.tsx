@@ -11,7 +11,7 @@ const enquiryTypeOptions = [
   { value: "financial-adviser", label: "I am a Financial Adviser looking to work with SuperGuardian" },
   { value: "accountant", label: "I am an Accountant looking to work with SuperGuardian" },
   { value: "demo-online-reports", label: "I would like a demo of Online Reports" },
-  { value: "demo-live", label: "I would like a demo of Live" },
+  { value: "demo-hive", label: "I would like a demo of Hive" },
   { value: "something-else", label: "Something else" },
 ];
 

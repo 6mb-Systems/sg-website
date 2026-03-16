@@ -92,7 +92,7 @@ const audiences: Audience[] = [
     features: [
       {
         title: "Seamless Integration",
-        description: "Direct integration with Class, BGL, MYOB, and Xero",
+        description: "Direct integration with Class and Microsoft SharePoint",
         items: ["Automated data sync", "Reduced manual entry", "Real-time updates"],
       },
       {
@@ -119,10 +119,30 @@ const audiences: Audience[] = [
     title: "For SMSF Trustees",
     subtitle: "Plain-language guidance and professional support for your SMSF journey",
     journeySteps: [
-      { number: 1, title: "Initial Consultation", time: "30 minutes", description: "Free 30-minute consultation to assess your SMSF needs and goals" },
-      { number: 2, title: "Documentation & Setup", time: "5-7 days", description: "Complete all required documentation and ATO registrations" },
-      { number: 3, title: "Account Setup", time: "2-3 days", description: "Establish bank accounts and integrate with your chosen platforms" },
-      { number: 4, title: "Ongoing Support", time: "Ongoing", description: "Regular monitoring, reporting, and compliance management" },
+      {
+        number: 1,
+        title: "Initial Consultation",
+        time: "30 minutes",
+        description: "We understand your needs and recommend the right services",
+      },
+      {
+        number: 2,
+        title: "Service Agreement",
+        time: "—",
+        description: "Clear pricing and service levels with no hidden fees",
+      },
+      {
+        number: 3,
+        title: "Implementation",
+        time: "—",
+        description: "Our experts handle all the setup and integration work",
+      },
+      {
+        number: 4,
+        title: "Ongoing Support",
+        time: "Ongoing",
+        description: "Regular communication and proactive service delivery",
+      },
     ],
     faqs: [
       {
@@ -317,7 +337,6 @@ export function AudienceTabs() {
                         {step.number}
                       </div>
                       <h4 className="mt-4 font-semibold text-gray-900">{step.title}</h4>
-                      <p className="text-sm text-brand-orange">{step.time}</p>
                       <p className="mt-2 text-sm text-gray-600">{step.description}</p>
                       </div>
                     </div>

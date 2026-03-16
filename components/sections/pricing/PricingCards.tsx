@@ -1,60 +1,96 @@
-import { CheckCircle } from "lucide-react";
+"use client";
+
+import { CheckCircle, Download, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/constants";
 import { FadeIn } from "@/components/ui/fade-in";
+import { HivePattern } from "@/components/sections/shared/PageHero";
 
-const plans = [
+interface PriceLine {
+  amount: string;
+  label: string;
+}
+
+interface Plan {
+  name: string;
+  description: string;
+  prices: PriceLine[];
+  priceSubtitle?: string;
+  timeline: string;
+  badge: string;
+  popular: boolean;
+  features: string[];
+  hasFeesDownload: boolean;
+}
+
+const plans: Plan[] = [
   {
-    name: "SMSF Startup",
-    description: "Perfect for new SMSF establishments",
-    price: "$1,500",
-    priceType: "/one-time",
-    timeline: "5-7 business days",
+    name: "Self Managed Super Fund Setup",
+    description: "for new SMSF establishments",
+    prices: [
+      { amount: "$690", label: "individual trustees" },
+      { amount: "$1,580", label: "corporate trustees" },
+    ],
+    timeline: "1 to 3 Business days",
     badge: "New SMSFs",
     popular: false,
     features: [
-      "Trust deed preparation & execution",
-      "ATO registration & ABN application",
-      "Bank account establishment",
-      "Initial investment strategy",
-      "Member benefit statements",
-      "3 months free administration",
+      "Welcome call",
+      "Rollover support - $210 per member",
+      "Trust deed preparation",
+      "Fund establishment minutes and declaration",
+      "TFN & ABN applications (ATO timeframes vary from 1–28 days)",
+      "Bank account establishment assistance",
+      "Limited investment strategy forms and guide",
+      "Death Benefit Nomination form and guide",
+      "Corporate trustee establishment (includes ASIC incorporation fee)",
     ],
+    hasFeesDownload: false,
   },
   {
-    name: "SMSF Essential",
-    description: "Comprehensive ongoing administration",
-    price: "$150",
-    priceType: "/per month",
-    timeline: "Monthly service",
+    name: "Standard Administration",
+    description: "for SMSFs on an eligible platform",
+    prices: [{ amount: "from $215", label: "per month" }],
+    priceSubtitle: "including independent audit",
+    timeline: "Ongoing service",
     badge: "Most Popular",
     popular: true,
     features: [
       "Monthly reconciliations",
       "Transaction processing",
       "Member benefit tracking",
-      "Quarterly reporting",
       "Compliance monitoring",
-      "Online portal access",
+      "24/7 online reporting",
+      "Dedicated specialist Client Manager",
+      "Fund Mailhouse",
+      "Australian listed investments including shares, units and managed funds via BT Panorama, Commsec, Desktop Broker, Equity&Super, Finclear, Hub24, Macquarie, Selfwealth, Shaw and Partners",
+      "Term deposits via Australian Money Markets",
     ],
+    hasFeesDownload: true,
   },
   {
-    name: "SMSF Professional",
-    description: "Full-service administration and compliance",
-    price: "$250",
-    priceType: "/per month",
-    timeline: "Monthly service",
+    name: "Flexible Administration",
+    description:
+      "full-service for complex SMSFs",
+    prices: [{ amount: "from $240", label: "per month" }],
+    priceSubtitle: "including independent audit",
+    timeline: "Ongoing service",
     badge: "Complex SMSFs",
     popular: false,
     features: [
-      "Everything in Essential",
-      "Pension calculations",
-      "Investment strategy reviews",
-      "Corporate trustee support",
-      "Priority support",
-      "Dedicated relationship manager",
+      "Monthly reconciliations",
+      "Transaction processing",
+      "Member benefit tracking",
+      "Compliance monitoring",
+      "24/7 online reporting",
+      "Dedicated specialist Client Manager",
+      "Fund Mailhouse",
+      "Foreign listed investments",
+      "Unlisted managed funds",
+      "Private company shares, derivatives, options, warrants, artwork, crypto currency and other similar assets",
     ],
+    hasFeesDownload: true,
   },
 ];
 
@@ -63,92 +99,122 @@ export function PricingCards() {
     <section className="section-padding bg-gray-50">
       <div className="container-width">
         <FadeIn direction="up">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-              Transparent Pricing
-            </h2>
-            <p className="mt-4 text-gray-600">
-              No hidden fees, no surprises – just honest, competitive pricing
-            </p>
-          </div>
+          <p className="mx-auto max-w-2xl text-center text-xs text-gray-500">
+            All fees quoted are inclusive of GST. We are independently owned
+            and do not accept trails or commissions.
+          </p>
         </FadeIn>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
           {plans.map((plan, index) => (
             <FadeIn key={plan.name} direction="up" delay={index * 0.1}>
               <div
-                className={cn(
-                  "relative h-full overflow-hidden rounded-xl border",
-                  plan.popular
-                    ? "border-brand-blue ring-2 ring-brand-blue"
-                    : "border-gray-200"
-                )}
+                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
-                <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
-                  <defs>
-                    <pattern id={`pricing-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
-                      <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill={`url(#pricing-hex-${index})`} />
-                </svg>
-                <div className="relative z-10 flex flex-col p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      {plan.name}
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-600">{plan.description}</p>
+                {/* Header band */}
+                <div className="group/header relative min-h-[7rem] overflow-hidden bg-brand-blue px-6 pb-5 pt-6">
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-blue-700 to-brand-blue-950 opacity-95" />
+                  <HivePattern />
+
+                  <div className="relative">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-xl font-bold text-white">
+                        {plan.name}
+                      </h3>
+                      <span
+                        className={cn(
+                          "shrink-0 rounded-full px-3 py-1 text-xs font-semibold",
+                          plan.popular
+                            ? "bg-white/20 text-white ring-1 ring-white/30"
+                            : "bg-white/10 text-white/80 ring-1 ring-white/20"
+                        )}
+                      >
+                        {plan.badge}
+                      </span>
+                    </div>
+                    <p className="mt-1.5 text-sm text-white/70">
+                      {plan.description}
+                    </p>
                   </div>
-                  <span
-                    className={cn(
-                      "rounded-full px-3 py-1 text-xs font-medium",
-                      plan.popular
-                        ? "bg-brand-blue text-white"
-                        : "bg-gray-100 text-gray-600"
-                    )}
-                  >
-                    {plan.badge}
-                  </span>
                 </div>
 
-                <div className="mt-6">
-                  <span className="text-4xl font-bold text-gray-900">
-                    {plan.price}
-                  </span>
-                  <span className="text-sm text-gray-600">{plan.priceType}</span>
+                {/* Pricing block */}
+                <div className="border-b border-gray-100 px-6 py-5 min-h-[9rem]">
+                  {plan.prices.map((price) => {
+                    const isFromPrice = price.amount.startsWith("from ");
+                    const displayAmount = isFromPrice
+                      ? price.amount.replace("from ", "")
+                      : price.amount;
+
+                    return (
+                      <div
+                        key={price.label}
+                        className="flex items-baseline gap-2"
+                      >
+                        {isFromPrice && (
+                          <span className="text-sm text-gray-500">from</span>
+                        )}
+                        <span className="text-3xl font-extrabold tracking-tight text-gray-900">
+                          {displayAmount}
+                        </span>
+                        <span className="text-sm text-gray-500">
+                          {price.label}
+                        </span>
+                      </div>
+                    );
+                  })}
+                  {plan.priceSubtitle && (
+                    <p className="mt-1 text-sm text-gray-500">
+                      {plan.priceSubtitle}
+                    </p>
+                  )}
+                  <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
+                    <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                    {plan.timeline}
+                  </div>
                 </div>
 
-                <p className="mt-2 text-sm text-gray-500">
-                  ⏱ {plan.timeline}
-                </p>
+                {/* Features */}
+                <div className="flex flex-1 flex-col px-6 pb-6 pt-5 min-h-[35rem]">
+                  <ul className="flex-1 space-y-3">
+                    {plan.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-2.5 text-sm leading-snug text-gray-600"
+                      >
+                        <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-green-500" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                <ul className="mt-6 space-y-3">
-                  {plan.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-start gap-2 text-sm text-gray-600"
+                  {plan.hasFeesDownload && (
+                    <a
+                      href="#"
+                      className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand-blue transition-colors hover:text-brand-blue-700"
                     >
-                      <CheckCircle className="h-5 w-5 shrink-0 text-green-500" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                      <Download className="h-4 w-4" />
+                      Download full schedule of fees &amp; charges
+                    </a>
+                  )}
 
-                <Button
-                  className="mt-8 w-full"
-                  variant={plan.popular ? "default" : "outline"}
-                  asChild
-                >
-                  <a
-                    href={siteConfig.externalLinks.getStarted}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Button
+                    className={cn(
+                      "mt-5 w-full gap-2",
+                      plan.popular ? "" : "border-gray-300"
+                    )}
+                    variant={plan.popular ? "default" : "outline"}
+                    asChild
                   >
-                    Get Started
-                  </a>
-                </Button>
+                    <a
+                      href={siteConfig.externalLinks.getStarted}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Get Started
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
+                  </Button>
                 </div>
               </div>
             </FadeIn>

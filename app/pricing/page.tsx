@@ -1,29 +1,25 @@
 import type { Metadata } from "next";
 import { PricingCards } from "@/components/sections/pricing/PricingCards";
-import { VolumeDiscounts } from "@/components/sections/pricing/VolumeDiscounts";
-import { ProcessSteps } from "@/components/sections/services/ProcessSteps";
-import { MobileFeatures } from "@/components/sections/pricing/MobileFeatures";
+import { PricingProcess } from "@/components/sections/pricing/PricingProcess";
 import { CTASection } from "@/components/sections/shared/CTASection";
 import { PageHero } from "@/components/sections/shared/PageHero";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Transparent pricing and a proven 4-step process designed to get your SMSF up and running efficiently.",
+    "Transparent, predictable SMSF pricing with no hidden fees. Setup, standard administration, and flexible plans for complex SMSFs.",
 };
 
 export default function PricingPage() {
   return (
     <>
       <PageHero
-        title="Pricing"
-        description="Transparent pricing and a proven 4-step process designed to get your SMSF up and running efficiently"
+        title="Transparent Pricing"
+        description="No hidden fees, no surprises - just honest, predictable pricing"
       />
 
       <PricingCards />
-      <VolumeDiscounts />
-      <ProcessSteps />
-      <MobileFeatures />
+      <PricingProcess />
 
       <CTASection
         title="Ready to Get Started?"

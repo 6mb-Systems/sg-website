@@ -5,6 +5,7 @@ import { useRef, useEffect, useState, useId } from "react";
 interface PageHeroProps {
   title: string;
   description: string;
+  subtitle?: string;
 }
 
 /* Honeycomb: Mathematically correct flat-top hexagonal tiling. Uses unique ids per instance so multiple sections (e.g. Who We Are page) each have their own working hover effect. */
@@ -126,7 +127,7 @@ export const HivePattern = () => {
   );
 };
 
-export function PageHero({ title, description }: PageHeroProps) {
+export function PageHero({ title, description, subtitle }: PageHeroProps) {
   return (
     <section className="relative bg-brand-blue overflow-hidden">
       {/* Base gradient */}
@@ -143,6 +144,11 @@ export function PageHero({ title, description }: PageHeroProps) {
           <p className="animate-fade-in-up mt-4 text-xl text-brand-orange font-medium" style={{ animationDelay: '0.1s' }}>
             {description}
           </p>
+          {subtitle && (
+            <p className="animate-fade-in-up mt-3 text-base text-blue-100/90" style={{ animationDelay: '0.2s' }}>
+              {subtitle}
+            </p>
+          )}
         </div>
       </div>
     </section>

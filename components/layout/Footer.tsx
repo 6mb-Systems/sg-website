@@ -6,8 +6,8 @@ export function Footer() {
   return (
     <footer className="bg-gray-950 text-white">
       {/* Main Footer */}
-      <div className="container-width py-12 md:py-16">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container-width py-12 md:py-16 text-center md:text-left">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Brand Column */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
@@ -73,8 +73,8 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Contact Column - wider for full addresses */}
-          <div className="lg:col-span-2">
+          {/* Contact Column */}
+          <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider">
               Contact
             </h3>
@@ -101,7 +101,11 @@ export function Footer() {
                 <span>📍</span>
                 <span className="min-w-0">
                   {siteConfig.locations.adelaide.address}, {siteConfig.locations.adelaide.city}
-                  <br />
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span>📍</span>
+                <span className="min-w-0">
                   {siteConfig.locations.melbourne.address}, {siteConfig.locations.melbourne.city}
                 </span>
               </li>
@@ -122,7 +126,7 @@ export function Footer() {
       {/* Disclaimer Section */}
       <div className="border-t border-transparent">
         <div className="container-width py-6">
-          <div className="text-xs text-gray-400 space-y-4">
+          <div className="text-xs text-gray-400 space-y-4 text-center">
             <p>
               SuperGuardian is a registered tax agent with the Tax Practitioners Board (TPB) and is bound by the TPB Code of Professional Conduct.
               If you have a concern about the services we provide, you can make a complaint to the TPB via their website: <a href="https://www.tpb.gov.au/complaints" className="hover:text-brand-orange transition-colors" target="_blank" rel="noopener noreferrer">www.tpb.gov.au/complaints</a>

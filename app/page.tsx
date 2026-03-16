@@ -1,6 +1,5 @@
 import { Hero } from "@/components/sections/home/Hero";
 import { ValueProposition } from "@/components/sections/home/ValueProposition";
-import { FeatureCards } from "@/components/sections/home/FeatureCards";
 import { WhoWeHelpPreview } from "@/components/sections/home/WhoWeHelpPreview";
 import { TechnologyPartners } from "@/components/sections/home/TechnologyPartners";
 import { LatestInsights } from "@/components/sections/home/LatestInsights";
@@ -11,7 +10,6 @@ export default function HomePage() {
     <>
       <Hero />
       <ValueProposition />
-      <FeatureCards />
       <WhoWeHelpPreview />
       <TechnologyPartners />
       <LatestInsights />

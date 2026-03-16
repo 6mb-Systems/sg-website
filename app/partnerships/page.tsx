@@ -26,10 +26,9 @@ export default function PartnershipsPage() {
       <CTASection
         title="Partner With Us"
         description="Join our network of technology and industry partners"
-        primaryButtonText="Get Started Today"
-        primaryButtonHref="https://applications.superguardian.com.au/"
-        secondaryButtonText="Contact Us"
-        secondaryButtonHref="/contact"
+        primaryButtonText="Start the Convo"
+        primaryButtonHref="/contact"
+        isExternal={false}
       />
     </>
   );

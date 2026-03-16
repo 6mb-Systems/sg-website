@@ -2,7 +2,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 
 export function ValueProposition() {
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-gray-50">
       <div className="container-width">
         <div className="mx-auto max-w-5xl text-center">
           <FadeIn direction="up">

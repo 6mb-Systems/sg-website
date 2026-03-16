@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AboutIntro } from "@/components/sections/about/AboutIntro";
 import { Values } from "@/components/sections/about/Values";
+import { FeatureCards } from "@/components/sections/home/FeatureCards";
 import { LeadershipTeam } from "@/components/sections/about/LeadershipTeam";
 import { ClientManagers } from "@/components/sections/about/ClientManagers";
 import { ServiceCards } from "@/components/sections/services/ServiceCards";
@@ -25,6 +26,7 @@ export default function WhoWeArePage() {
       />
       <AboutIntro />
       <Values />
+      <FeatureCards />
       <LeadershipTeam />
       <ClientManagers />
 

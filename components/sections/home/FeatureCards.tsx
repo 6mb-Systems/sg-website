@@ -29,9 +29,17 @@ const features = [
 
 export function FeatureCards() {
   return (
-    <section className="section-padding bg-gray-50">
+    <section className="relative overflow-hidden section-padding bg-white py-16 md:py-24">
       <div className="container-width">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
+            The SG Difference
+          </h2>
+          <p className="mt-4 text-lg text-gray-700 leading-7 font-medium">
+            Experience what makes SuperGuardian different
+          </p>
+        </div>
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
           {features.map((feature, index) => (
             <FadeIn key={feature.title} direction="up" delay={index * 0.1} className="h-full">
               <SpotlightCard variant="dark" className="h-full group">

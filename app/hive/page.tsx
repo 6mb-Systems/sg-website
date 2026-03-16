@@ -85,7 +85,7 @@ export default function HivePage() {
                   src="/hive_Banner%20for%20Webpage%20left.png"
                   alt="Hive platform - login and dashboard"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
@@ -94,7 +94,7 @@ export default function HivePage() {
                   src="/hive_Banner%20for%20Webpage%20right.png"
                   alt="Hive platform - dashboard and insights"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>

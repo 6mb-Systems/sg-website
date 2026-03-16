@@ -21,24 +21,6 @@ export default function CareersPage() {
               We are always on the lookout for talented, motivated individuals to join our team in Adelaide and Melbourne. We offer a supportive, flexible, and rewarding environment where your professional development is a priority.
             </p>
           </div>
-
-          <div className="mt-16 text-center">
-            <h3 className="text-2xl font-bold text-brand-blue">Current Opportunities</h3>
-            <p className="mt-4 text-gray-600">
-              All of our current job openings are advertised on SEEK. Click the link below to view our active listings and apply directly.
-            </p>
-            <div className="mt-8">
-              <Button size="lg" className="bg-brand-blue text-white hover:bg-brand-blue-600" asChild>
-                <a 
-                  href="https://www.seek.com.au/SuperGuardian-jobs" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  View Opportunities on SEEK
-                </a>
-              </Button>
-            </div>
-          </div>
         </div>
       </section>
 

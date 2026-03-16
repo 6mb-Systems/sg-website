@@ -83,7 +83,7 @@ export function LeadershipTeam() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-gray-50">
       <div className="container-width">
         <FadeIn direction="up">
           <div className="text-center">

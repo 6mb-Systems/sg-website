@@ -18,13 +18,19 @@ function getInitials(name: string): string {
 const team = [
   {
     name: "Jenna-lee Thiele",
-    role: "Senior Client Manager",
+    role: "Client Service Partner",
     image: "/profile_jenna.jpg",
     fullBio: [
       "Jenna has completed a Bachelor of Commerce (Accounting and Finance) at Flinders University. She is a Chartered Accountant (CA), completed her Professional Certificate in Self-Managed Super Funds, is RG146 qualified and is an SMSF Specialist Advisor (SSA).",
       "As a strategic problem solver, Jenna prides herself on understanding the specific needs of her clients and developing tailored solutions to suit their requirements.",
       "Jenna has been working in accounting and taxation since 2005 and has been specialising in SMSF since 2009.",
     ],
+  },
+  {
+    name: "Victoria Kogan",
+    role: "Client Service Partner",
+    image: "/profie_victoria.jpg",
+    fullBio: ["Victoria's full biography is coming soon."],
   },
   {
     name: "Ben Plail",
@@ -134,18 +140,38 @@ const team = [
       "Being a working mum and wife, Marilyn finds it both an honour and great responsibility to balance both. Marilyn feels thankful to be part of a squad that promotes work life balance and supports her in achieving her aspirations.",
     ],
   },
+  {
+    name: "Kathlyn Sace",
+    role: "Manager - Client Service Administration",
+    image: "/profile_kath.png",
+    fullBio: [
+      "Kathlyn joined SuperGuardian in 2020 after relocating from Manila to Adelaide, bringing with her a background in communications and client coordination. This role marked her first professional position in Australia, and she continues to be a valued member of the team.",
+      "She holds a degree in Broadcast Communication and brings strong organisational and communication skills to her work.",
+      "At SuperGuardian, Kathlyn plays a key role in supporting the administrative operations of the business. She oversees and mentors members of the administration team, helping to ensure processes run smoothly while maintaining a high standard of client service. Known for her leadership skills, ability to multitask, and collaborative approach, Kathlyn is committed to fostering a positive team environment and contributing to continuous improvement across the business.",
+    ],
+  },
+  {
+    name: "Joanne Burrows",
+    role: "Client Services Assistant",
+    image: "/profile_jo.png",
+    fullBio: [
+      "Jo Burrows brings a Diploma in Business Administration and a strong background in administration, operations, and client service. Before relocating to Australia, Jo built a diverse career in the UK across healthcare, education, and professional office environments.",
+      "Through these roles, she developed extensive experience in client service, administration, and operational support, working closely with individuals, families and professionals to provide practical assistance and resolve queries effectively. In the education sector, she received a government award for significantly improving student attendance through effective collaboration with families and support services.",
+      "In her role at SuperGuardian, Jo supports the team with strong organisational skills, attention to detail and a client-focused approach. Known for her approachable and empathetic nature, she excels at listening, communicating clearly and finding practical solutions, helping deliver a positive and efficient experience for clients of SuperGuardian.",
+    ],
+  },
 ];
 
 export function ClientManagers() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    <section className="section-padding bg-gray-50">
+    <section className="section-padding bg-white">
       <div className="container-width">
         <FadeIn direction="up">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-              Client Managers
+              Client Service Team
             </h2>
             <p className="mt-4 text-gray-600">
               Meet the experts supporting you

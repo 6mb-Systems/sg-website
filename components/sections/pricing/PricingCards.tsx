@@ -22,6 +22,7 @@ interface Plan {
   popular: boolean;
   features: string[];
   hasFeesDownload: boolean;
+  feesDownloadHref?: string;
 }
 
 const plans: Plan[] = [
@@ -40,7 +41,7 @@ const plans: Plan[] = [
       "Rollover support - $210 per member",
       "Trust deed preparation",
       "Fund establishment minutes and declaration",
-      "TFN & ABN applications (ATO timeframes vary from 1–28 days)",
+      "TFN & ABN applications (ATO timeframes vary from 1 to 28 days)",
       "Bank account establishment assistance",
       "Limited investment strategy forms and guide",
       "Death Benefit Nomination form and guide",
@@ -51,7 +52,7 @@ const plans: Plan[] = [
   {
     name: "Standard Administration",
     description: "for SMSFs on an eligible platform",
-    prices: [{ amount: "from $215", label: "per month" }],
+    prices: [{ amount: "$215", label: "per month" }],
     priceSubtitle: "including independent audit",
     timeline: "Ongoing service",
     badge: "Most Popular",
@@ -68,6 +69,7 @@ const plans: Plan[] = [
       "Term deposits via Australian Money Markets",
     ],
     hasFeesDownload: true,
+    feesDownloadHref: "/PDF/Standard-Fee-Schedule-2025-26-SuperGuardian.pdf",
   },
   {
     name: "Flexible Administration",
@@ -91,6 +93,7 @@ const plans: Plan[] = [
       "Private company shares, derivatives, options, warrants, artwork, crypto currency and other similar assets",
     ],
     hasFeesDownload: true,
+    feesDownloadHref: "/PDF/Flexible-Fee-Schedule-2025-26-SuperGuardian.pdf",
   },
 ];
 
@@ -109,7 +112,7 @@ export function PricingCards() {
           {plans.map((plan, index) => (
             <FadeIn key={plan.name} direction="up" delay={index * 0.1}>
               <div
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
+                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
               >
                 {/* Header band */}
                 <div className="group/header relative min-h-[7rem] overflow-hidden bg-brand-blue px-6 pb-5 pt-6">
@@ -122,12 +125,7 @@ export function PricingCards() {
                         {plan.name}
                       </h3>
                       <span
-                        className={cn(
-                          "shrink-0 rounded-full px-3 py-1 text-xs font-semibold",
-                          plan.popular
-                            ? "bg-white/20 text-white ring-1 ring-white/30"
-                            : "bg-white/10 text-white/80 ring-1 ring-white/20"
-                        )}
+                        className="ml-auto shrink-0 rounded-full bg-brand-orange-50 px-2.5 py-0.5 text-xs font-medium text-brand-orange"
                       >
                         {plan.badge}
                       </span>
@@ -190,8 +188,10 @@ export function PricingCards() {
 
                   {plan.hasFeesDownload && (
                     <a
-                      href="#"
-                      className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand-blue transition-colors hover:text-brand-blue-700"
+                      href={plan.feesDownloadHref ?? "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex items-center justify-center gap-1.5 self-center text-sm font-medium text-brand-blue transition-colors hover:text-brand-blue-700"
                     >
                       <Download className="h-4 w-4" />
                       Download full schedule of fees &amp; charges
@@ -201,9 +201,9 @@ export function PricingCards() {
                   <Button
                     className={cn(
                       "mt-5 w-full gap-2",
-                      plan.popular ? "" : "border-gray-300"
+                      "bg-brand-orange text-white hover:bg-brand-orange/90"
                     )}
-                    variant={plan.popular ? "default" : "outline"}
+                    variant="default"
                     asChild
                   >
                     <a

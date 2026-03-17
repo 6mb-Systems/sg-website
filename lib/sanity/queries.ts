@@ -15,7 +15,8 @@ export interface SanityPost {
     };
     alt?: string;
   };
-  body?: PortableTextBlock[];
+  // Portable Text blocks + custom blocks (e.g. richTableBlock)
+  body?: Array<PortableTextBlock | Record<string, unknown>>;
   category?: {
     title: string;
     slug: { current: string };

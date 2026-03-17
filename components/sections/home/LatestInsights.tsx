@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, Calendar, Clock, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
 import Image from "next/image";
@@ -45,7 +45,8 @@ export async function LatestInsights() {
             ? urlFor(post.mainImage).width(600).height(340).url()
             : null;
           const date = new Date(post.publishedAt).toLocaleDateString("en-AU", {
-            month: "short",
+            day: "numeric",
+            month: "long",
             year: "numeric",
           });
           return {
@@ -55,6 +56,7 @@ export async function LatestInsights() {
             date,
             slug,
             image: imageUrl,
+            readTime: post.readTime ? `${post.readTime} min read` : "5 min read",
           };
         })
       : fallbackInsights;
@@ -76,7 +78,8 @@ export async function LatestInsights() {
             <FadeIn key={insight.slug} direction="up" delay={index * 0.1}>
               <Link
                 href={`/education/${insight.slug}`}
-                className="relative block h-full overflow-hidden rounded-xl border border-gray-200"
+                className="relative flex h-full min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
+                aria-label={`Open article: ${insight.title}`}
               >
               <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
               <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
@@ -102,33 +105,42 @@ export async function LatestInsights() {
               </svg>
 
               {insight.image && (
-                <div className="relative z-10 h-48 w-full overflow-hidden bg-brand-blue/5">
+                <div className="relative z-10 h-[210px] w-full overflow-hidden bg-brand-blue/5">
                   <Image
                     src={insight.image}
                     alt={insight.title}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
               )}
 
-              <div className="relative z-10 flex flex-col flex-grow p-6">
+              <article className="relative z-10 flex flex-1 flex-col p-6">
                 <div className="flex items-center justify-between">
                   <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
                     {insight.type}
                   </span>
-                  <span className="text-xs text-gray-500">{insight.date}</span>
+                  <span className="flex items-center gap-2 text-xs text-gray-500">
+                    <Calendar className="h-3.5 w-3.5" />
+                    {insight.date}
+                  </span>
                 </div>
                 <h3 className="mt-4 text-lg font-semibold text-gray-900">
                   {insight.title}
                 </h3>
                 <p className="mt-2 text-sm text-gray-600 flex-grow">{insight.description}</p>
-                <span className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange">
-                  <FileText className="mr-1 h-4 w-4" />
-                  Read more
-                </span>
-              </div>
+                <div className="mt-auto flex items-center justify-between pt-4 text-xs text-gray-500">
+                  <span className="inline-flex items-center text-sm font-medium text-brand-orange">
+                    <FileText className="mr-1 h-4 w-4" />
+                    Read article
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="h-3.5 w-3.5" />
+                    {"readTime" in insight ? (insight as any).readTime : ""}
+                  </span>
+                </div>
+              </article>
             </Link>
             </FadeIn>
           ))}

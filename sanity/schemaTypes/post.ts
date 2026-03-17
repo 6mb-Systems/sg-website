@@ -49,6 +49,7 @@ export const post = defineType({
       type: "array",
       of: [
         { type: "block" },
+        { type: "richTableBlock" },
         {
           type: "image",
           options: { hotspot: true },

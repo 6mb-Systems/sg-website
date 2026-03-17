@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Search, FileText, Video, Calendar, Download } from "lucide-react";
+import Image from "next/image";
+import { Search, FileText, Video, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "@/components/ui/fade-in";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +16,8 @@ export interface Article {
   date: string;
   readTime: string;
   downloads: number;
+  imageUrl?: string | null;
+  imageAlt?: string | null;
 }
 
 export interface WebinarItem {
@@ -136,7 +139,11 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
                 <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {filteredArticles.map((article, index) => (
                     <FadeIn key={article.slug} direction="up" delay={index * 0.05}>
-                      <article className="relative h-full overflow-hidden rounded-xl border border-gray-200">
+                      <Link
+                        href={`/education/${article.slug}`}
+                        className="relative flex h-full min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
+                        aria-label={`Open article: ${article.title}`}
+                      >
                         <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
                         <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
                           <defs>
@@ -146,35 +153,43 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
                           </defs>
                           <rect width="100%" height="100%" fill={`url(#edu-article-hex-${index})`} />
                         </svg>
-                        <div className="relative z-10 flex flex-col p-6">
-                        <div className="flex items-center justify-between">
-                          <span className="rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
-                            {article.category}
-                          </span>
-                          <span className="flex items-center gap-1 text-xs text-gray-500">
-                            <Download className="h-3 w-3" />
-                            {article.downloads}
-                          </span>
-                        </div>
-                        <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                          {article.title}
-                        </h3>
-                        <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-grow">
-                          {article.excerpt}
-                        </p>
-                        <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-                          <span>📅 {article.date}</span>
-                          <span>⏱ {article.readTime}</span>
-                        </div>
-                        <Link
-                          href={`/education/${article.slug}`}
-                          className="mt-4 inline-flex items-center text-sm font-medium text-brand-orange"
-                        >
-                          <FileText className="mr-1 h-4 w-4" />
-                          Download PDF
-                        </Link>
-                        </div>
-                      </article>
+                        {article.imageUrl ? (
+                          <div className="relative z-10 h-[210px] w-full overflow-hidden bg-brand-blue/5">
+                            <Image
+                              src={article.imageUrl}
+                              alt={article.imageAlt || article.title}
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                          </div>
+                        ) : null}
+
+                        <article className="relative z-10 flex flex-1 flex-col p-6">
+                          <div className="flex items-center justify-between">
+                            <span className="rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
+                              {article.category}
+                            </span>
+                            <span className="flex items-center gap-2 text-xs text-gray-500">
+                              <Calendar className="h-3.5 w-3.5" />
+                              {article.date}
+                            </span>
+                          </div>
+                          <h3 className="mt-4 text-lg font-semibold text-gray-900">
+                            {article.title}
+                          </h3>
+                          <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-grow">
+                            {article.excerpt}
+                          </p>
+                          <div className="mt-auto flex items-center justify-between pt-4 text-xs text-gray-500">
+                            <span className="inline-flex items-center text-sm font-medium text-brand-orange">
+                              <FileText className="mr-1 h-4 w-4" />
+                              Read article
+                            </span>
+                            <span>⏱ {article.readTime}</span>
+                          </div>
+                        </article>
+                      </Link>
                     </FadeIn>
                   ))}
                 </div>

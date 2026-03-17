@@ -3,6 +3,7 @@ import { EducationHub } from "@/components/sections/education/EducationHub";
 import { PageHero } from "@/components/sections/shared/PageHero";
 import { getPosts, getWebinars, getCategories } from "@/lib/sanity/queries";
 import type { Article, WebinarItem } from "@/components/sections/education/EducationHub";
+import { urlFor } from "@/lib/sanity/client";
 
 export const revalidate = 60;
 
@@ -138,6 +139,7 @@ const fallbackCategories = [
 
 function formatDate(isoDate: string): string {
   return new Date(isoDate).toLocaleDateString("en-AU", {
+    day: "numeric",
     month: "long",
     year: "numeric",
   });
@@ -169,6 +171,8 @@ export default async function EducationPage() {
         date: formatDate(p.publishedAt),
         readTime: p.readTime ? `${p.readTime} min read` : "5 min read",
         downloads: p.downloadCount ?? 0,
+        imageUrl: p.mainImage?.asset ? urlFor(p.mainImage).width(800).height(450).url() : null,
+        imageAlt: p.mainImage?.alt ?? null,
       }))
     : fallbackArticles;
 

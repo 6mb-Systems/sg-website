@@ -68,6 +68,64 @@ function renderFallbackHtml(content: string): string {
     .join("");
 }
 
+const tableCellPortableTextComponents: PortableTextComponents = {
+  block: {
+    // Render cell content as paragraphs so separate blocks appear on new lines
+    normal: ({ children }) => <p className="m-0 text-gray-700">{children}</p>,
+  },
+  marks: {
+    strong: ({ children }) => (
+      <strong className="font-semibold text-gray-900">{children}</strong>
+    ),
+    em: ({ children }) => <em>{children}</em>,
+    link: ({ value, children }) => (
+      <a
+        href={value?.href}
+        target={value?.href?.startsWith("http") ? "_blank" : undefined}
+        rel={value?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
+        className="text-brand-blue underline hover:text-brand-blue-600"
+      >
+        {children}
+      </a>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="list-disc pl-5 my-1 space-y-1 text-gray-700">
+        {children}
+      </ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal pl-5 my-1 space-y-1 text-gray-700">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li>{children}</li>,
+    number: ({ children }) => <li>{children}</li>,
+  },
+};
+
+type RichTableBlockValue = {
+  _type: "richTableBlock" | "richTable";
+  rows?: Array<{
+    _key?: string;
+    title?: string;
+    cells?: Array<{
+      _key?: string;
+      content?: unknown[];
+    }>;
+  }>;
+  columnHeaders?: Array<{
+    _key?: string;
+    title?: string;
+    cellIndex: number;
+  }>;
+  hasColumnTitles?: boolean;
+  hasRowTitles?: boolean;
+};
+
 const portableTextComponents: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
@@ -144,6 +202,78 @@ const portableTextComponents: PortableTextComponents = {
             </figcaption>
           )}
         </figure>
+      );
+    },
+    richTableBlock: ({ value }) => {
+      const table = value as RichTableBlockValue;
+      const rows = table.rows ?? [];
+      if (!rows.length) return null;
+
+      const showColumnTitles = table.hasColumnTitles !== false;
+      // Only render a row-title column if the table actually uses row titles.
+      const showRowTitles =
+        table.hasRowTitles === true &&
+        rows.some((r) => Boolean(r.title && r.title.trim().length > 0));
+
+      const headersByIndex = new Map<number, { _key?: string; title?: string; cellIndex: number }>();
+      for (const h of table.columnHeaders ?? []) {
+        const existing = headersByIndex.get(h.cellIndex);
+        // Prefer the header that actually has a title (guards against plugins producing empty duplicates)
+        if (!existing || (!existing.title && h.title)) headersByIndex.set(h.cellIndex, h);
+      }
+      const headers = Array.from(headersByIndex.values()).sort(
+        (a, b) => a.cellIndex - b.cellIndex
+      );
+      const hasAnyHeaderTitle = headers.some((h) => Boolean(h.title && h.title.trim().length > 0));
+
+      return (
+        <div className="my-8 overflow-x-auto">
+          <table className="w-full border-collapse text-sm">
+            {showColumnTitles && headers.length > 0 && hasAnyHeaderTitle && (
+              <thead>
+                <tr>
+                  {showRowTitles && (
+                    <th className="border border-gray-200 bg-gray-50 px-3 py-2 text-left font-semibold text-gray-900">
+                      {/* Row title header */}
+                    </th>
+                  )}
+                  {headers.map((h) => (
+                    <th
+                      key={h._key ?? String(h.cellIndex)}
+                      className="border border-gray-200 bg-gray-50 px-3 py-2 text-left font-semibold text-gray-900"
+                    >
+                      {h.title ?? ""}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {rows.map((row, rowIdx) => (
+                <tr key={row._key ?? String(rowIdx)}>
+                  {showRowTitles && (
+                    <th className="border border-gray-200 bg-gray-50 px-3 py-2 align-top font-semibold text-gray-900">
+                      {row.title ?? ""}
+                    </th>
+                  )}
+                  {(row.cells ?? []).map((cell, cellIdx) => (
+                    <td
+                      key={cell._key ?? `${rowIdx}-${cellIdx}`}
+                      className="border border-gray-200 px-3 py-2 align-top"
+                    >
+                      {cell.content?.length ? (
+                        <PortableText
+                          value={cell.content as any}
+                          components={tableCellPortableTextComponents}
+                        />
+                      ) : null}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       );
     },
   },
@@ -257,7 +387,7 @@ export default async function ArticlePage({ params }: PageProps) {
             {post.body && (
               <div className="mt-12 prose prose-lg max-w-none">
                 <PortableText
-                  value={post.body}
+                  value={post.body as any}
                   components={portableTextComponents}
                 />
               </div>

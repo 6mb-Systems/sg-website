@@ -1,6 +1,12 @@
-import { defineConfig } from "sanity";
+import { buildLegacyTheme, defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./sanity/schemaTypes";
+import { richTablePlugin } from "sanity-plugin-rich-table";
+
+const studioTheme = buildLegacyTheme({
+  // Keep Studio surfaces pure white (matches preview tweak)
+  "--component-bg": "#fff",
+});
 
 const projectId =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ||
@@ -15,7 +21,11 @@ export default defineConfig({
   title: "SuperGuardian Education",
   projectId,
   dataset,
-  plugins: [structureTool()],
+  theme: studioTheme,
+  plugins: [
+    structureTool(),
+    richTablePlugin({}),
+  ],
   schema: {
     types: schemaTypes,
   },

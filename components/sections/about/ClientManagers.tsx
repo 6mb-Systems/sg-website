@@ -29,8 +29,13 @@ const team = [
   {
     name: "Victoria Kogan",
     role: "Client Service Partner",
-    image: "/profie_victoria.jpg",
-    fullBio: ["Victoria's full biography is coming soon."],
+    image: "/profile_victoria.jpg",
+    fullBio: [
+      "Victoria is an experienced CA SMSF specialist who has a deep passion for the Superannuation Industry and providing her clients with expert SMSF guidance.",
+      "Prior to joining SuperGuardian, Victoria spent 6 years auditing both SMSF and Large APRA Funds and an additional 10 years heading up the Superannuation area of a medium sized chartered accounting firm. With Victoria's strong background in superannuation, compliance and client relationship management, her aim is to provide her clients with technical guidance and hands on support in an ever-evolving industry.",
+      "Victoria holds a Bachelor of Business (Accountancy) degree from RMIT University and is a member of the ICAANZ where she has obtained her CA SMSF Specialist designation. Victoria is committed to ongoing professional development to stay ahead of the regulatory changes in the SMSF landscape.",
+      "Outside of work, Victoria enjoys travel and spending time with her young family.",
+    ],
   },
   {
     name: "Ben Plail",

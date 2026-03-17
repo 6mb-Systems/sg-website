@@ -52,7 +52,7 @@ const plans: Plan[] = [
   {
     name: "Standard Administration",
     description: "for SMSFs on an eligible platform",
-    prices: [{ amount: "$215", label: "per month" }],
+    prices: [{ amount: "from $215", label: "per month" }],
     priceSubtitle: "including independent audit",
     timeline: "Ongoing service",
     badge: "Most Popular",

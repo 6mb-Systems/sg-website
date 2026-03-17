@@ -37,7 +37,7 @@ export function ProcessSteps() {
               Our Process
             </h2>
             <p className="mt-4 text-gray-600">
-              Simple, transparent, and efficient
+              Simple, transparent and efficient
             </p>
           </div>
         </FadeIn>

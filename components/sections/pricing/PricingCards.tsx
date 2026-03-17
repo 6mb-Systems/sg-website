@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle, Download, ArrowRight } from "lucide-react";
+import { CheckCircle, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/constants";
@@ -90,7 +90,7 @@ const plans: Plan[] = [
       "Fund Mailhouse",
       "Foreign listed investments",
       "Unlisted managed funds",
-      "Private company shares, derivatives, options, warrants, artwork, crypto currency and other similar assets",
+      "Private company, derivatives, options, warrants, artwork, crypto currency and other similar assets",
     ],
     hasFeesDownload: true,
     feesDownloadHref: "/PDF/Flexible-Fee-Schedule-2025-26-SuperGuardian.pdf",
@@ -212,7 +212,6 @@ export function PricingCards() {
                       rel="noopener noreferrer"
                     >
                       Get Started
-                      <ArrowRight className="h-4 w-4" />
                     </a>
                   </Button>
                 </div>

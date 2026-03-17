@@ -162,7 +162,7 @@ const audiences: Audience[] = [
           </>
         ),
       },
-      { question: "How much does it cost to run an SMSF?", answer: "Costs vary based on fund complexity. Our services start from $215/month for administration." },
+      { question: "How much does it cost to run an SMSF?", answer: "Costs vary based on fund complexity. Our services start from $215 permonth for administration." },
       { question: "Can I invest in property through my SMSF?", answer: "Yes, SMSFs can invest in property, including residential and commercial real estate, subject to certain rules." },
       { question: "What happens if I make a mistake?", answer: "We're here to help you stay compliant. Our proactive monitoring helps identify and resolve issues before they become problems." },
     ],

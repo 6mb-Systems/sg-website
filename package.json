@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "studio": "sanity dev --port 3333",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -27,8 +28,11 @@
     "framer-motion": "^12.29.2",
     "lucide-react": "^0.563.0",
     "next": "^16.1.6",
+    "next-sanity": "^12.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "sanity": "^5.16.0",
+    "styled-components": "^6.3.11",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   },

@@ -3,9 +3,10 @@ import { ArrowRight, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
 import Image from "next/image";
+import { getPosts } from "@/lib/sanity/queries";
+import { urlFor } from "@/lib/sanity/client";
 
-// Placeholder data - will be replaced with Sanity data later
-const insights = [
+const fallbackInsights = [
   {
     type: "Fact Sheet",
     title: "2024 SMSF Compliance Update",
@@ -32,7 +33,32 @@ const insights = [
   },
 ];
 
-export function LatestInsights() {
+export async function LatestInsights() {
+  const sanityPosts = await getPosts(3);
+
+  const insights =
+    sanityPosts.length > 0
+      ? sanityPosts.map((post) => {
+          const slug =
+            typeof post.slug === "string" ? post.slug : post.slug.current;
+          const imageUrl = post.mainImage?.asset
+            ? urlFor(post.mainImage).width(600).height(340).url()
+            : null;
+          const date = new Date(post.publishedAt).toLocaleDateString("en-AU", {
+            month: "short",
+            year: "numeric",
+          });
+          return {
+            type: post.category?.title ?? "Article",
+            title: post.title,
+            description: post.excerpt ?? "",
+            date,
+            slug,
+            image: imageUrl,
+          };
+        })
+      : fallbackInsights;
+
   return (
     <section className="section-padding bg-white">
       <div className="container-width">
@@ -52,7 +78,6 @@ export function LatestInsights() {
                 href={`/education/${insight.slug}`}
                 className="relative block h-full overflow-hidden rounded-xl border border-gray-200"
               >
-              {/* Light grey hex gradient background (match Certifications style) */}
               <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
               <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
                 <defs>
@@ -76,18 +101,18 @@ export function LatestInsights() {
                 <rect width="100%" height="100%" fill={`url(#insight-hex-${index})`} />
               </svg>
 
-              {/* Image Section */}
-              <div className="relative z-10 h-48 w-full overflow-hidden bg-brand-blue/5">
-                <Image
-                  src={insight.image}
-                  alt={insight.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
+              {insight.image && (
+                <div className="relative z-10 h-48 w-full overflow-hidden bg-brand-blue/5">
+                  <Image
+                    src={insight.image}
+                    alt={insight.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+              )}
 
-              {/* Content Section */}
               <div className="relative z-10 flex flex-col flex-grow p-6">
                 <div className="flex items-center justify-between">
                   <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">

@@ -1,4 +1,5 @@
 import { sanityClient, isSanityConfigured } from "./client";
+import type { PortableTextBlock } from "@portabletext/types";
 
 // Type definitions
 export interface SanityPost {
@@ -14,7 +15,7 @@ export interface SanityPost {
     };
     alt?: string;
   };
-  body?: unknown[];
+  body?: PortableTextBlock[];
   category?: {
     title: string;
     slug: { current: string };

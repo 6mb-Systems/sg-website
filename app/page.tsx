@@ -5,6 +5,8 @@ import { TechnologyPartners } from "@/components/sections/home/TechnologyPartner
 import { LatestInsights } from "@/components/sections/home/LatestInsights";
 import { CTASection } from "@/components/sections/shared/CTASection";
 
+export const revalidate = 60;
+
 export default function HomePage() {
   return (
     <>

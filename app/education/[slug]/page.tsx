@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Download, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { notFound } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
@@ -377,13 +377,6 @@ export default async function ArticlePage({ params }: PageProps) {
               </div>
             )}
 
-            <div className="mt-8">
-              <Button>
-                <Download className="mr-2 h-4 w-4" />
-                Download PDF
-              </Button>
-            </div>
-
             {post.body && (
               <div className="mt-12 prose prose-lg max-w-none">
                 <PortableText
@@ -445,13 +438,6 @@ export default async function ArticlePage({ params }: PageProps) {
                 </span>
               </div>
             </header>
-
-            <div className="mt-8">
-              <Button>
-                <Download className="mr-2 h-4 w-4" />
-                Download PDF
-              </Button>
-            </div>
 
             <div
               className="mt-12 prose prose-lg max-w-none"

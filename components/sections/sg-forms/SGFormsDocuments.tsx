@@ -20,8 +20,8 @@ const eventBasedForms: FormItem[] = [
   { label: "Pension Consolidation (2025)", file: "Pension-Consolidation-2025.pdf" },
   { label: "Pension Commutation (2025)", file: "Pension-Commutation-2025.pdf" },
   { label: "Wind-Up Instruction (2025)", file: "Wind-Up-Instruction-2025.pdf" },
-  { label: "LRBA — Private Lender (2025)", file: "LRBA-Private-Lender-2025.pdf" },
-  { label: "LRBA — Commercial Lender (2025)", file: "LRBA-Commercial-Lender-2025.pdf" },
+  { label: "LRBA Private Lender (2025)", file: "LRBA-Private-Lender-2025.pdf" },
+  { label: "LRBA Commercial Lender (2025)", file: "LRBA-Commercial-Lender-2025.pdf" },
 ];
 
 function FormLink({ item }: { item: FormItem }) {

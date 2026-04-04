@@ -15,7 +15,7 @@ import { PageHero } from "@/components/sections/shared/PageHero";
 export const metadata: Metadata = {
   title: "Who We Are",
   description:
-    "SuperGuardian has been passionately supporting Trustees, Financial Advisers and Accountants for over 24 years.",
+    "SuperGuardian has been passionately supporting Trustees, Financial Advisers and Accountants for over 24 years",
 };
 
 export default function WhoWeArePage() {
@@ -23,7 +23,7 @@ export default function WhoWeArePage() {
     <>
       <PageHero
         title="Who We Are"
-        description="SuperGuardian has been passionately supporting Trustees, Financial Advisers and Accountants for over 24 years."
+        description="SuperGuardian has been passionately supporting Trustees, Financial Advisers and Accountants for over 24 years"
       />
       <AboutIntro />
       <Values />
@@ -35,11 +35,11 @@ export default function WhoWeArePage() {
       <div id="what-we-do" className="scroll-mt-[8rem]">
         <PageHero
           title="What We Do"
-          description="Comprehensive SMSF services designed to take the complexity out of self-managed superannuation, allowing you to focus on what matters most."
+          description="Comprehensive SMSF services designed to take the complexity out of self-managed superannuation, allowing you to focus on what matters most"
         />
         <ServiceCards />
-        <ProcessSteps />
         <SpecialistServices />
+        <ProcessSteps />
       </div>
 
       {/* Who We Help Section - scroll-margin so hash link shows full hero below header */}
@@ -48,7 +48,7 @@ export default function WhoWeArePage() {
           <div id="advisers" className="scroll-mt-[8rem]">
             <PageHero
               title="Who We Help"
-              description="Tailored SMSF solutions for financial advisers, accounting practices, and SMSF trustees across Australia."
+              description="Tailored SMSF solutions for financial advisers, accounting practices, and SMSF trustees across Australia"
             />
           </div>
         </div>

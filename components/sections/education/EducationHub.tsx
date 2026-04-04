@@ -39,9 +39,8 @@ interface EducationHubProps {
 }
 
 const tabs = [
-  { id: "articles", label: "Fact Sheets & Articles", icon: FileText },
-  { id: "webinars", label: "Webinars", icon: Video },
-  { id: "events", label: "Events", icon: Calendar },
+  { id: "articles", label: "Fact Sheets & Blogs", icon: FileText },
+  { id: "webinars", label: "Webinars & Events", icon: Video },
 ];
 
 export function EducationHub({ articles, webinars, categories }: EducationHubProps) {
@@ -110,7 +109,7 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
               >
                 <div className="text-center">
                   <h2 className="text-2xl font-bold text-brand-blue">
-                    Fact Sheets & Articles
+                    Fact Sheets & Blogs
                   </h2>
                   <p className="mt-2 text-gray-600">
                     Stay informed with our expert insights and guides
@@ -207,7 +206,7 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
               >
                 <div className="text-center">
                   <h2 className="text-2xl font-bold text-brand-blue">
-                    Webinars
+                    Webinars & Events
                   </h2>
                   <p className="mt-2 text-gray-600">
                     Interactive learning with our SMSF experts
@@ -278,25 +277,6 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
               </motion.div>
             )}
 
-            {/* Events Tab */}
-            {activeTab === "events" && (
-              <motion.div
-                key="events"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="text-center py-12"
-              >
-                <Calendar className="mx-auto h-12 w-12 text-gray-400" />
-                <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                  Coming Soon
-                </h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  We&apos;re planning exciting events. Check back soon!
-                </p>
-              </motion.div>
-            )}
           </AnimatePresence>
         </div>
       </div>

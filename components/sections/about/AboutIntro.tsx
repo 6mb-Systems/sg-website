@@ -2,14 +2,13 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { CountUp } from "@/components/ui/count-up";
 import Image from "next/image";
 
-const stats: { end: number; suffix: string; label: string; decimals?: number; link?: string }[] = [
+const stats: { end: number; suffix: string; label: string; decimals?: number }[] = [
   { end: 3500, suffix: "+", label: "Funds" },
   { 
     end: 4.9, 
     suffix: "★", 
     decimals: 1, 
-    label: "Client Satisfaction",
-    link: "https://www.productreview.com.au/listings/superguardian"
+    label: "Client Satisfaction"
   },
   { end: 24, suffix: "+", label: "Years Industry Experience" },
 ];
@@ -73,15 +72,9 @@ export function AboutIntro() {
 
                 return (
                   <FadeIn key={stat.label} direction="up" delay={0.5 + index * 0.1}>
-                    {stat.link ? (
-                      <a href={stat.link} target="_blank" rel="noopener noreferrer" className="block group">
-                        {content}
-                      </a>
-                    ) : (
-                      <div className="group cursor-default">
-                        {content}
-                      </div>
-                    )}
+                    <div className="group cursor-default">
+                      {content}
+                    </div>
                   </FadeIn>
                 );
               })}

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { notFound } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/sanity/queries";
@@ -386,18 +385,6 @@ export default async function ArticlePage({ params }: PageProps) {
               </div>
             )}
 
-            <div className="mt-16 rounded-xl bg-brand-blue-50 p-8 text-center">
-              <h2 className="text-2xl font-bold text-brand-blue">
-                Need Help With {categoryTitle}?
-              </h2>
-              <p className="mt-2 text-gray-600">
-                Our expert team can review your SMSF and ensure you meet all
-                requirements.
-              </p>
-              <Button className="mt-6" asChild>
-                <Link href="/contact">Contact Us</Link>
-              </Button>
-            </div>
           </div>
         </div>
       </article>
@@ -446,18 +433,6 @@ export default async function ArticlePage({ params }: PageProps) {
               }}
             />
 
-            <div className="mt-16 rounded-xl bg-brand-blue-50 p-8 text-center">
-              <h2 className="text-2xl font-bold text-brand-blue">
-                Need Help With Compliance?
-              </h2>
-              <p className="mt-2 text-gray-600">
-                Our expert team can review your SMSF and ensure you meet all
-                requirements.
-              </p>
-              <Button className="mt-6" asChild>
-                <Link href="/contact">Contact Us</Link>
-              </Button>
-            </div>
           </div>
         </div>
       </article>

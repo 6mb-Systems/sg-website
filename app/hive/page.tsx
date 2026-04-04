@@ -3,7 +3,7 @@ import Image from "next/image";
 import { HivePattern } from "@/components/sections/shared/PageHero";
 import { CTASection } from "@/components/sections/shared/CTASection";
 import { FadeIn } from "@/components/ui/fade-in";
-import { CheckCircle, ChevronDown } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -25,7 +25,7 @@ const TAGLINE =
 const KEY_FEATURES = [
   "Consolidated, up-to-date fund information and identification of strategic opportunities (1-click to high value datasets)",
   "Simple and secure document sharing for trust deeds, financial reports, meeting minutes and other confidential, fund-critical records",
-  "Task tracking and workflow transparency with notifications—action requests directly from email or within Hive",
+  "Task tracking and workflow transparency with notifications, action requests directly from email or within Hive",
   "Real-time visibility over outstanding items and document status",
   "Integration with Class and Microsoft SharePoint for up-to-date SMSF reporting, including where data feeds are unavailable or supplementary information is required for audit",
   "Multi-factor authentication (MFA) and OTP-based access for secure document viewing",
@@ -44,7 +44,7 @@ const CYBERSECURITY_ITEMS = [
   "AWS-hosted production environment with VPC isolation, web application firewall (WAF), load balancers and CloudFront",
   "Encryption and access controls, including IAM policy enforcement, MFA, secure secrets management and blocked public access to storage",
   "Regular vulnerability management, including weekly scans and defined remediation processes",
-  "Independent penetration testing—the Hive cloud application successfully passed testing with only minor fixes required",
+  "Independent penetration testing, the Hive cloud application successfully passed testing with only minor fixes required",
   "Backup and resilience controls, including daily database backups and tested restore procedures",
 ];
 
@@ -134,8 +134,8 @@ export default function HivePage() {
                   >
                     <AccordionTrigger className="hover:no-underline py-6 text-left font-semibold text-gray-900 group">
                       <div className="flex items-start gap-3">
-                        <CheckCircle className="h-6 w-6 shrink-0 text-brand-blue mt-0.5" />
-                        <span>{feature.split(" (")[0].split(", ")[0].split("—")[0]}</span>
+                        <CheckCircle className="h-6 w-6 shrink-0 text-green-500 mt-0.5" />
+                        <span>{feature.split(" (")[0].split(", ")[0]}</span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-6 pt-0 pl-9 text-gray-700 leading-relaxed">
@@ -165,27 +165,15 @@ export default function HivePage() {
             </div>
           </FadeIn>
 
-          <div className="mt-12 max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="w-full space-y-4">
-              {STRATEGIC_ADVANTAGES.map((item, index) => (
-                <FadeIn key={index} direction="up" delay={index * 0.08}>
-                  <AccordionItem
-                    value={`advantage-${index}`}
-                    className="rounded-xl border border-gray-200 bg-white px-6 data-[state=open]:bg-brand-blue-50/30 transition-colors"
-                  >
-                    <AccordionTrigger className="hover:no-underline py-6 text-left font-semibold text-gray-900 group">
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-6 w-6 shrink-0 text-green-500 mt-0.5" />
-                        <span>{item.split(", ")[0]}</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-6 pt-0 pl-9 text-gray-700 leading-relaxed">
-                      {item}
-                    </AccordionContent>
-                  </AccordionItem>
-                </FadeIn>
-              ))}
-            </Accordion>
+          <div className="mt-12 max-w-4xl mx-auto space-y-4">
+            {STRATEGIC_ADVANTAGES.map((item, index) => (
+              <FadeIn key={index} direction="up" delay={index * 0.08}>
+                <div className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-6">
+                  <CheckCircle className="h-6 w-6 shrink-0 text-green-500 mt-0.5" aria-hidden />
+                  <p className="text-gray-700 leading-relaxed">{item}</p>
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>
@@ -218,7 +206,7 @@ export default function HivePage() {
                     <rect width="100%" height="100%" fill={`url(#hive-security-hex-${index})`} />
                   </svg>
                   <div className="relative z-10 flex h-full items-start gap-3 p-6">
-                    <CheckCircle className="h-6 w-6 shrink-0 text-brand-blue mt-0.5" />
+                    <CheckCircle className="h-6 w-6 shrink-0 text-green-500 mt-0.5" />
                     <span className="text-gray-700 leading-relaxed">{item}</span>
                   </div>
                 </div>

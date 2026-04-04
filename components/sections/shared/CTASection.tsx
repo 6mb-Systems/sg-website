@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
@@ -6,7 +7,7 @@ import { HivePattern } from "@/components/sections/shared/PageHero";
 interface CTASectionProps {
   title: string;
   subtitle?: string;
-  description?: string;
+  description?: ReactNode;
   primaryButtonText: string;
   primaryButtonHref: string;
   secondaryButtonText?: string;

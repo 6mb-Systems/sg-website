@@ -33,12 +33,16 @@ const existingSMSFSteps: Step[] = [
 
 type SMSFType = "new" | "existing";
 
-export function PricingProcess() {
+interface PricingProcessProps {
+  className?: string;
+}
+
+export function PricingProcess({ className }: PricingProcessProps) {
   const [activeType, setActiveType] = useState<SMSFType>("new");
   const steps = activeType === "new" ? newSMSFSteps : existingSMSFSteps;
 
   return (
-    <section className="section-padding bg-white">
+    <section className={cn("section-padding", className ?? "bg-white")}>
       <div className="container-width">
         <FadeIn direction="up">
           <div className="text-center">

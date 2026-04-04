@@ -54,7 +54,7 @@ export function Certifications() {
               Our Compliance
             </h2>
             <p className="mt-4 text-gray-600">
-            As a service provider, we understand the importance of providing clear information about our security practices, so that our clients can feel confident in choosing us as a trusted provider. We are proactive about identifying and mitigating risks, implementing best practices and continuously developing ways to improve.
+              SuperGuardian recognises that the confidentiality, integrity and availability of the information and data we create, maintain and host are vital to the success of our business and the privacy of our clients and partners. As a service provider, we are committed to providing clear, transparent information about our security practices so our clients can feel confident in choosing us as a trusted provider, supported by our proactive approach to identifying and mitigating risks, implementing best practices, and continuously improving.
             </p>
           </div>
         </FadeIn>

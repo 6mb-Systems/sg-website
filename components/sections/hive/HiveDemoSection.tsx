@@ -14,7 +14,7 @@ export function HiveDemoSection() {
         <div className="mx-auto max-w-3xl text-center">
           <FadeIn direction="up">
             <h2 className="text-4xl font-bold text-white md:text-5xl">
-              Book a demo today
+              Book a Demo Today
             </h2>
           </FadeIn>
           <FadeIn direction="up" delay={0.1}>

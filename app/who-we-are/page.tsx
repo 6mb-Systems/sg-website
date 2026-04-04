@@ -6,7 +6,7 @@ import { TestimonialCarousel } from "@/components/sections/who-we-help/Testimoni
 import { LeadershipTeam } from "@/components/sections/about/LeadershipTeam";
 import { ClientManagers } from "@/components/sections/about/ClientManagers";
 import { ServiceCards } from "@/components/sections/services/ServiceCards";
-import { ProcessSteps } from "@/components/sections/services/ProcessSteps";
+import { PricingProcess } from "@/components/sections/pricing/PricingProcess";
 import { SpecialistServices } from "@/components/sections/services/SpecialistServices";
 import { AudienceTabs } from "@/components/sections/who-we-help/AudienceTabs";
 import { CTASection } from "@/components/sections/shared/CTASection";
@@ -39,7 +39,7 @@ export default function WhoWeArePage() {
         />
         <ServiceCards />
         <SpecialistServices />
-        <ProcessSteps />
+        <PricingProcess className="bg-gray-50" />
       </div>
 
       {/* Who We Help Section - scroll-margin so hash link shows full hero below header */}

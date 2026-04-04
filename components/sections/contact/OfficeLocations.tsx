@@ -23,7 +23,7 @@ export function OfficeLocations() {
               Our Locations
             </h2>
             <p className="mt-4 text-gray-600">
-              We&apos;re easy to find, with offices in multiple locations
+              We&apos;re easy to find in our city locations and if you&apos;re not nearby, we provide the same seamless service virtually nationwide
             </p>
           </div>
         </FadeIn>

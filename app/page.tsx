@@ -17,7 +17,13 @@ export default function HomePage() {
       <LatestInsights />
       <CTASection
         title="Ready to Get Started?"
-        description="Join hundreds of professionals who trust SuperGuardian with their clients' retirement futures"
+        description={
+          <>
+            Join hundreds of professionals who trust SuperGuardian
+            <br />
+            with their clients&apos; retirement futures
+          </>
+        }
         primaryButtonText="Get Started Today"
         primaryButtonHref="https://applications.superguardian.com.au/"
         secondaryButtonText="Learn More"

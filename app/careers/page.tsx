@@ -7,7 +7,13 @@ export default function CareersPage() {
     <>
       <PageHero
         title="Careers at SuperGuardian"
-        description="Join our team of specialists and help shape the future of SMSF administration in Australia."
+        description={
+          <>
+            Join our team of specialists and help shape
+            <br />
+            the future of SMSF administration in Australia
+          </>
+        }
       />
       
       <section className="section-padding bg-white">
@@ -26,7 +32,13 @@ export default function CareersPage() {
 
       <CTASection
         title="Ready to join the team?"
-        description="Check out our SEEK profile for all the latest career opportunities at SuperGuardian."
+        description={
+          <>
+            Check out our SEEK profile for all the latest
+            <br />
+            career opportunities at SuperGuardian
+          </>
+        }
         primaryButtonText="View on SEEK"
         primaryButtonHref="https://www.seek.com.au/SuperGuardian-jobs"
         isExternal={true}

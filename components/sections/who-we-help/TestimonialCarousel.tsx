@@ -31,7 +31,7 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "Jennifer Lin has been outstanding during the past fifteen months as Nicholson Wealth Management established itself and navigated the enormous impacts and sudden regulatory changes brought on by Covid19. Jen is always on call and ready to answer any questions, I also have great confidence that Jen\u2019s advice will be correct and up to date which is very important to me. Jen is particularly attentive when the opportunity arrives to work with a new client, she works very hard to understand their situation and provide a solution helping us to win the new business.",
+      "Jennifer has been outstanding during the past fifteen months as Nicholson Wealth Management established itself and navigated the enormous impacts and sudden regulatory changes brought on by Covid19. Jen is always on call and ready to answer any questions, I also have great confidence that Jen\u2019s advice will be correct and up to date which is very important to me. Jen is particularly attentive when the opportunity arrives to work with a new client, she works very hard to understand their situation and provide a solution helping us to win the new business.",
     name: "Anthony",
     title: "Nicholson Wealth, VIC",
   },
@@ -61,7 +61,7 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "I have found SuperGuardian to be an effective, professional means to an end when monitoring the boundaries and regulations of my SMSF. I particularly appreciate the occasional face to face meeting when required, or preferred, with my SMSF expert Senior Client Manager, Ben Plail. I am enjoying the association with SuperGuardian with its consistently, concise and accurate meetings of Government requirements in an ever-changing SMSF world.",
+      "I have found SuperGuardian to be an effective, professional means to an end when monitoring the boundaries and regulations of my SMSF. I particularly appreciate the occasional face to face meeting when required, or preferred, with my SMSF expert Senior Client Manager, Ben. I am enjoying the association with SuperGuardian with its consistently, concise and accurate meetings of Government requirements in an ever-changing SMSF world.",
     name: "George",
     title: "SA",
   },

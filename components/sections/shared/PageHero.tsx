@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef, useEffect, useState, useId } from "react";
+import type { ReactNode } from "react";
 
 interface PageHeroProps {
   title: string;
-  description: string;
+  description: ReactNode;
   subtitle?: string;
 }
 

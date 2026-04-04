@@ -8,6 +8,7 @@ interface FeatureWithItems {
   title: string;
   description: string;
   items: string[];
+  footnote?: string;
 }
 
 interface JourneyStep {
@@ -62,7 +63,13 @@ const audiences: Audience[] = [
       {
         title: "SMSF Setup & Administration",
         description: "Complete establishment and ongoing administration services",
-        items: ["Fast 5-7 day setup", "Monthly reconciliations", "Direct client communication"],
+        items: [
+          "Fast 5-7 day setup*",
+          "Monthly reconciliations",
+          "Direct client communication",
+        ],
+        footnote:
+          "*Subject to the ATO processing timeframe for fund registrations",
       },
       {
         title: "Investment Strategy Support",
@@ -77,7 +84,7 @@ const audiences: Audience[] = [
     ],
     benefits: [
       { title: "White Label Service", description: "Our services appear as your own, maintaining your client relationships" },
-      { title: "Dedicated Support", description: "Direct access to your relationship manager and technical team" },
+      { title: "Dedicated Support", description: "Direct access and personalised support to your dedicated Client Manager" },
       { title: "Scalable Solutions", description: "Grow your SMSF book without increasing internal resources" },
       { title: "Competitive Pricing", description: "Volume discounts available for practices with multiple SMSFs" },
     ],
@@ -162,9 +169,9 @@ const audiences: Audience[] = [
           </>
         ),
       },
-      { question: "How much does it cost to run an SMSF?", answer: "Costs vary based on fund complexity. Our services start from $215 permonth for administration." },
+      { question: "How much does it cost to run an SMSF?", answer: "Costs vary based on fund complexity. Our services start from $215 per month for administration." },
       { question: "Can I invest in property through my SMSF?", answer: "Yes, SMSFs can invest in property, including residential and commercial real estate, subject to certain rules." },
-      { question: "What happens if I make a mistake?", answer: "We're here to help you stay compliant. Our proactive monitoring helps identify and resolve issues before they become problems." },
+      { question: "What happens if I make a mistake?", answer: "We're here to help you stay compliant every step of the way. With a dedicated Client Manager, every SuperGuardian client benefits from personalised support and a seamless experience. Our proactive monitoring means we identify and resolve issues early before they become problems." },
     ],
   },
 ];
@@ -291,6 +298,11 @@ export function AudienceTabs() {
                         </li>
                       ))}
                     </ul>
+                    {feature.footnote ? (
+                      <p className="mt-3 text-[11px] text-gray-500 leading-tight tracking-tight">
+                        {feature.footnote}
+                      </p>
+                    ) : null}
                     </div>
                   </div>
                 ))}

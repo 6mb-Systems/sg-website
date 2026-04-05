@@ -135,13 +135,13 @@ const audiences: Audience[] = [
       {
         number: 2,
         title: "Service Agreement",
-        time: "—",
+        time: "-",
         description: "Clear pricing and service levels with no hidden fees",
       },
       {
         number: 3,
         title: "Implementation",
-        time: "—",
+        time: "-",
         description: "Our experts handle all the setup and integration work",
       },
       {

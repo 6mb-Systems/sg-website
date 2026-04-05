@@ -24,7 +24,7 @@ const TAGLINE =
 const KEY_FEATURES = [
   "Consolidated, up-to-date fund information and identification of strategic opportunities (1-click to high value datasets)",
   "Simple and secure document sharing for trust deeds, financial reports, meeting minutes and other confidential, fund-critical records",
-  "Task tracking and workflow transparency with notifications—action requests directly from email or within Hive",
+  "Task tracking and workflow transparency with notifications - action requests directly from email or within Hive",
   "Real-time visibility over outstanding items and document status",
   "Integration with Class and Microsoft SharePoint for up-to-date SMSF reporting, including where data feeds are unavailable or supplementary information is required for audit",
   "Multi-factor authentication (MFA) and OTP-based access for secure document viewing",
@@ -43,7 +43,7 @@ const CYBERSECURITY_ITEMS = [
   "AWS-hosted production environment with VPC isolation, web application firewall (WAF), load balancers and CloudFront",
   "Encryption and access controls, including IAM policy enforcement, MFA, secure secrets management and blocked public access to storage",
   "Regular vulnerability management, including weekly scans and defined remediation processes",
-  "Independent penetration testing—the Hive cloud application successfully passed testing with only minor fixes required",
+  "Independent penetration testing - the Hive cloud application successfully passed testing with only minor fixes required",
   "Backup and resilience controls, including daily database backups and tested restore procedures",
 ];
 
@@ -134,7 +134,7 @@ export default function HivePage() {
                     <AccordionTrigger className="hover:no-underline py-6 text-left font-semibold text-gray-900 group">
                       <div className="flex items-start gap-3">
                         <CheckCircle className="h-6 w-6 shrink-0 text-brand-blue mt-0.5" />
-                        <span>{feature.split(" (")[0].split(", ")[0].split("—")[0]}</span>
+                        <span>{feature.split(" (")[0].split(", ")[0].split("-")[0]}</span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-6 pt-0 pl-9 text-gray-700 leading-relaxed">

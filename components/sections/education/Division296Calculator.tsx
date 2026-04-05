@@ -164,7 +164,7 @@ export function Division296Calculator() {
               type="text"
               inputMode="numeric"
               autoComplete="off"
-              placeholder="e.g. $20,000,000"
+              placeholder="e.g. $5,000,000"
               value={tsbRaw}
               onChange={(e) => handleAudWholeInputChange(e.target.value, setTsbRaw)}
               className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
@@ -192,7 +192,7 @@ export function Division296Calculator() {
               type="text"
               inputMode="numeric"
               autoComplete="off"
-              placeholder="e.g. $100,000"
+              placeholder="e.g. $200,000"
               value={earningsRaw}
               onChange={(e) => handleAudWholeInputChange(e.target.value, setEarningsRaw)}
               className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"

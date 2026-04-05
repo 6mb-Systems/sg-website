@@ -59,7 +59,7 @@ export const navigation = {
       children: [
         { name: "Contact Us", href: "/contact" },
         { name: "Careers", href: "/careers" },
-        { name: "SG Forms", href: "/sg-forms" },
+        { name: "Forms", href: "/sg-forms" },
       ],
     },
   ],

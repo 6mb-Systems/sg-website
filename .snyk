@@ -1,0 +1,10 @@
+# Snyk policy — https://docs.snyk.io/manage-risk/policies/the-.snyk-file
+# Regenerate expiry or remove when upstream fixes land (decompress / Sanity CLI).
+version: v1.25.0
+ignore:
+  SNYK-JS-DECOMPRESSTAR-559095:
+    - '*':
+        reason: >-
+          No patched npm release for decompress-tar (latest remains 4.1.1).
+          Transitive via @sanity/cli → decompress; studio/CLI tooling only.
+        expires: '2027-06-01'

@@ -38,6 +38,13 @@
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
+  "overrides": {
+    "glob": "^10.5.0",
+    "prismjs": "^1.30.0",
+    "@vercel/frameworks": {
+      "js-yaml": "3.14.2"
+    }
+  },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@types/react": "^19.0.10",

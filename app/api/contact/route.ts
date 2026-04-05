@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 // Rate limiting map (in production, use Redis or similar)
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
@@ -21,6 +22,16 @@ function checkRateLimit(ip: string): boolean {
   record.count++;
   return true;
 }
+
+const enquiryLabels: Record<string, string> = {
+  "establish-smsf": "I would like to establish an SMSF",
+  "transfer-smsf": "I would like to transfer an SMSF",
+  "financial-adviser": "I am a Financial Adviser looking to work with SuperGuardian",
+  "accountant": "I am an Accountant looking to work with SuperGuardian",
+  "demo-online-reports": "I would like a demo of Online Reports",
+  "demo-hive": "I would like a demo of Hive",
+  "something-else": "Something else",
+};
 
 export async function POST(request: NextRequest) {
   try {
@@ -46,6 +57,33 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
+    // reCAPTCHA verification (skipped in development)
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+    if (recaptchaSecret && process.env.NODE_ENV !== "development") {
+      const token = body.recaptchaToken;
+      if (!token) {
+        return NextResponse.json(
+          { error: "reCAPTCHA verification failed. Please try again." },
+          { status: 400 }
+        );
+      }
+
+      const verifyRes = await fetch(
+        `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${token}`,
+        { method: "POST" }
+      );
+      const verifyData = await verifyRes.json();
+      console.log("reCAPTCHA result:", verifyData);
+
+      // Score threshold: 0.5 is a reasonable balance (0.0 = bot, 1.0 = human)
+      if (!verifyData.success || verifyData.score < 0.5) {
+        return NextResponse.json(
+          { error: "reCAPTCHA verification failed. Please try again." },
+          { status: 400 }
+        );
+      }
+    }
+
     // Validate required fields
     const { firstName, lastName, email, enquiryType, message } = body;
 
@@ -65,25 +103,38 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // In production, send email via your email provider
-    // Example with a generic email service:
-    // await sendEmail({
-    //   to: "info@superguardian.com.au",
-    //   from: email,
-    //   subject: `New ${enquiryType} enquiry from ${firstName} ${lastName}`,
-    //   body: message,
-    // });
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const toEmail = process.env.CONTACT_EMAIL_TO || "info@superguardian.com.au";
+    const fromEmail = process.env.CONTACT_EMAIL_FROM || "noreply@superguardian.com.au";
 
-    // For now, just log the submission
-    console.log("Contact form submission:", {
-      firstName,
-      lastName,
-      email,
-      phone: body.phone,
-      company: body.company,
-      enquiryType,
-      message,
-      timestamp: new Date().toISOString(),
+    if (!resendApiKey) {
+      console.error("RESEND_API_KEY is not set");
+      return NextResponse.json(
+        { error: "Email service is not configured." },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(resendApiKey);
+    const enquiryLabel = enquiryLabels[enquiryType] || enquiryType;
+
+    await resend.emails.send({
+      from: `SuperGuardian Contact Form <${fromEmail}>`,
+      to: toEmail,
+      replyTo: email,
+      subject: `New enquiry: ${enquiryLabel}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <table style="border-collapse:collapse;width:100%;max-width:600px;font-family:sans-serif;font-size:14px;">
+          <tr><td style="padding:8px;font-weight:bold;width:160px;">Name</td><td style="padding:8px;">${firstName} ${lastName}</td></tr>
+          <tr style="background:#f9f9f9;"><td style="padding:8px;font-weight:bold;">Email</td><td style="padding:8px;"><a href="mailto:${email}">${email}</a></td></tr>
+          ${body.phone ? `<tr><td style="padding:8px;font-weight:bold;">Phone</td><td style="padding:8px;">${body.phone}</td></tr>` : ""}
+          ${body.company ? `<tr style="background:#f9f9f9;"><td style="padding:8px;font-weight:bold;">Company</td><td style="padding:8px;">${body.company}</td></tr>` : ""}
+          <tr${body.company ? "" : ' style="background:#f9f9f9;"'}><td style="padding:8px;font-weight:bold;">Enquiry Type</td><td style="padding:8px;">${enquiryLabel}</td></tr>
+          <tr style="background:#f9f9f9;"><td style="padding:8px;font-weight:bold;vertical-align:top;">Message</td><td style="padding:8px;white-space:pre-wrap;">${message}</td></tr>
+        </table>
+        <p style="color:#888;font-size:12px;margin-top:24px;">Submitted at ${new Date().toLocaleString("en-AU", { timeZone: "Australia/Sydney" })} AEST</p>
+      `,
     });
 
     return NextResponse.json({

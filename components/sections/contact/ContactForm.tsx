@@ -4,6 +4,7 @@ import * as React from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
+import { cn } from "@/lib/utils";
 
 /** Chevron for enquiry select — inset from right edge for clearer tap target vs border */
 const ENQUIRY_SELECT_CHEVRON = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`;
@@ -175,7 +176,10 @@ export function ContactForm() {
               required
               value={enquiryType}
               onChange={(e) => setEnquiryType(e.target.value)}
-              className="mt-1 block h-[42px] w-full appearance-none rounded-md border border-gray-300 bg-white bg-[length:1.125rem] bg-[position:right_0.875rem_center] bg-no-repeat pl-4 pr-11 text-base leading-[42px] text-gray-400 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
+              className={cn(
+                "mt-1 block h-[42px] w-full appearance-none rounded-md border border-gray-300 bg-white bg-[length:1.125rem] bg-[position:right_0.875rem_center] bg-no-repeat pl-4 pr-11 text-base leading-[42px] shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue",
+                enquiryType === "" ? "text-gray-400" : "text-gray-900"
+              )}
               style={{ backgroundImage: ENQUIRY_SELECT_CHEVRON }}
             >
               {enquiryTypeOptions.map((opt) => (

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Info, ArrowRight } from "lucide-react";
+import { Info } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -206,17 +206,12 @@ export function Division296Calculator() {
           ) : null}
 
           <div className="flex flex-wrap items-center gap-4 pt-1">
-            <Button type="button" className="gap-2 bg-brand-blue hover:bg-brand-blue-600" onClick={runCalculate}>
+            <Button type="button" variant="secondary" onClick={runCalculate}>
               Calculate Now
-              <ArrowRight className="h-4 w-4" aria-hidden />
             </Button>
-            <button
-              type="button"
-              onClick={runReset}
-              className="text-sm font-medium text-brand-blue underline-offset-4 hover:underline"
-            >
-              Reset calculator
-            </button>
+            <Button type="button" onClick={runReset}>
+              Reset Calculator
+            </Button>
           </div>
         </div>
 

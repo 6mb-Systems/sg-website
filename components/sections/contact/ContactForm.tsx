@@ -106,7 +106,7 @@ export function ContactForm() {
                 id="firstName"
                 name="firstName"
                 required
-                placeholder="John"
+                placeholder="First Name"
                 className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
               />
             </div>
@@ -119,7 +119,7 @@ export function ContactForm() {
                 id="lastName"
                 name="lastName"
                 required
-                placeholder="Smith"
+                placeholder="Last Name"
                 className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
               />
             </div>
@@ -134,7 +134,7 @@ export function ContactForm() {
               id="email"
               name="email"
               required
-              placeholder="john.smith@example.com"
+              placeholder="Email Address"
               className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
             />
           </div>
@@ -147,7 +147,7 @@ export function ContactForm() {
               type="tel"
               id="phone"
               name="phone"
-              placeholder="0400 000 000"
+              placeholder="Phone Number"
               className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
             />
           </div>
@@ -160,7 +160,7 @@ export function ContactForm() {
               type="text"
               id="company"
               name="company"
-              placeholder="ABC Financial Services"
+              placeholder="Company/Practice Name"
               className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
             />
           </div>
@@ -175,7 +175,7 @@ export function ContactForm() {
               required
               value={enquiryType}
               onChange={(e) => setEnquiryType(e.target.value)}
-              className="mt-1 block w-full appearance-none rounded-md border border-gray-300 bg-white bg-[length:1.125rem] bg-[position:right_0.875rem_center] bg-no-repeat py-2 pl-4 pr-11 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
+              className="mt-1 block h-[42px] w-full appearance-none rounded-md border border-gray-300 bg-white bg-[length:1.125rem] bg-[position:right_0.875rem_center] bg-no-repeat pl-4 pr-11 text-base leading-[42px] text-gray-400 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
               style={{ backgroundImage: ENQUIRY_SELECT_CHEVRON }}
             >
               {enquiryTypeOptions.map((opt) => (

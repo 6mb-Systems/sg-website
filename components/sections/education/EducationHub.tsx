@@ -299,7 +299,7 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
                     <p className="order-2 text-sm text-gray-600 sm:order-1 sm:w-full sm:text-center">
                       Showing{" "}
                       <span className="font-medium text-gray-900">
-                        {articleOffset + 1}–
+                        {articleOffset + 1}-
                         {Math.min(
                           articleOffset + paginatedArticles.length,
                           filteredArticles.length

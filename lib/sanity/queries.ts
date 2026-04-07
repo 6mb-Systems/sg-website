@@ -40,6 +40,11 @@ export interface SanityPost {
       };
     };
   };
+  pdfFile?: {
+    asset?: {
+      url: string;
+    };
+  };
 }
 
 export interface SanityWebinar {
@@ -93,7 +98,8 @@ const postFields = `
 const postFieldsWithBody = `
   ${postFields},
   body,
-  seo
+  seo,
+  pdfFile { asset-> { url } }
 `;
 
 // Get all published posts

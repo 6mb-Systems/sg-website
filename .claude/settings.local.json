@@ -3,7 +3,14 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(node -e ':*)",
-      "Bash(node scripts/import-wordpress.mjs)"
+      "Bash(node scripts/import-wordpress.mjs)",
+      "Bash(node scripts/merge-categories.mjs)",
+      "Bash(node scripts/assign-blog-images.mjs)",
+      "Bash(python3 -c ':*)",
+      "Bash(node scripts/assign-blog-images-fix.mjs)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://superguardian.com.au/pdfs/GST-and-SMSFs.pdf\")",
+      "Bash(node scripts/upload-pdfs.mjs)",
+      "Bash(node scripts/remove-pdf-text.mjs)"
     ]
   }
 }

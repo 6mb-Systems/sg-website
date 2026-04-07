@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Download } from "lucide-react";
 import { notFound } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/sanity/queries";
@@ -382,6 +382,23 @@ export default async function ArticlePage({ params }: PageProps) {
                   value={post.body as any}
                   components={portableTextComponents}
                 />
+              </div>
+            )}
+
+            {post.pdfFile?.asset?.url && (
+              <div className="mt-4 rounded-lg border border-brand-blue-100 bg-brand-blue-50 p-6">
+                <p className="text-gray-700 mb-4">
+                  To read this fact sheet in its entirety, download the PDF version below.
+                </p>
+                <a
+                  href={post.pdfFile.asset.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-blue-600 transition-colors"
+                >
+                  <Download className="h-4 w-4" />
+                  Download PDF
+                </a>
               </div>
             )}
 

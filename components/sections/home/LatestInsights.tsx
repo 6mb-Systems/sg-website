@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ArrowRight, Calendar, Clock, FileText } from "lucide-react";
+import { ArrowRight, Calendar, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
 import Image from "next/image";
-import { getPosts } from "@/lib/sanity/queries";
+import { getFactsheetPosts } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/client";
 
 const fallbackInsights = [
@@ -34,7 +34,7 @@ const fallbackInsights = [
 ];
 
 export async function LatestInsights() {
-  const sanityPosts = await getPosts(3);
+  const sanityPosts = await getFactsheetPosts(3);
 
   const insights =
     sanityPosts.length > 0
@@ -56,7 +56,6 @@ export async function LatestInsights() {
             date,
             slug,
             image: imageUrl,
-            readTime: post.readTime ? `${post.readTime} min read` : "5 min read",
           };
         })
       : fallbackInsights;
@@ -130,14 +129,10 @@ export async function LatestInsights() {
                   {insight.title}
                 </h3>
                 <p className="mt-2 text-sm text-gray-600 flex-grow">{insight.description}</p>
-                <div className="mt-auto flex items-center justify-between pt-4 text-xs text-gray-500">
+                <div className="mt-auto flex items-center pt-4 text-xs text-gray-500">
                   <span className="inline-flex items-center text-sm font-medium text-brand-orange">
                     <FileText className="mr-1 h-4 w-4" />
                     Read article
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <Clock className="h-3.5 w-3.5" />
-                    {"readTime" in insight ? (insight as any).readTime : ""}
                   </span>
                 </div>
               </article>

@@ -123,10 +123,11 @@ export async function getPosts(limit?: number): Promise<SanityPost[]> {
   return sanityClient.fetch(query);
 }
 
-// Get fact-sheet posts only (not webinar/event)
-export async function getFactsheetPosts(): Promise<SanityPost[]> {
+// Get fact-sheet posts only (not webinar/event), newest first
+export async function getFactsheetPosts(limit?: number): Promise<SanityPost[]> {
   if (!isSanityConfigured()) return [];
-  const query = `*[_type == "post" && !(_id in path("drafts.**")) && isWebinarPost != true] | order(publishedAt desc) {
+  const limitClause = limit != null ? `[0...${limit}]` : "";
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && isWebinarPost != true] | order(publishedAt desc) ${limitClause} {
     ${postFields}
   }`;
   return sanityClient.fetch(query);

@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Calendar, Clock, Download } from "lucide-react";
+import { ArrowLeft, Calendar, Download } from "lucide-react";
 import { notFound } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/client";
+import { Button } from "@/components/ui/button";
+
+function BackToEducationHubLink() {
+  return (
+    <Button variant="secondary" asChild>
+      <Link href="/education">
+        <ArrowLeft className="h-4 w-4" aria-hidden />
+        Back to Education Hub
+      </Link>
+    </Button>
+  );
+}
 
 export const revalidate = 60;
 
@@ -14,8 +26,7 @@ const fallbackArticle = {
   category: "Compliance",
   excerpt:
     "Latest regulatory changes affecting SMSF trustees and administrators",
-  date: "December 2024",
-  readTime: "5 min read",
+  date: "1 December 2024",
   content: `
 ## Overview
 
@@ -323,23 +334,13 @@ export default async function ArticlePage({ params }: PageProps) {
       typeof post.slug === "string" ? post.slug : post.slug?.current;
     const dateFormatted = new Date(post.publishedAt).toLocaleDateString(
       "en-AU",
-      { month: "long", year: "numeric" }
+      { day: "numeric", month: "long", year: "numeric" }
     );
-    const readTimeStr = post.readTime
-      ? `${post.readTime} min read`
-      : "5 min read";
-
     return (
       <article className="section-padding">
         <div className="container-width">
           <div className="mx-auto max-w-3xl">
-            <Link
-              href="/education"
-              className="inline-flex items-center text-sm text-gray-600 hover:text-brand-blue"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Education Hub
-            </Link>
+            <BackToEducationHubLink />
 
             <header className="mt-8">
               <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-sm font-medium text-brand-blue">
@@ -355,10 +356,6 @@ export default async function ArticlePage({ params }: PageProps) {
                 <span className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
                   {dateFormatted}
-                </span>
-                <span className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  {readTimeStr}
                 </span>
               </div>
             </header>
@@ -377,7 +374,7 @@ export default async function ArticlePage({ params }: PageProps) {
             )}
 
             {post.body && (
-              <div className="mt-12 prose prose-lg max-w-none">
+              <div className="mt-12 max-w-none text-sm prose prose-lg">
                 <PortableText
                   value={post.body as any}
                   components={portableTextComponents}
@@ -413,13 +410,7 @@ export default async function ArticlePage({ params }: PageProps) {
       <article className="section-padding">
         <div className="container-width">
           <div className="mx-auto max-w-3xl">
-            <Link
-              href="/education"
-              className="inline-flex items-center text-sm text-gray-600 hover:text-brand-blue"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Education Hub
-            </Link>
+            <BackToEducationHubLink />
 
             <header className="mt-8">
               <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-sm font-medium text-brand-blue">
@@ -436,15 +427,11 @@ export default async function ArticlePage({ params }: PageProps) {
                   <Calendar className="h-4 w-4" />
                   {fallbackArticle.date}
                 </span>
-                <span className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  {fallbackArticle.readTime}
-                </span>
               </div>
             </header>
 
             <div
-              className="mt-12 prose prose-lg max-w-none"
+              className="mt-12 max-w-none text-sm prose prose-lg"
               dangerouslySetInnerHTML={{
                 __html: renderFallbackHtml(fallbackArticle.content),
               }}

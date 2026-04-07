@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { EducationHub } from "@/components/sections/education/EducationHub";
 import { PageHero } from "@/components/sections/shared/PageHero";
-import { getPosts, getWebinars, getCategories } from "@/lib/sanity/queries";
+import { getFactsheetPosts, getWebinarPosts, getWebinars, getCategories } from "@/lib/sanity/queries";
 import type { Article, WebinarItem } from "@/components/sections/education/EducationHub";
 import { urlFor } from "@/lib/sanity/client";
 
@@ -21,7 +21,6 @@ const fallbackArticles: Article[] = [
     excerpt:
       "Latest regulatory changes affecting SMSF trustees and administrators",
     date: "December 2024",
-    readTime: "5 min read",
     downloads: 1250,
   },
   {
@@ -31,7 +30,6 @@ const fallbackArticles: Article[] = [
     excerpt:
       "Essential guidance for creating and maintaining diversified SMSF portfolios",
     date: "November 2024",
-    readTime: "8 min read",
     downloads: 890,
   },
   {
@@ -41,7 +39,6 @@ const fallbackArticles: Article[] = [
     excerpt:
       "Complete guide to purchasing property through your SMSF including LRBAs",
     date: "October 2024",
-    readTime: "12 min read",
     downloads: 2100,
   },
   {
@@ -51,7 +48,6 @@ const fallbackArticles: Article[] = [
     excerpt:
       "Step-by-step guide for converting from accumulation to pension phase",
     date: "September 2024",
-    readTime: "6 min read",
     downloads: 670,
   },
   {
@@ -61,7 +57,6 @@ const fallbackArticles: Article[] = [
     excerpt:
       "Understanding CGT calculations, exemptions, and optimization strategies",
     date: "August 2024",
-    readTime: "10 min read",
     downloads: 1450,
   },
   {
@@ -71,7 +66,6 @@ const fallbackArticles: Article[] = [
     excerpt:
       "Complete guide to closing your SMSF and member benefit rollovers",
     date: "July 2024",
-    readTime: "7 min read",
     downloads: 320,
   },
 ];
@@ -154,40 +148,38 @@ function formatWebinarDate(isoDate: string): string {
 }
 
 export default async function EducationPage() {
-  const [sanityPosts, sanityWebinars, sanityCategories] = await Promise.all([
-    getPosts(),
+  const [sanityFactsheets, sanityWebinarPosts, sanityWebinars, sanityCategories] = await Promise.all([
+    getFactsheetPosts(),
+    getWebinarPosts(),
     getWebinars(),
     getCategories(),
   ]);
 
-  const hasSanityContent = sanityPosts.length > 0;
+  const hasSanityContent = sanityFactsheets.length > 0 || sanityWebinarPosts.length > 0;
 
-  const articles: Article[] = hasSanityContent
-    ? sanityPosts.map((p) => ({
-        id: p._id,
-        slug: typeof p.slug === "string" ? p.slug : p.slug.current,
-        category: p.category?.title ?? "General",
-        title: p.title,
-        excerpt: p.excerpt ?? "",
-        date: formatDate(p.publishedAt),
-        readTime: p.readTime ? `${p.readTime} min read` : "5 min read",
-        downloads: p.downloadCount ?? 0,
-        imageUrl: p.mainImage?.asset ? urlFor(p.mainImage).width(800).height(450).url() : null,
-        imageAlt: p.mainImage?.alt ?? null,
-      }))
-    : fallbackArticles;
+  function toArticle(p: (typeof sanityFactsheets)[number]): Article {
+    return {
+      id: p._id,
+      slug: typeof p.slug === "string" ? p.slug : (p.slug as any).current,
+      category: p.category?.title ?? "General",
+      title: p.title,
+      excerpt: p.excerpt ?? "",
+      date: formatDate(p.publishedAt),
+      downloads: p.downloadCount ?? 0,
+      imageUrl: p.mainImage?.asset ? urlFor(p.mainImage).width(800).height(450).url() : null,
+      imageAlt: p.mainImage?.alt ?? null,
+      videoUrl: p.videoUrl ?? null,
+    };
+  }
+
+  const articles: Article[] = hasSanityContent ? sanityFactsheets.map(toArticle) : fallbackArticles;
+  const webinarArticles: Article[] = sanityWebinarPosts.map(toArticle);
 
   const hasSanityWebinars = sanityWebinars.length > 0;
-
   const webinarItems: WebinarItem[] = hasSanityWebinars
     ? sanityWebinars.map((w) => ({
         slug: typeof w.slug === "string" ? w.slug : w.slug.current,
-        status:
-          w.status === "upcoming"
-            ? "Upcoming"
-            : w.status === "live"
-              ? "Live"
-              : "Watch Replay",
+        status: w.status === "upcoming" ? "Upcoming" : w.status === "live" ? "Live" : "Watch Replay",
         category: w.category?.title ?? "General",
         title: w.title,
         excerpt: w.excerpt ?? "",
@@ -214,6 +206,7 @@ export default async function EducationPage() {
 
       <EducationHub
         articles={articles}
+        webinarArticles={webinarArticles}
         webinars={webinarItems}
         categories={categoryList}
       />

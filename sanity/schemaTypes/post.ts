@@ -93,6 +93,19 @@ export const post = defineType({
       options: { accept: ".pdf" },
     }),
     defineField({
+      name: "isWebinarPost",
+      title: "Is Webinar / Event",
+      type: "boolean",
+      description: "Show this post in the Webinars & Events tab instead of Fact Sheets",
+      initialValue: false,
+    }),
+    defineField({
+      name: "videoUrl",
+      title: "Video / Registration URL",
+      type: "url",
+      description: "Zoom registration link or video replay URL for webinar posts",
+    }),
+    defineField({
       name: "seo",
       title: "SEO",
       type: "object",

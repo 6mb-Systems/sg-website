@@ -45,6 +45,8 @@ export interface SanityPost {
       url: string;
     };
   };
+  isWebinarPost?: boolean;
+  videoUrl?: string;
 }
 
 export interface SanityWebinar {
@@ -92,7 +94,9 @@ const postFields = `
   "category": category->{title, "slug": slug.current},
   "author": author->{name, image},
   readTime,
-  downloadCount
+  downloadCount,
+  isWebinarPost,
+  videoUrl
 `;
 
 const postFieldsWithBody = `
@@ -114,6 +118,24 @@ export async function getPosts(limit?: number): Promise<SanityPost[]> {
     ${postFields}
   }`;
 
+  return sanityClient.fetch(query);
+}
+
+// Get fact-sheet posts only (not webinar/event)
+export async function getFactsheetPosts(): Promise<SanityPost[]> {
+  if (!isSanityConfigured()) return [];
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && isWebinarPost != true] | order(publishedAt desc) {
+    ${postFields}
+  }`;
+  return sanityClient.fetch(query);
+}
+
+// Get webinar/event posts only
+export async function getWebinarPosts(): Promise<SanityPost[]> {
+  if (!isSanityConfigured()) return [];
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && isWebinarPost == true] | order(publishedAt desc) {
+    ${postFields}
+  }`;
   return sanityClient.fetch(query);
 }
 

@@ -23,10 +23,10 @@ export interface Article {
   title: string;
   excerpt: string;
   date: string;
-  readTime: string;
   downloads: number;
   imageUrl?: string | null;
   imageAlt?: string | null;
+  videoUrl?: string | null;
 }
 
 export interface WebinarItem {
@@ -43,6 +43,7 @@ export interface WebinarItem {
 
 interface EducationHubProps {
   articles: Article[];
+  webinarArticles: Article[];
   webinars: WebinarItem[];
   categories: string[];
 }
@@ -85,12 +86,14 @@ function visiblePageNumbers(current: number, total: number): (number | "gap")[] 
   return out;
 }
 
-export function EducationHub({ articles, webinars, categories }: EducationHubProps) {
+export function EducationHub({ articles, webinarArticles, webinars, categories }: EducationHubProps) {
   const [activeTab, setActiveTab] = React.useState("articles");
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState("All");
   const [articlesPage, setArticlesPage] = React.useState(1);
+  const [webinarsPage, setWebinarsPage] = React.useState(1);
   const articlesAnchorRef = React.useRef<HTMLDivElement>(null);
+  const webinarsAnchorRef = React.useRef<HTMLDivElement>(null);
 
   const uniqueCategories = React.useMemo(() => {
     const seen = new Set<string>();
@@ -124,16 +127,32 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
     articleOffset + ARTICLES_PER_PAGE
   );
 
+  const webinarTotalPages =
+    webinarArticles.length === 0
+      ? 0
+      : Math.ceil(webinarArticles.length / ARTICLES_PER_PAGE);
+  const webinarPageSafe =
+    webinarTotalPages === 0
+      ? 1
+      : Math.min(Math.max(1, webinarsPage), webinarTotalPages);
+  const webinarOffset = (webinarPageSafe - 1) * ARTICLES_PER_PAGE;
+  const paginatedWebinars = webinarArticles.slice(
+    webinarOffset,
+    webinarOffset + ARTICLES_PER_PAGE
+  );
+
   React.useEffect(() => {
     setArticlesPage(1);
   }, [searchQuery, selectedCategory]);
 
   const goToArticlePage = React.useCallback((page: number) => {
     setArticlesPage(page);
-    articlesAnchorRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    articlesAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
+  const goToWebinarPage = React.useCallback((page: number) => {
+    setWebinarsPage(page);
+    webinarsAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   return (
@@ -278,12 +297,11 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
                           <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-grow">
                             {article.excerpt}
                           </p>
-                          <div className="mt-auto flex items-center justify-between pt-4 text-xs text-gray-500">
+                          <div className="mt-auto flex items-center pt-4 text-xs text-gray-500">
                             <span className="inline-flex items-center text-sm font-medium text-brand-orange">
                               <FileText className="mr-1 h-4 w-4" />
                               Read article
                             </span>
-                            <span>⏱ {article.readTime}</span>
                           </div>
                         </article>
                       </Link>
@@ -395,67 +413,185 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
                   </p>
                 </div>
 
-                <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div ref={webinarsAnchorRef} className="scroll-mt-24" aria-hidden />
+
+                <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {paginatedWebinars.map((item, index) => (
+                    <FadeIn key={item.id ?? item.slug} direction="up" delay={index * 0.04}>
+                      <div className="relative flex h-full min-h-[320px] flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                        {item.imageUrl && (
+                          <div className="relative h-[180px] w-full shrink-0 overflow-hidden bg-brand-blue/5">
+                            <Image
+                              src={item.imageUrl}
+                              alt={item.imageAlt || item.title}
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                          </div>
+                        )}
+                        <div className="flex flex-1 flex-col p-5">
+                          <div className="flex items-center justify-between">
+                            <span className="rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
+                              {item.category}
+                            </span>
+                            <span className="flex items-center gap-1 text-xs text-gray-400">
+                              <Calendar className="h-3.5 w-3.5" />
+                              {item.date}
+                            </span>
+                          </div>
+                          <h3 className="mt-3 text-base font-semibold text-gray-900 leading-snug">
+                            {item.title}
+                          </h3>
+                          {item.excerpt && (
+                            <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-1">
+                              {item.excerpt}
+                            </p>
+                          )}
+                          <div className="mt-auto pt-4 flex gap-2">
+                            {item.videoUrl ? (
+                              <a
+                                href={item.videoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 rounded-lg bg-brand-blue px-4 py-2 text-sm font-medium text-white hover:bg-brand-blue-600 transition-colors"
+                              >
+                                <Video className="h-4 w-4" />
+                                Watch Replay
+                              </a>
+                            ) : null}
+                            <Link
+                              href={`/education/${item.slug}`}
+                              className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:border-brand-blue hover:text-brand-blue transition-colors"
+                            >
+                              <FileText className="h-4 w-4" />
+                              View Details
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </FadeIn>
+                  ))}
+
+                  {/* Dedicated webinar documents (future use) */}
                   {webinars.map((webinar, index) => (
-                    <FadeIn key={webinar.slug} direction="up" delay={index * 0.1}>
-                      <article className="relative h-full overflow-hidden rounded-xl border border-gray-200">
-                        <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
-                        <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
-                          <defs>
-                            <pattern id={`edu-webinar-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
-                              <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
-                            </pattern>
-                          </defs>
-                          <rect width="100%" height="100%" fill={`url(#edu-webinar-hex-${index})`} />
-                        </svg>
-                        <div className="relative z-10 flex flex-col p-6">
+                    <FadeIn key={webinar.slug} direction="up" delay={(webinarArticles.length + index) * 0.04}>
+                      <div className="relative flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm p-5">
                         <div className="flex items-center justify-between">
-                          <span
-                            className={cn(
-                              "rounded-full px-3 py-1 text-xs font-medium",
-                              webinar.status === "Upcoming"
-                                ? "bg-green-100 text-green-700"
-                                : "bg-gray-100 text-gray-600"
-                            )}
-                          >
+                          <span className={cn(
+                            "rounded-full px-3 py-1 text-xs font-medium",
+                            webinar.status === "Upcoming" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"
+                          )}>
                             {webinar.status}
                           </span>
-                          <span className="text-xs text-gray-500">
-                            {webinar.category}
-                          </span>
+                          <span className="text-xs text-gray-400">{webinar.category}</span>
                         </div>
-                        <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                          {webinar.title}
-                        </h3>
-                        <p className="mt-2 text-sm text-gray-600 flex-grow">
-                          {webinar.excerpt}
-                        </p>
-                        <p className="mt-2 text-sm text-brand-orange">
-                          Presented by {webinar.presenter}
-                        </p>
-                        <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-                          <span>📅 {webinar.date}</span>
-                          <span>⏱ {webinar.duration}</span>
+                        <h3 className="mt-3 text-base font-semibold text-gray-900">{webinar.title}</h3>
+                        <p className="mt-2 text-sm text-gray-600 flex-grow">{webinar.excerpt}</p>
+                        {webinar.presenter && (
+                          <p className="mt-2 text-sm text-brand-orange">Presented by {webinar.presenter}</p>
+                        )}
+                        <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
+                          <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" />{webinar.date}</span>
+                          {webinar.duration && <span>{webinar.duration}</span>}
                         </div>
-                        <div className="mt-2 text-xs text-gray-500">
-                          👥 {webinar.attendees} attendees
-                        </div>
-                        <button
-                          className={cn(
-                            "mt-4 w-full rounded-lg py-3 text-sm font-medium transition-colors",
-                            webinar.status === "Upcoming"
-                              ? "bg-brand-blue text-white hover:bg-brand-blue-600"
-                              : "bg-brand-orange text-white hover:bg-brand-orange-600"
-                          )}
-                        >
-                          <Video className="mr-2 inline h-4 w-4" />
+                        <button className={cn(
+                          "mt-4 w-full rounded-lg py-2.5 text-sm font-medium transition-colors flex items-center justify-center gap-2",
+                          webinar.status === "Upcoming"
+                            ? "bg-brand-blue text-white hover:bg-brand-blue-600"
+                            : "bg-brand-orange text-white hover:bg-brand-orange-600"
+                        )}>
+                          <Video className="h-4 w-4" />
                           {webinar.status === "Upcoming" ? "Register Now" : "Watch Now"}
                         </button>
-                        </div>
-                      </article>
+                      </div>
                     </FadeIn>
                   ))}
                 </div>
+
+                {webinarTotalPages > 1 ? (
+                  <nav
+                    className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center"
+                    aria-label="Webinar pages"
+                  >
+                    <p className="order-2 text-sm text-gray-600 sm:order-1 sm:w-full sm:text-center">
+                      Showing{" "}
+                      <span className="font-medium text-gray-900">
+                        {webinarOffset + 1}-
+                        {Math.min(
+                          webinarOffset + paginatedWebinars.length,
+                          webinarArticles.length
+                        )}
+                      </span>{" "}
+                      of{" "}
+                      <span className="font-medium text-gray-900">
+                        {webinarArticles.length}
+                      </span>
+                    </p>
+                    <div className="order-1 flex items-center gap-1 sm:order-2">
+                      <button
+                        type="button"
+                        onClick={() => goToWebinarPage(webinarPageSafe - 1)}
+                        disabled={webinarPageSafe <= 1}
+                        className={cn(
+                          "inline-flex h-10 items-center gap-1 rounded-full border border-gray-200 bg-white px-3 text-sm font-medium transition-colors",
+                          webinarPageSafe <= 1
+                            ? "cursor-not-allowed text-gray-300"
+                            : "text-gray-700 hover:border-brand-blue hover:text-brand-blue"
+                        )}
+                        aria-label="Previous page"
+                      >
+                        <ChevronLeft className="h-4 w-4" aria-hidden />
+                        Previous
+                      </button>
+                      <div className="mx-1 flex flex-wrap items-center justify-center gap-1">
+                        {visiblePageNumbers(webinarPageSafe, webinarTotalPages).map(
+                          (item, i) =>
+                            item === "gap" ? (
+                              <span
+                                key={`gap-${i}`}
+                                className="px-1 text-gray-400"
+                                aria-hidden
+                              >
+                                …
+                              </span>
+                            ) : (
+                              <button
+                                key={item}
+                                type="button"
+                                onClick={() => goToWebinarPage(item)}
+                                className={cn(
+                                  "inline-flex h-10 min-w-10 items-center justify-center rounded-full px-3 text-sm font-medium transition-colors",
+                                  item === webinarPageSafe
+                                    ? "bg-brand-blue text-white"
+                                    : "border border-gray-200 bg-white text-gray-700 hover:border-brand-blue hover:text-brand-blue"
+                                )}
+                                aria-label={`Page ${item}`}
+                                aria-current={item === webinarPageSafe ? "page" : undefined}
+                              >
+                                {item}
+                              </button>
+                            )
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => goToWebinarPage(webinarPageSafe + 1)}
+                        disabled={webinarPageSafe >= webinarTotalPages}
+                        className={cn(
+                          "inline-flex h-10 items-center gap-1 rounded-full border border-gray-200 bg-white px-3 text-sm font-medium transition-colors",
+                          webinarPageSafe >= webinarTotalPages
+                            ? "cursor-not-allowed text-gray-300"
+                            : "text-gray-700 hover:border-brand-blue hover:text-brand-blue"
+                        )}
+                        aria-label="Next page"
+                      >
+                        Next
+                        <ChevronRight className="h-4 w-4" aria-hidden />
+                      </button>
+                    </div>
+                  </nav>
+                ) : null}
               </motion.div>
             )}
 

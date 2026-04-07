@@ -10,7 +10,9 @@
       "Bash(node scripts/assign-blog-images-fix.mjs)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://superguardian.com.au/pdfs/GST-and-SMSFs.pdf\")",
       "Bash(node scripts/upload-pdfs.mjs)",
-      "Bash(node scripts/remove-pdf-text.mjs)"
+      "Bash(node scripts/remove-pdf-text.mjs)",
+      "WebFetch(domain:www.superguardian.com.au)",
+      "WebFetch(domain:superguardian.com.au)"
     ]
   }
 }

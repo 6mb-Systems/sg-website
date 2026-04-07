@@ -177,18 +177,46 @@ export async function getEvents(): Promise<SanityEvent[]> {
   return sanityClient.fetch(query);
 }
 
-// Get all categories
+// Get all categories that have at least one published post
 export async function getCategories(): Promise<
   { title: string; slug: string }[]
 > {
   if (!isSanityConfigured()) return [];
 
-  const query = `*[_type == "category"] | order(title asc) {
+  // Only return categories referenced by at least one published post,
+  // excluding WordPress organisational/layout categories
+  const excluded = [
+    "home box", "fact find", "event details", "past event details",
+    "past events", "events", "uncategorized", "sg blog", "blog",
+    "segregations", // duplicate of "segregation"
+  ];
+  const query = `*[_type == "category"
+    && count(*[_type == "post" && !(_id in path("drafts.**")) && references(^._id)]) > 0
+    && !(lower(title) in ${JSON.stringify(excluded)})
+  ] | order(title asc) {
     title,
     "slug": slug.current
   }`;
 
-  return sanityClient.fetch(query);
+  const raw: { title: string; slug: string }[] = await sanityClient.fetch(query);
+
+  // Decode HTML entities (e.g. &amp; → &) and deduplicate by normalised title
+  const seen = new Set<string>();
+  const result: { title: string; slug: string }[] = [];
+  for (const cat of raw) {
+    const decoded = cat.title
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'");
+    const key = decoded.toLowerCase().trim();
+    if (!seen.has(key)) {
+      seen.add(key);
+      result.push({ title: decoded, slug: cat.slug });
+    }
+  }
+  return result;
 }
 
 // Get all post slugs for static generation

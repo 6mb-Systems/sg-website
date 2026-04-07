@@ -3,12 +3,21 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, FileText, Video, Calendar, Calculator } from "lucide-react";
+import {
+  Search,
+  FileText,
+  Video,
+  Calendar,
+  Calculator,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "@/components/ui/fade-in";
 import { motion, AnimatePresence } from "framer-motion";
 
 export interface Article {
+  id?: string;
   slug: string;
   category: string;
   title: string;
@@ -54,10 +63,43 @@ const calculatorItems = [
   },
 ] as const;
 
+const ARTICLES_PER_PAGE = 9;
+
+function visiblePageNumbers(current: number, total: number): (number | "gap")[] {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  const set = new Set<number>([1, total]);
+  for (let d = -1; d <= 1; d++) {
+    const p = current + d;
+    if (p >= 1 && p <= total) set.add(p);
+  }
+  const sorted = [...set].sort((a, b) => a - b);
+  const out: (number | "gap")[] = [];
+  let prev = 0;
+  for (const p of sorted) {
+    if (p - prev > 1) out.push("gap");
+    out.push(p);
+    prev = p;
+  }
+  return out;
+}
+
 export function EducationHub({ articles, webinars, categories }: EducationHubProps) {
   const [activeTab, setActiveTab] = React.useState("articles");
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState("All");
+  const [articlesPage, setArticlesPage] = React.useState(1);
+  const articlesAnchorRef = React.useRef<HTMLDivElement>(null);
+
+  const uniqueCategories = React.useMemo(() => {
+    const seen = new Set<string>();
+    return categories.filter((category) => {
+      if (seen.has(category)) return false;
+      seen.add(category);
+      return true;
+    });
+  }, [categories]);
 
   const filteredArticles = articles.filter((article) => {
     const matchesSearch =
@@ -67,6 +109,32 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
       selectedCategory === "All" || article.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+  const articleTotalPages =
+    filteredArticles.length === 0
+      ? 0
+      : Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
+  const articlePageSafe =
+    articleTotalPages === 0
+      ? 1
+      : Math.min(Math.max(1, articlesPage), articleTotalPages);
+  const articleOffset = (articlePageSafe - 1) * ARTICLES_PER_PAGE;
+  const paginatedArticles = filteredArticles.slice(
+    articleOffset,
+    articleOffset + ARTICLES_PER_PAGE
+  );
+
+  React.useEffect(() => {
+    setArticlesPage(1);
+  }, [searchQuery, selectedCategory]);
+
+  const goToArticlePage = React.useCallback((page: number) => {
+    setArticlesPage(page);
+    articlesAnchorRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, []);
 
   return (
     <section className="section-padding bg-gray-50">
@@ -129,7 +197,7 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
 
                 {/* Category Filter */}
                 <div className="mt-8 flex flex-wrap justify-center gap-2">
-                  {categories.map((category) => (
+                  {uniqueCategories.map((category) => (
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
@@ -145,10 +213,21 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
                   ))}
                 </div>
 
+                <div ref={articlesAnchorRef} className="scroll-mt-24" aria-hidden />
+
                 {/* Articles Grid */}
                 <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {filteredArticles.map((article, index) => (
-                    <FadeIn key={article.slug} direction="up" delay={index * 0.05}>
+                  {paginatedArticles.length === 0 ? (
+                    <p className="col-span-full text-center text-sm text-gray-600">
+                      No articles match your search or category.
+                    </p>
+                  ) : null}
+                  {paginatedArticles.map((article, index) => (
+                    <FadeIn
+                      key={article.id ?? `${article.slug}-${articleOffset + index}`}
+                      direction="up"
+                      delay={index * 0.05}
+                    >
                       <Link
                         href={`/education/${article.slug}`}
                         className="relative flex h-full min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
@@ -157,11 +236,19 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
                         <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
                         <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
                           <defs>
-                            <pattern id={`edu-article-hex-${index}`} x="0" y="0" width="60" height="34.64" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                            <pattern
+                              id={`edu-article-hex-${articlePageSafe}-${index}`}
+                              x="0"
+                              y="0"
+                              width="60"
+                              height="34.64"
+                              patternUnits="userSpaceOnUse"
+                              patternTransform="scale(2)"
+                            >
                               <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
                             </pattern>
                           </defs>
-                          <rect width="100%" height="100%" fill={`url(#edu-article-hex-${index})`} />
+                          <rect width="100%" height="100%" fill={`url(#edu-article-hex-${articlePageSafe}-${index})`} />
                         </svg>
                         {article.imageUrl ? (
                           <div className="relative z-10 h-[210px] w-full overflow-hidden bg-brand-blue/5">
@@ -203,6 +290,90 @@ export function EducationHub({ articles, webinars, categories }: EducationHubPro
                     </FadeIn>
                   ))}
                 </div>
+
+                {articleTotalPages > 1 ? (
+                  <nav
+                    className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center"
+                    aria-label="Article pages"
+                  >
+                    <p className="order-2 text-sm text-gray-600 sm:order-1 sm:w-full sm:text-center">
+                      Showing{" "}
+                      <span className="font-medium text-gray-900">
+                        {articleOffset + 1}–
+                        {Math.min(
+                          articleOffset + paginatedArticles.length,
+                          filteredArticles.length
+                        )}
+                      </span>{" "}
+                      of{" "}
+                      <span className="font-medium text-gray-900">
+                        {filteredArticles.length}
+                      </span>
+                    </p>
+                    <div className="order-1 flex items-center gap-1 sm:order-2">
+                      <button
+                        type="button"
+                        onClick={() => goToArticlePage(articlePageSafe - 1)}
+                        disabled={articlePageSafe <= 1}
+                        className={cn(
+                          "inline-flex h-10 items-center gap-1 rounded-full border border-gray-200 bg-white px-3 text-sm font-medium transition-colors",
+                          articlePageSafe <= 1
+                            ? "cursor-not-allowed text-gray-300"
+                            : "text-gray-700 hover:border-brand-blue hover:text-brand-blue"
+                        )}
+                        aria-label="Previous page"
+                      >
+                        <ChevronLeft className="h-4 w-4" aria-hidden />
+                        Previous
+                      </button>
+                      <div className="mx-1 flex flex-wrap items-center justify-center gap-1">
+                        {visiblePageNumbers(articlePageSafe, articleTotalPages).map(
+                          (item, i) =>
+                            item === "gap" ? (
+                              <span
+                                key={`gap-${i}`}
+                                className="px-1 text-gray-400"
+                                aria-hidden
+                              >
+                                …
+                              </span>
+                            ) : (
+                              <button
+                                key={item}
+                                type="button"
+                                onClick={() => goToArticlePage(item)}
+                                className={cn(
+                                  "inline-flex h-10 min-w-10 items-center justify-center rounded-full px-3 text-sm font-medium transition-colors",
+                                  item === articlePageSafe
+                                    ? "bg-brand-blue text-white"
+                                    : "border border-gray-200 bg-white text-gray-700 hover:border-brand-blue hover:text-brand-blue"
+                                )}
+                                aria-label={`Page ${item}`}
+                                aria-current={item === articlePageSafe ? "page" : undefined}
+                              >
+                                {item}
+                              </button>
+                            )
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => goToArticlePage(articlePageSafe + 1)}
+                        disabled={articlePageSafe >= articleTotalPages}
+                        className={cn(
+                          "inline-flex h-10 items-center gap-1 rounded-full border border-gray-200 bg-white px-3 text-sm font-medium transition-colors",
+                          articlePageSafe >= articleTotalPages
+                            ? "cursor-not-allowed text-gray-300"
+                            : "text-gray-700 hover:border-brand-blue hover:text-brand-blue"
+                        )}
+                        aria-label="Next page"
+                      >
+                        Next
+                        <ChevronRight className="h-4 w-4" aria-hidden />
+                      </button>
+                    </div>
+                  </nav>
+                ) : null}
               </motion.div>
             )}
 

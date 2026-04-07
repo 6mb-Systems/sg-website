@@ -164,6 +164,7 @@ export default async function EducationPage() {
 
   const articles: Article[] = hasSanityContent
     ? sanityPosts.map((p) => ({
+        id: p._id,
         slug: typeof p.slug === "string" ? p.slug : p.slug.current,
         category: p.category?.title ?? "General",
         title: p.title,

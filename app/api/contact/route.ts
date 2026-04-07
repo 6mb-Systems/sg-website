@@ -104,7 +104,8 @@ export async function POST(request: NextRequest) {
     }
 
     const resendApiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_EMAIL_TO || "info@superguardian.com.au";
+    // Always route enquiries to the shared inbox.
+    const toEmail = "info@superguardian.com.au";
     const fromEmail = process.env.CONTACT_EMAIL_FROM || "noreply@superguardian.com.au";
 
     if (!resendApiKey) {

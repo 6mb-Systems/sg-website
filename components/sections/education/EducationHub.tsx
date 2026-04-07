@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import {
   Search,
@@ -15,6 +16,13 @@ import {
 import { cn } from "@/lib/utils";
 import { FadeIn } from "@/components/ui/fade-in";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  EDUCATION_HUB_TAB_PARAM,
+  educationHubHref,
+  educationPostHref,
+  parseTabFromHubSearchParams,
+  type EducationHubTabId,
+} from "@/lib/education-hub-tab";
 
 export interface Article {
   id?: string;
@@ -48,6 +56,8 @@ interface EducationHubProps {
   webinarArticles: Article[];
   webinars: WebinarItem[];
   categories: string[];
+  /** From `/education?tab=` on first render (avoids tab flash with Suspense). */
+  initialTab?: EducationHubTabId;
 }
 
 const tabs = [
@@ -104,8 +114,17 @@ function visiblePageNumbers(current: number, total: number): (number | "gap")[] 
   return out;
 }
 
-export function EducationHub({ articles, webinarArticles, webinars, categories }: EducationHubProps) {
-  const [activeTab, setActiveTab] = React.useState("articles");
+export function EducationHub({
+  articles,
+  webinarArticles,
+  webinars,
+  categories,
+  initialTab = "articles",
+}: EducationHubProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] =
+    React.useState<EducationHubTabId>(initialTab);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState("All");
   const [articlesPage, setArticlesPage] = React.useState(1);
@@ -163,6 +182,12 @@ export function EducationHub({ articles, webinarArticles, webinars, categories }
     setArticlesPage(1);
   }, [searchQuery, selectedCategory]);
 
+  React.useEffect(() => {
+    setActiveTab(
+      parseTabFromHubSearchParams(searchParams.get(EDUCATION_HUB_TAB_PARAM))
+    );
+  }, [searchParams]);
+
   const goToArticlePage = React.useCallback((page: number) => {
     setArticlesPage(page);
     articlesAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -196,7 +221,12 @@ export function EducationHub({ articles, webinarArticles, webinars, categories }
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                type="button"
+                onClick={() => {
+                  const id = tab.id as EducationHubTabId;
+                  setActiveTab(id);
+                  router.replace(educationHubHref(id), { scroll: false });
+                }}
                 className={cn(
                   "flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all",
                   activeTab === tab.id
@@ -266,7 +296,7 @@ export function EducationHub({ articles, webinarArticles, webinars, categories }
                       delay={index * 0.05}
                     >
                       <Link
-                        href={`/education/${article.slug}`}
+                        href={educationPostHref(article.slug, "articles")}
                         className="relative flex h-full min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
                         aria-label={`Open article: ${article.title}`}
                       >
@@ -486,7 +516,7 @@ export function EducationHub({ articles, webinarArticles, webinars, categories }
                                 </a>
                               ) : null}
                               <Link
-                                href={`/education/${item.slug}`}
+                                href={educationPostHref(item.slug, "webinars")}
                                 className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:border-brand-blue hover:text-brand-blue transition-colors"
                               >
                                 <FileText className="h-4 w-4" />

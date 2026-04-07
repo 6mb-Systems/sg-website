@@ -4,6 +4,8 @@ import { ArrowLeft } from "lucide-react";
 import { PageHero } from "@/components/sections/shared/PageHero";
 import { Division296Calculator } from "@/components/sections/education/Division296Calculator";
 import { Division296HowItWorks } from "@/components/sections/education/Division296HowItWorks";
+import { Button } from "@/components/ui/button";
+import { educationHubHref } from "@/lib/education-hub-tab";
 
 export const metadata: Metadata = {
   title: "Division 296 Tax Calculator",
@@ -21,13 +23,12 @@ export default function Division296CalculatorPage() {
 
       <section className="section-padding bg-white font-sans">
         <div className="container-width">
-          <Link
-            href="/education"
-            className="inline-flex items-center gap-2 text-sm font-medium text-brand-blue hover:text-brand-orange"
-          >
-            <ArrowLeft className="h-4 w-4" aria-hidden />
-            Back to Education Hub
-          </Link>
+          <Button variant="secondary" asChild>
+            <Link href={educationHubHref("calculators")}>
+              <ArrowLeft className="h-4 w-4" aria-hidden />
+              Back to Education Hub
+            </Link>
+          </Button>
 
           <div className="mt-10">
             <h2 className="text-2xl font-bold text-brand-blue md:text-3xl">

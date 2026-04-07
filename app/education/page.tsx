@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { EducationHub } from "@/components/sections/education/EducationHub";
 import { PageHero } from "@/components/sections/shared/PageHero";
 import { getFactsheetPosts, getWebinarPosts, getWebinars, getCategories } from "@/lib/sanity/queries";
 import type { Article, WebinarItem } from "@/components/sections/education/EducationHub";
 import { urlFor } from "@/lib/sanity/client";
+import {
+  parseTabFromHubSearchParams,
+  type EducationHubTabId,
+} from "@/lib/education-hub-tab";
 
 export const revalidate = 60;
 
@@ -96,7 +101,20 @@ function formatWebinarDate(isoDate: string): string {
   });
 }
 
-export default async function EducationPage() {
+export default async function EducationPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tab?: string | string[] }>;
+}) {
+  const hubSearch = await searchParams;
+  const tabRaw =
+    typeof hubSearch.tab === "string"
+      ? hubSearch.tab
+      : Array.isArray(hubSearch.tab)
+        ? hubSearch.tab[0]
+        : null;
+  const initialHubTab: EducationHubTabId =
+    parseTabFromHubSearchParams(tabRaw);
   const [sanityFactsheets, sanityWebinarPosts, sanityWebinars, sanityCategories] = await Promise.all([
     getFactsheetPosts(),
     getWebinarPosts(),
@@ -151,12 +169,21 @@ export default async function EducationPage() {
         description="Whether it's catching up on the latest changes to the SMSF environment, or refreshing your memory on those issues that only arise every so often we've got your SMSF professional development needs covered"
       />
 
-      <EducationHub
-        articles={articles}
-        webinarArticles={webinarArticles}
-        webinars={webinarItems}
-        categories={categoryList}
-      />
+      <Suspense
+        fallback={
+          <section className="section-padding bg-gray-50">
+            <div className="container-width min-h-[480px]" aria-hidden />
+          </section>
+        }
+      >
+        <EducationHub
+          articles={articles}
+          webinarArticles={webinarArticles}
+          webinars={webinarItems}
+          categories={categoryList}
+          initialTab={initialHubTab}
+        />
+      </Suspense>
     </>
   );
 }

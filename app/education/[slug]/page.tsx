@@ -7,11 +7,15 @@ import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/client";
 import { Button } from "@/components/ui/button";
+import {
+  educationHubHref,
+  parseTabFromPostSearchParams,
+} from "@/lib/education-hub-tab";
 
-function BackToEducationHubLink() {
+function BackToEducationHubLink({ href }: { href: string }) {
   return (
     <Button variant="secondary" asChild>
-      <Link href="/education">
+      <Link href={href}>
         <ArrowLeft className="h-4 w-4" aria-hidden />
         Back to Education Hub
       </Link>
@@ -291,6 +295,7 @@ const portableTextComponents: PortableTextComponents = {
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ tab?: string | string[] }>;
 }
 
 export async function generateStaticParams() {
@@ -321,8 +326,12 @@ export async function generateMetadata({
   return { title: "Article Not Found" };
 }
 
-export default async function ArticlePage({ params }: PageProps) {
+export default async function ArticlePage({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const sp = await searchParams;
+  const backToHubHref = educationHubHref(
+    parseTabFromPostSearchParams(sp.tab) === "webinars" ? "webinars" : "articles"
+  );
   const post = await getPostBySlug(slug);
 
   if (post) {
@@ -340,7 +349,7 @@ export default async function ArticlePage({ params }: PageProps) {
       <article className="section-padding">
         <div className="container-width">
           <div className="mx-auto max-w-3xl">
-            <BackToEducationHubLink />
+            <BackToEducationHubLink href={backToHubHref} />
 
             <header className="mt-8">
               <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-sm font-medium text-brand-blue">
@@ -410,7 +419,7 @@ export default async function ArticlePage({ params }: PageProps) {
       <article className="section-padding">
         <div className="container-width">
           <div className="mx-auto max-w-3xl">
-            <BackToEducationHubLink />
+            <BackToEducationHubLink href={backToHubHref} />
 
             <header className="mt-8">
               <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-sm font-medium text-brand-blue">

@@ -46,6 +46,7 @@ export interface SanityPost {
     };
   };
   isWebinarPost?: boolean;
+  isUpcomingEvent?: boolean;
   videoUrl?: string;
 }
 
@@ -96,6 +97,7 @@ const postFields = `
   readTime,
   downloadCount,
   isWebinarPost,
+  isUpcomingEvent,
   videoUrl
 `;
 

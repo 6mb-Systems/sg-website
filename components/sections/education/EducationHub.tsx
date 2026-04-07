@@ -27,6 +27,8 @@ export interface Article {
   imageUrl?: string | null;
   imageAlt?: string | null;
   videoUrl?: string | null;
+  /** Webinar/event posts only: drives Past Event vs Upcoming Event badge */
+  isUpcomingEvent?: boolean;
 }
 
 export interface WebinarItem {
@@ -65,6 +67,22 @@ const calculatorItems = [
 ] as const;
 
 const ARTICLES_PER_PAGE = 9;
+
+function webinarPostEventBadge(item: Article): { label: string; className: string } {
+  return item.isUpcomingEvent === true
+    ? { label: "Upcoming Event", className: "bg-green-100 text-green-700" }
+    : { label: "Past Event", className: "bg-gray-100 text-gray-700" };
+}
+
+function dedicatedWebinarEventBadge(webinar: WebinarItem): {
+  label: string;
+  className: string;
+} {
+  const upcoming = webinar.status === "Upcoming" || webinar.status === "Live";
+  return upcoming
+    ? { label: "Upcoming Event", className: "bg-green-100 text-green-700" }
+    : { label: "Past Event", className: "bg-gray-100 text-gray-700" };
+}
 
 function visiblePageNumbers(current: number, total: number): (number | "gap")[] {
   if (total <= 7) {
@@ -416,85 +434,99 @@ export function EducationHub({ articles, webinarArticles, webinars, categories }
                 <div ref={webinarsAnchorRef} className="scroll-mt-24" aria-hidden />
 
                 <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {paginatedWebinars.map((item, index) => (
-                    <FadeIn key={item.id ?? item.slug} direction="up" delay={index * 0.04}>
-                      <div className="relative flex h-full min-h-[320px] flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-                        {item.imageUrl && (
-                          <div className="relative h-[180px] w-full shrink-0 overflow-hidden bg-brand-blue/5">
-                            <Image
-                              src={item.imageUrl}
-                              alt={item.imageAlt || item.title}
-                              fill
-                              className="object-cover"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                          </div>
-                        )}
-                        <div className="flex flex-1 flex-col p-5">
-                          <div className="flex items-center justify-between">
-                            <span className="rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
-                              {item.category}
-                            </span>
-                            <span className="flex items-center gap-1 text-xs text-gray-400">
-                              <Calendar className="h-3.5 w-3.5" />
-                              {item.date}
-                            </span>
-                          </div>
-                          <h3 className="mt-3 text-base font-semibold text-gray-900 leading-snug">
-                            {item.title}
-                          </h3>
-                          {item.excerpt && (
-                            <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-1">
-                              {item.excerpt}
-                            </p>
+                  {paginatedWebinars.map((item, index) => {
+                    const eventBadge = webinarPostEventBadge(item);
+                    return (
+                      <FadeIn key={item.id ?? item.slug} direction="up" delay={index * 0.04}>
+                        <div className="relative flex h-full min-h-[320px] flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                          {item.imageUrl && (
+                            <div className="relative h-[180px] w-full shrink-0 overflow-hidden bg-brand-blue/5">
+                              <Image
+                                src={item.imageUrl}
+                                alt={item.imageAlt || item.title}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              />
+                            </div>
                           )}
-                          <div className="mt-auto pt-4 flex gap-2">
-                            {item.videoUrl ? (
-                              <a
-                                href={item.videoUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 rounded-lg bg-brand-blue px-4 py-2 text-sm font-medium text-white hover:bg-brand-blue-600 transition-colors"
+                          <div className="flex flex-1 flex-col p-5">
+                            <div className="flex items-center justify-between">
+                              <span
+                                className={cn(
+                                  "rounded-full px-3 py-1 text-xs font-medium",
+                                  eventBadge.className
+                                )}
                               >
-                                <Video className="h-4 w-4" />
-                                Watch Replay
-                              </a>
-                            ) : null}
-                            <Link
-                              href={`/education/${item.slug}`}
-                              className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:border-brand-blue hover:text-brand-blue transition-colors"
-                            >
-                              <FileText className="h-4 w-4" />
-                              View Details
-                            </Link>
+                                {eventBadge.label}
+                              </span>
+                              <span className="flex items-center gap-1 text-xs text-gray-400">
+                                <Calendar className="h-3.5 w-3.5" />
+                                {item.date}
+                              </span>
+                            </div>
+                            <h3 className="mt-3 text-base font-semibold text-gray-900 leading-snug">
+                              {item.title}
+                            </h3>
+                            {item.excerpt && (
+                              <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-1">
+                                {item.excerpt}
+                              </p>
+                            )}
+                            <div className="mt-auto pt-4 flex gap-2">
+                              {item.videoUrl ? (
+                                <a
+                                  href={item.videoUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 rounded-lg bg-brand-blue px-4 py-2 text-sm font-medium text-white hover:bg-brand-blue-600 transition-colors"
+                                >
+                                  <Video className="h-4 w-4" />
+                                  Watch Replay
+                                </a>
+                              ) : null}
+                              <Link
+                                href={`/education/${item.slug}`}
+                                className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:border-brand-blue hover:text-brand-blue transition-colors"
+                              >
+                                <FileText className="h-4 w-4" />
+                                View Details
+                              </Link>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </FadeIn>
-                  ))}
+                      </FadeIn>
+                    );
+                  })}
 
                   {/* Dedicated webinar documents (future use) */}
-                  {webinars.map((webinar, index) => (
+                  {webinars.map((webinar, index) => {
+                    const eventBadge = dedicatedWebinarEventBadge(webinar);
+                    return (
                     <FadeIn key={webinar.slug} direction="up" delay={(webinarArticles.length + index) * 0.04}>
                       <div className="relative flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm p-5">
                         <div className="flex items-center justify-between">
-                          <span className={cn(
-                            "rounded-full px-3 py-1 text-xs font-medium",
-                            webinar.status === "Upcoming" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"
-                          )}>
-                            {webinar.status}
+                          <span
+                            className={cn(
+                              "rounded-full px-3 py-1 text-xs font-medium",
+                              eventBadge.className
+                            )}
+                          >
+                            {eventBadge.label}
                           </span>
-                          <span className="text-xs text-gray-400">{webinar.category}</span>
+                          <span className="flex items-center gap-1 text-xs text-gray-400">
+                            <Calendar className="h-3.5 w-3.5" />
+                            {webinar.date}
+                          </span>
                         </div>
                         <h3 className="mt-3 text-base font-semibold text-gray-900">{webinar.title}</h3>
                         <p className="mt-2 text-sm text-gray-600 flex-grow">{webinar.excerpt}</p>
                         {webinar.presenter && (
                           <p className="mt-2 text-sm text-brand-orange">Presented by {webinar.presenter}</p>
                         )}
-                        <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
-                          <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" />{webinar.date}</span>
-                          {webinar.duration && <span>{webinar.duration}</span>}
-                        </div>
+                        {webinar.duration ? (
+                          <div className="mt-3 text-xs text-gray-400">{webinar.duration}</div>
+                        ) : null}
                         <button className={cn(
                           "mt-4 w-full rounded-lg py-2.5 text-sm font-medium transition-colors flex items-center justify-center gap-2",
                           webinar.status === "Upcoming"
@@ -506,7 +538,8 @@ export function EducationHub({ articles, webinarArticles, webinars, categories }
                         </button>
                       </div>
                     </FadeIn>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 {webinarTotalPages > 1 ? (

@@ -100,6 +100,15 @@ export const post = defineType({
       initialValue: false,
     }),
     defineField({
+      name: "isUpcomingEvent",
+      title: "Upcoming Event",
+      type: "boolean",
+      description:
+        'When this post is a webinar/event, show the "Upcoming Event" label. Leave off for past events.',
+      initialValue: false,
+      hidden: ({ document }) => document?.isWebinarPost !== true,
+    }),
+    defineField({
       name: "videoUrl",
       title: "Video / Registration URL",
       type: "url",

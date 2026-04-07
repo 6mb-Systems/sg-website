@@ -70,57 +70,6 @@ const fallbackArticles: Article[] = [
   },
 ];
 
-const fallbackWebinars: WebinarItem[] = [
-  {
-    slug: "smsf-fundamentals-workshop",
-    status: "Upcoming",
-    category: "Fundamentals",
-    title: "SMSF Fundamentals Workshop",
-    excerpt:
-      "Comprehensive 2-hour workshop covering SMSF basics for new trustees",
-    presenter: "Sarah Chen, Managing Director",
-    date: "January 15, 2025",
-    duration: "2 hours",
-    attendees: 340,
-  },
-  {
-    slug: "2024-tax-year-review",
-    status: "Watch Replay",
-    category: "Tax",
-    title: "2024 Tax Year Review",
-    excerpt:
-      "Key changes and considerations for the 2024 financial year",
-    presenter: "Michael Thompson, Head of Compliance",
-    date: "December 10, 2024",
-    duration: "45 minutes",
-    attendees: 180,
-  },
-  {
-    slug: "investment-strategy-deep-dive",
-    status: "Watch Replay",
-    category: "Investment",
-    title: "Investment Strategy Deep Dive",
-    excerpt:
-      "Advanced strategies for optimizing SMSF investment portfolios",
-    presenter: "Lisa Rodriguez, Client Success Manager",
-    date: "November 20, 2024",
-    duration: "60 minutes",
-    attendees: 95,
-  },
-  {
-    slug: "technology-integration-masterclass",
-    status: "Watch Replay",
-    category: "Technology",
-    title: "Technology Integration Masterclass",
-    excerpt:
-      "Maximizing efficiency through Class, BGL, and other platform integrations",
-    presenter: "David Kim, Technology Director",
-    date: "October 25, 2024",
-    duration: "90 minutes",
-    attendees: 220,
-  },
-];
-
 const fallbackCategories = [
   "All",
   "Compliance",
@@ -169,28 +118,26 @@ export default async function EducationPage() {
       imageUrl: p.mainImage?.asset ? urlFor(p.mainImage).width(800).height(450).url() : null,
       imageAlt: p.mainImage?.alt ?? null,
       videoUrl: p.videoUrl ?? null,
+      isUpcomingEvent: p.isUpcomingEvent === true,
     };
   }
 
   const articles: Article[] = hasSanityContent ? sanityFactsheets.map(toArticle) : fallbackArticles;
   const webinarArticles: Article[] = sanityWebinarPosts.map(toArticle);
 
-  const hasSanityWebinars = sanityWebinars.length > 0;
-  const webinarItems: WebinarItem[] = hasSanityWebinars
-    ? sanityWebinars.map((w) => ({
-        slug: typeof w.slug === "string" ? w.slug : w.slug.current,
-        status: w.status === "upcoming" ? "Upcoming" : w.status === "live" ? "Live" : "Watch Replay",
-        category: w.category?.title ?? "General",
-        title: w.title,
-        excerpt: w.excerpt ?? "",
-        presenter: w.presenter
-          ? `${w.presenter.name}${w.presenter.role ? `, ${w.presenter.role}` : ""}`
-          : "",
-        date: formatWebinarDate(w.date),
-        duration: w.duration ?? "",
-        attendees: w.attendeeCount ?? 0,
-      }))
-    : fallbackWebinars;
+  const webinarItems: WebinarItem[] = sanityWebinars.map((w) => ({
+    slug: typeof w.slug === "string" ? w.slug : w.slug.current,
+    status: w.status === "upcoming" ? "Upcoming" : w.status === "live" ? "Live" : "Watch Replay",
+    category: w.category?.title ?? "General",
+    title: w.title,
+    excerpt: w.excerpt ?? "",
+    presenter: w.presenter
+      ? `${w.presenter.name}${w.presenter.role ? `, ${w.presenter.role}` : ""}`
+      : "",
+    date: formatWebinarDate(w.date),
+    duration: w.duration ?? "",
+    attendees: w.attendeeCount ?? 0,
+  }));
 
   const categoryList =
     sanityCategories.length > 0

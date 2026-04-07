@@ -17,10 +17,10 @@ export default function SecurityPage() {
         title="Security at SuperGuardian"
         description={
           <>
-            SuperGuardian follows internationally recognised compliance frameworks
-            <br />
-            that demonstrate our adherence to industry-leading
-            <br />
+            SuperGuardian follows internationally recognised compliance frameworks{" "}
+            <br className="hidden md:block" />
+            that demonstrate our adherence to industry-leading{" "}
+            <br className="hidden md:block" />
             security guidelines and practices
           </>
         }

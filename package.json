@@ -41,6 +41,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "overrides": {
+    "vite": "^7.3.2",
     "glob": "^10.5.0",
     "prismjs": "^1.30.0",
     "@vercel/frameworks": {

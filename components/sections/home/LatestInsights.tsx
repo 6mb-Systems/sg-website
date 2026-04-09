@@ -145,7 +145,6 @@ export async function LatestInsights() {
           <Button size="lg" className="bg-brand-orange text-white hover:bg-brand-orange/90 w-full md:w-auto px-8" asChild>
             <Link href="/education">
               View All Resources
-              <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </div>

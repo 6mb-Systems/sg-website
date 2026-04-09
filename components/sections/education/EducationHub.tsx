@@ -162,22 +162,8 @@ export function EducationHub({
   return (
     <section className="section-padding bg-gray-50">
       <div className="container-width">
-        {/* Search */}
-        <div className="mx-auto max-w-2xl">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search for SMSF topics, fact sheets, webinars, or events…"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full border border-gray-300 bg-white py-3 pl-12 pr-4 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
-            />
-          </div>
-        </div>
-
         {/* Tab Navigation */}
-        <div className="mt-8 flex justify-center">
+        <div className="mt-0 flex justify-center">
           <div className="flex w-full max-w-xl rounded-full bg-white p-1 shadow-sm border">
             {tabs.map((tab) => (
               <button
@@ -224,7 +210,7 @@ export function EducationHub({
                 </div>
 
                 {/* Category Filter */}
-                <div className="mt-8 flex flex-wrap justify-center gap-2">
+                <div className="mt-8 mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
                   {uniqueCategories.map((category) => (
                     <button
                       key={category}
@@ -239,6 +225,20 @@ export function EducationHub({
                       {category}
                     </button>
                   ))}
+                </div>
+
+                {/* Search (Insights tab only) */}
+                <div className="mt-6 mx-auto max-w-2xl">
+                  <div className="relative">
+                    <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Search for SMSF topics, fact sheets, or blogs…"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full rounded-full border border-gray-300 bg-white py-3 pl-12 pr-4 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
+                    />
+                  </div>
                 </div>
 
                 <div ref={articlesAnchorRef} className="scroll-mt-24" aria-hidden />

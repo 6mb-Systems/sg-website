@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Providers } from "@/components/Providers";
 import { ContactForm } from "@/components/sections/contact/ContactForm";
 import { ContactInfo } from "@/components/sections/contact/ContactInfo";
 import { OfficeLocations } from "@/components/sections/contact/OfficeLocations";
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <>
+    <Providers>
       <PageHero
         title="Talk to one of our experts"
         description="If you would like to find out further information on the SuperGuardian service please give us a call"
@@ -33,6 +34,6 @@ export default function ContactPage() {
       </section>
 
       <OfficeLocations />
-    </>
+    </Providers>
   );
 }

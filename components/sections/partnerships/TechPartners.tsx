@@ -159,7 +159,7 @@ export function TechPartners() {
         <FadeIn direction="up">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-brand-blue md:text-4xl">
-              Technology Partners
+              Technology & Industry Partners
             </h2>
             <p className="mt-4 text-gray-600">
               Integrated with Australia&apos;s leading SMSF platforms

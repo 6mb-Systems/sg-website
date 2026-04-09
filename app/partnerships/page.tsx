@@ -8,7 +8,7 @@ import { PageHero } from "@/components/sections/shared/PageHero";
 export const metadata: Metadata = {
   title: "Partnerships",
   description:
-    "Strategic partnerships with leading technology providers and industry bodies to deliver the best possible SMSF experience.",
+    "Strategic partnerships with leading technology & service providers and industry bodies to deliver the best possible SMSF experience.",
 };
 
 export default function PartnershipsPage() {
@@ -16,7 +16,7 @@ export default function PartnershipsPage() {
     <>
       <PageHero
         title="Our Partnerships"
-        description="Strategic partnerships with leading technology providers and industry bodies to deliver the best possible SMSF experience"
+        description="Strategic partnerships with leading technology & service providers and industry bodies to deliver the best possible SMSF experience"
       />
 
       <IntegrationBenefits />

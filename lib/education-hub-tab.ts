@@ -12,7 +12,7 @@ function firstString(
   return Array.isArray(value) ? value[0] : value;
 }
 
-/** Tab to show on `/education` from a post URL’s `?tab=` (default: Fact Sheets & Blogs). */
+/** Tab to show on `/education` from a post URL’s `?tab=` (default: Insights). */
 export function parseTabFromPostSearchParams(
   tab: string | string[] | undefined
 ): "articles" | "webinars" {

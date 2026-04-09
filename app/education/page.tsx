@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { EducationHub } from "@/components/sections/education/EducationHub";
 import { PageHero } from "@/components/sections/shared/PageHero";
-import { getFactsheetPosts, getWebinarPosts, getWebinars, getCategories } from "@/lib/sanity/queries";
-import type { Article, WebinarItem } from "@/components/sections/education/EducationHub";
+import { getFactsheetPosts, getCategories } from "@/lib/sanity/queries";
+import type { Article } from "@/components/sections/education/EducationHub";
 import { urlFor } from "@/lib/sanity/client";
 import {
   parseTabFromHubSearchParams,
@@ -93,14 +93,6 @@ function formatDate(isoDate: string): string {
   });
 }
 
-function formatWebinarDate(isoDate: string): string {
-  return new Date(isoDate).toLocaleDateString("en-AU", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
-
 export default async function EducationPage({
   searchParams,
 }: {
@@ -115,14 +107,12 @@ export default async function EducationPage({
         : null;
   const initialHubTab: EducationHubTabId =
     parseTabFromHubSearchParams(tabRaw);
-  const [sanityFactsheets, sanityWebinarPosts, sanityWebinars, sanityCategories] = await Promise.all([
+  const [sanityFactsheets, sanityCategories] = await Promise.all([
     getFactsheetPosts(),
-    getWebinarPosts(),
-    getWebinars(),
     getCategories(),
   ]);
 
-  const hasSanityContent = sanityFactsheets.length > 0 || sanityWebinarPosts.length > 0;
+  const hasSanityContent = sanityFactsheets.length > 0;
 
   function toArticle(p: (typeof sanityFactsheets)[number]): Article {
     return {
@@ -141,21 +131,6 @@ export default async function EducationPage({
   }
 
   const articles: Article[] = hasSanityContent ? sanityFactsheets.map(toArticle) : fallbackArticles;
-  const webinarArticles: Article[] = sanityWebinarPosts.map(toArticle);
-
-  const webinarItems: WebinarItem[] = sanityWebinars.map((w) => ({
-    slug: typeof w.slug === "string" ? w.slug : w.slug.current,
-    status: w.status === "upcoming" ? "Upcoming" : w.status === "live" ? "Live" : "Watch Replay",
-    category: w.category?.title ?? "General",
-    title: w.title,
-    excerpt: w.excerpt ?? "",
-    presenter: w.presenter
-      ? `${w.presenter.name}${w.presenter.role ? `, ${w.presenter.role}` : ""}`
-      : "",
-    date: formatWebinarDate(w.date),
-    duration: w.duration ?? "",
-    attendees: w.attendeeCount ?? 0,
-  }));
 
   const categoryList =
     sanityCategories.length > 0
@@ -178,8 +153,6 @@ export default async function EducationPage({
       >
         <EducationHub
           articles={articles}
-          webinarArticles={webinarArticles}
-          webinars={webinarItems}
           categories={categoryList}
           initialTab={initialHubTab}
         />

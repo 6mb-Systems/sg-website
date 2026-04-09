@@ -96,7 +96,7 @@ export const post = defineType({
       name: "isWebinarPost",
       title: "Is Webinar / Event",
       type: "boolean",
-      description: "Show this post in the Webinars & Events tab instead of Fact Sheets",
+      description: "Show this post in the Webinars tab instead of Insights",
       initialValue: false,
     }),
     defineField({

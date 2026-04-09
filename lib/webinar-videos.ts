@@ -2,6 +2,8 @@ export interface WebinarVideo {
   id: string;         // YouTube video ID (the part after ?v= in the URL)
   title: string;
   date?: string;
+  duration?: string;
+  description?: string;
 }
 
 /**

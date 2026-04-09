@@ -15,9 +15,36 @@ export function YouTubePlaylist({ videos }: YouTubePlaylistProps) {
   const hasRealId = (id: string) => id !== "REPLACE_WITH_VIDEO_ID";
 
   return (
-    <section className="py-12 md:py-16 bg-gray-50">
-      <div className="container-width">
-        <div className="flex flex-col lg:flex-row gap-6">
+    <section className="relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50 py-12 md:py-16">
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100/80"
+        aria-hidden
+      />
+      <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
+        <defs>
+          <pattern
+            id="youtube-playlist-hex"
+            x="0"
+            y="0"
+            width="60"
+            height="34.64"
+            patternUnits="userSpaceOnUse"
+            patternTransform="scale(2)"
+          >
+            <path
+              d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60"
+              fill="none"
+              stroke="#d1d5db"
+              strokeWidth="0.55"
+            />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#youtube-playlist-hex)" />
+      </svg>
+
+      <div className="container-width relative z-10">
+        <div className="px-6 md:px-8">
+          <div className="flex flex-col lg:flex-row gap-6">
           {/* ── Left: Player ── */}
           <div className="flex-1 min-w-0">
             {/* 16:9 responsive iframe */}
@@ -61,7 +88,7 @@ export function YouTubePlaylist({ videos }: YouTubePlaylistProps) {
 
           {/* ── Right: Playlist ── */}
           <div className="lg:w-72 xl:w-80 shrink-0">
-            <div className="rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+            <div className="rounded-xl border border-gray-200 overflow-hidden shadow-sm bg-white">
               {/* Playlist header */}
               <div className="bg-brand-blue px-4 py-3">
                 <p className="text-sm font-semibold text-white tracking-wide uppercase">Playlist</p>
@@ -106,6 +133,7 @@ export function YouTubePlaylist({ videos }: YouTubePlaylistProps) {
                 ))}
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

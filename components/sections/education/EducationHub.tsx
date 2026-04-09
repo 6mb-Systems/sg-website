@@ -61,8 +61,8 @@ interface EducationHubProps {
 }
 
 const tabs = [
-  { id: "articles", label: "Fact Sheets & Blogs", icon: FileText },
-  { id: "webinars", label: "Webinars & Events", icon: Video },
+  { id: "articles", label: "Insights", icon: FileText },
+  { id: "webinars", label: "Webinars", icon: Video },
   { id: "calculators", label: "Calculators", icon: Calculator },
 ];
 
@@ -178,7 +178,7 @@ export function EducationHub({
 
         {/* Tab Navigation */}
         <div className="mt-8 flex justify-center">
-          <div className="inline-flex rounded-full bg-white p-1 shadow-sm border">
+          <div className="flex w-full max-w-xl rounded-full bg-white p-1 shadow-sm border">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -189,7 +189,7 @@ export function EducationHub({
                   router.replace(educationHubHref(id), { scroll: false });
                 }}
                 className={cn(
-                  "flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all",
+                  "flex flex-1 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all",
                   activeTab === tab.id
                     ? "bg-brand-blue text-white"
                     : "text-gray-600 hover:text-brand-blue"
@@ -216,7 +216,7 @@ export function EducationHub({
               >
                 <div className="text-center">
                   <h2 className="text-2xl font-bold text-brand-blue">
-                    Fact Sheets & Blogs
+                    Insights
                   </h2>
                   <p className="mt-2 text-gray-600">
                     Stay informed with our expert insights and guides
@@ -414,7 +414,7 @@ export function EducationHub({
                 transition={{ duration: 0.3 }}
               >
                 <div className="text-center">
-                  <h2 className="text-2xl font-bold text-brand-blue">Webinars & Events</h2>
+                  <h2 className="text-2xl font-bold text-brand-blue">Webinars</h2>
                   <p className="mt-2 text-gray-600">Interactive learning with our SMSF experts</p>
                 </div>
                 <div className="mt-8">

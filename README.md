@@ -4,11 +4,13 @@ Marketing website for SuperGuardian - SMSF administration services.
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **UI Components**: shadcn/ui
-- **CMS**: Sanity (for blog/education content)
+- **Server / API**: Next.js Route Handlers (`app/api/`) on Node.js — no separate Express server
+- **CMS**: Sanity (blog/education content)
+- **Email**: Resend (contact form)
 - **Hosting**: Vercel
 
 ## Getting Started
@@ -36,10 +38,11 @@ Marketing website for SuperGuardian - SMSF administration services.
    cp .env.example .env.local
    ```
 
-4. Configure environment variables in `.env.local`:
-   - Add your Sanity project ID and dataset
-   - Add your Google Analytics measurement ID
-   - Configure email provider credentials (when ready)
+4. Configure environment variables in `.env.local` (see `.env.example`):
+   - Sanity project ID, dataset, and API token
+   - Google Analytics measurement ID
+   - Resend API key and contact email addresses
+   - Google reCAPTCHA v3 keys (contact form)
 
 5. Start the development server:
    ```bash
@@ -88,7 +91,7 @@ Marketing website for SuperGuardian - SMSF administration services.
 
 ## Sanity CMS Setup
 
-The Education section is powered by Sanity CMS. Schema definitions are provided in `lib/sanity/schemas.ts`.
+The Education section is powered by Sanity CMS. Document schemas live in `sanity/schemaTypes/` and are wired in `sanity.config.ts`.
 
 ### Content Types
 
@@ -102,6 +105,7 @@ The Education section is powered by Sanity CMS. Schema definitions are provided 
 
 ```bash
 npm run dev        # Start development server
+npm run studio     # Sanity Studio (standalone, port 3333)
 npm run build      # Build for production
 npm run start      # Start production server
 npm run lint       # Run ESLint

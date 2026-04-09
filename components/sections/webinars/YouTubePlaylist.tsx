@@ -15,9 +15,9 @@ export function YouTubePlaylist({ videos }: YouTubePlaylistProps) {
   const hasRealId = (id: string) => id !== "REPLACE_WITH_VIDEO_ID";
 
   return (
-    <section className="relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50 py-12 md:py-16">
+    <section className="relative overflow-hidden rounded-xl border border-gray-200 bg-white px-5 py-6 md:px-7 md:py-8">
       <div
-        className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100/80"
+        className="absolute inset-0 bg-white"
         aria-hidden
       />
       <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
@@ -42,11 +42,13 @@ export function YouTubePlaylist({ videos }: YouTubePlaylistProps) {
         <rect width="100%" height="100%" fill="url(#youtube-playlist-hex)" />
       </svg>
 
-      <div className="container-width relative z-10">
-        <div className="px-6 md:px-8">
-          <div className="flex flex-col lg:flex-row gap-6">
+      <div className="relative z-10">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* ── Left: Player ── */}
           <div className="flex-1 min-w-0">
+            <div className="mb-3 inline-flex items-center rounded-full border border-brand-blue/20 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-blue">
+              Past webinars
+            </div>
             {/* 16:9 responsive iframe */}
             <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-900" style={{ paddingBottom: "56.25%" }}>
               {hasRealId(active.id) ? (
@@ -95,7 +97,7 @@ export function YouTubePlaylist({ videos }: YouTubePlaylistProps) {
               </div>
 
               {/* Scrollable list */}
-              <div className="divide-y divide-gray-100 max-h-[480px] overflow-y-auto">
+              <div className="divide-y divide-gray-100 max-h-[560px] overflow-y-auto">
                 {videos.map((video, i) => (
                   <button
                     key={i}
@@ -133,7 +135,6 @@ export function YouTubePlaylist({ videos }: YouTubePlaylistProps) {
                 ))}
               </div>
             </div>
-          </div>
           </div>
         </div>
       </div>

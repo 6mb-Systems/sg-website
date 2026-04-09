@@ -25,6 +25,7 @@ import {
 } from "@/lib/education-hub-tab";
 import { YouTubePlaylist } from "@/components/sections/webinars/YouTubePlaylist";
 import { webinarVideos } from "@/lib/webinar-videos";
+import { UpcomingSeminarPromo } from "@/components/sections/webinars/UpcomingSeminarPromo";
 
 export interface Article {
   id?: string;
@@ -175,14 +176,14 @@ export function EducationHub({
                   router.replace(educationHubHref(id), { scroll: false });
                 }}
                 className={cn(
-                  "flex flex-1 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all",
+                  "flex flex-1 min-w-0 items-center justify-center gap-1 rounded-full px-3 py-3 text-xs font-medium transition-all sm:gap-2 sm:px-6 sm:text-sm whitespace-nowrap",
                   activeTab === tab.id
                     ? "bg-brand-blue text-white"
                     : "text-gray-600 hover:text-brand-blue"
                 )}
               >
-                <tab.icon className="h-4 w-4" />
-                {tab.label}
+                <tab.icon className="h-4 w-4 shrink-0 hidden sm:block" />
+                <span className="min-w-0 truncate">{tab.label}</span>
               </button>
             ))}
           </div>
@@ -418,7 +419,10 @@ export function EducationHub({
                   <p className="mt-2 text-gray-600">Interactive learning with our SMSF experts</p>
                 </div>
                 <div className="mt-8">
+                  <UpcomingSeminarPromo />
+                  <div className="mt-8">
                   <YouTubePlaylist videos={webinarVideos} />
+                  </div>
                 </div>
               </motion.div>
             )}

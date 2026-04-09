@@ -223,33 +223,33 @@ export function Division296Calculator() {
         >
           <h3 className="text-lg font-semibold">Results</h3>
           <dl className="mt-4 space-y-3 text-sm">
-            <div className="flex justify-between gap-4 border-b border-white/15 pb-3">
+            <div className="flex flex-col gap-1 border-b border-white/15 pb-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <dt className="text-blue-100/90">Proportion of earnings over $3m</dt>
-              <dd className="font-medium tabular-nums">
+              <dd className="font-medium tabular-nums sm:text-right">
                 {hasCalculated && result ? formatPct(result.proportionOver3m) : "-"}
               </dd>
             </div>
-            <div className="flex justify-between gap-4 border-b border-white/15 pb-3">
+            <div className="flex flex-col gap-1 border-b border-white/15 pb-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <dt className="text-blue-100/90">Proportion of earnings over $10m</dt>
-              <dd className="font-medium tabular-nums">
+              <dd className="font-medium tabular-nums sm:text-right">
                 {hasCalculated && result ? formatPct(result.proportionOver10m) : "-"}
               </dd>
             </div>
-            <div className="flex justify-between gap-4 border-b border-white/15 pb-3">
+            <div className="flex flex-col gap-1 border-b border-white/15 pb-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <dt className="text-blue-100/90">Earnings over $3m</dt>
-              <dd className="font-medium tabular-nums">
+              <dd className="font-medium tabular-nums sm:text-right">
                 {hasCalculated && result ? formatAud(result.earningsOver3m) : "-"}
               </dd>
             </div>
-            <div className="flex justify-between gap-4 border-b border-white/15 pb-3">
+            <div className="flex flex-col gap-1 border-b border-white/15 pb-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <dt className="text-blue-100/90">Earnings over $10m</dt>
-              <dd className="font-medium tabular-nums">
+              <dd className="font-medium tabular-nums sm:text-right">
                 {hasCalculated && result ? formatAud(result.earningsOver10m) : "-"}
               </dd>
             </div>
-            <div className="flex justify-between gap-4 pt-1">
+            <div className="flex flex-col gap-1 pt-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <dt className="font-medium text-white">Estimated Div. 296 Tax Payable</dt>
-              <dd className="text-lg font-semibold tabular-nums text-brand-orange">
+              <dd className="text-lg font-semibold tabular-nums text-brand-orange sm:text-right">
                 {hasCalculated && result ? formatAud(result.taxPayable) : "-"}
               </dd>
             </div>

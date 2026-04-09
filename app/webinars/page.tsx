@@ -17,7 +17,11 @@ export default function WebinarsPage() {
         description="Stay current with SMSF compliance, regulation and strategy"
         subtitle="Access our library of CPD-accredited webinars and replays, delivered by leading SMSF professionals."
       />
-      <YouTubePlaylist videos={webinarVideos} />
+      <section className="section-padding bg-gray-50">
+        <div className="container-width">
+          <YouTubePlaylist videos={webinarVideos} />
+        </div>
+      </section>
     </>
   );
 }

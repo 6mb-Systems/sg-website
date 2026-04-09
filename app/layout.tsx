@@ -39,13 +39,13 @@ export const metadata: Metadata = {
     siteName: "SuperGuardian",
     title: "SuperGuardian | SMSF Admin Made Simple",
     description:
-      "Expert SMSF administration, accounting, and compliance services for advisers, accountants and trustees across Australia.",
+      "Expert SMSF administration, accounting and compliance services for advisers, accountants and trustees across Australia.",
   },
   twitter: {
     card: "summary_large_image",
     title: "SuperGuardian | SMSF Admin Made Simple",
     description:
-      "Expert SMSF administration, accounting, and compliance services for advisers, accountants and trustees across Australia.",
+      "Expert SMSF administration, accounting and compliance services for advisers, accountants and trustees across Australia.",
   },
   robots: {
     index: true,

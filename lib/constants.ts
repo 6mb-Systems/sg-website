@@ -79,6 +79,8 @@ export const navigation = {
     { name: "Pricing", href: "/pricing" },
     { name: "Security", href: "/security" },
     { name: "Education", href: "/education" },
+    { name: "Webinars & Events", href: "/webinars" },
     { name: "Contact", href: "/contact" },
+
   ],
 };

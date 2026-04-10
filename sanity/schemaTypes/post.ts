@@ -103,28 +103,6 @@ export const post = defineType({
       options: { accept: ".pdf" },
     }),
     defineField({
-      name: "isWebinarPost",
-      title: "Is Webinar / Event",
-      type: "boolean",
-      description: "Show this post in the Webinars tab instead of Insights",
-      initialValue: false,
-    }),
-    defineField({
-      name: "isUpcomingEvent",
-      title: "Upcoming Event",
-      type: "boolean",
-      description:
-        'When this post is a webinar/event, show the "Upcoming Event" label. Leave off for past events.',
-      initialValue: false,
-      hidden: ({ document }) => document?.isWebinarPost !== true,
-    }),
-    defineField({
-      name: "videoUrl",
-      title: "Video / Registration URL",
-      type: "url",
-      description: "Zoom registration link or video replay URL for webinar posts",
-    }),
-    defineField({
       name: "seo",
       title: "SEO",
       type: "object",

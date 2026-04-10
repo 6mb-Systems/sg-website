@@ -58,7 +58,7 @@ const audiences: Audience[] = [
     label: "Financial Advisers",
     title: "For Financial Advisers",
     subtitle:
-      "Expand your SMSF offering with our comprehensive administration and compliance services",
+      "Expand your SMSF offering with our comprehensive administration and compliance services, driven by innovative, technology-led solutions and supported by experts",
     features: [
       {
         title: "SMSF Setup & Administration",
@@ -321,6 +321,19 @@ export function AudienceTabs() {
                     </div>
                   ))}
                 </div>
+
+                {/* Hive section — advisers only */}
+                {activeAudience.id === "advisers" && (
+                  <div className="mt-8 border-t border-brand-blue-100 pt-8">
+                    <h4 className="text-lg font-semibold text-gray-900">
+                      Better Support for Your Clients with{" "}
+                      <a href="/hive" className="text-brand-blue underline hover:text-brand-blue-700">Hive</a>
+                    </h4>
+                    <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+                      SuperGuardian&apos;s Hive platform connects advisers, accountants, and clients in one streamlined ecosystem. Gain greater visibility, faster reporting, and seamless collaboration with Hive - our purpose-built platform designed to help advisers deliver more informed, timely advice to their clients.
+                    </p>
+                  </div>
+                )}
               </div>
             </>
           )}

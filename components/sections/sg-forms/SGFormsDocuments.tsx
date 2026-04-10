@@ -16,12 +16,12 @@ const engagementForms: FormItem[] = [
 ];
 
 const eventBasedForms: FormItem[] = [
-  { label: "Pension Establishment (2025)", file: "Pension-Establishment-2025.pdf" },
-  { label: "Pension Consolidation (2025)", file: "Pension-Consolidation-2025.pdf" },
-  { label: "Pension Commutation (2025)", file: "Pension-Commutation-2025.pdf" },
-  { label: "Wind-Up Instruction (2025)", file: "Wind-Up-Instruction-2025.pdf" },
-  { label: "LRBA Private Lender (2025)", file: "LRBA-Private-Lender-2025.pdf" },
-  { label: "LRBA Commercial Lender (2025)", file: "LRBA-Commercial-Lender-2025.pdf" },
+  { label: "Pension Establishment Instruction Form", file: "Pension-Establishment-2025.pdf" },
+  { label: "Pension Consolidation Instruction Form", file: "Pension-Consolidation-2025.pdf" },
+  { label: "Pension Commutation Instruction Form", file: "Pension-Commutation-2025.pdf" },
+  { label: "SMSF Wind up Instruction Form", file: "Wind-Up-Instruction-2025.pdf" },
+  { label: "Limited Recourse Borrowing Arrangement Instruction – Private Lender", file: "LRBA-Private-Lender-2025.pdf" },
+  { label: "Limited Recourse Borrowing Arrangement Instruction – Commercial Lender", file: "LRBA-Commercial-Lender-2025.pdf" },
 ];
 
 function FormLink({ item }: { item: FormItem }) {
@@ -119,7 +119,7 @@ export function SGFormsDocuments() {
   return (
     <section className="section-padding bg-white">
       <div className="container-width">
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12 lg:items-start">
+        <div className="mx-auto flex max-w-5xl flex-col gap-10">
           <FormCategory
             title="Engagement Forms"
             description="Core agreements and disclosures for establishing and operating your relationship with SuperGuardian."

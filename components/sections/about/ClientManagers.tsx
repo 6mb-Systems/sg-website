@@ -200,6 +200,7 @@ export function ClientManagers() {
                         height={512}
                         quality={90}
                         className="h-full w-full object-cover"
+                        style={"imagePosition" in member && member.imagePosition ? { objectPosition: member.imagePosition as string } : undefined}
                         sizes="(max-width: 768px) 448px, 512px"
                       />
                     ) : (

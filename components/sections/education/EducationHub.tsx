@@ -18,6 +18,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   EDUCATION_HUB_TAB_PARAM,
+  EDUCATION_HUB_PAGE_PARAM,
   educationHubHref,
   educationPostHref,
   parseTabFromHubSearchParams,
@@ -110,8 +111,10 @@ export function EducationHub({
     React.useState<EducationHubTabId>(initialTab);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState("All");
-  const [articlesPage, setArticlesPage] = React.useState(1);
   const articlesAnchorRef = React.useRef<HTMLDivElement>(null);
+  // Derive the article page from the URL so navigating back restores it.
+  // URL is the single source of truth — no local state = no sync races.
+  const pageFromUrl = Number(searchParams.get(EDUCATION_HUB_PAGE_PARAM)) || 1;
 
   const uniqueCategories = React.useMemo(() => {
     const seen = new Set<string>();
@@ -138,7 +141,7 @@ export function EducationHub({
   const articlePageSafe =
     articleTotalPages === 0
       ? 1
-      : Math.min(Math.max(1, articlesPage), articleTotalPages);
+      : Math.min(Math.max(1, pageFromUrl), articleTotalPages);
   const articleOffset = (articlePageSafe - 1) * ARTICLES_PER_PAGE;
   const paginatedArticles = filteredArticles.slice(
     articleOffset,
@@ -146,19 +149,31 @@ export function EducationHub({
   );
 
   React.useEffect(() => {
-    setArticlesPage(1);
-  }, [searchQuery, selectedCategory]);
-
-  React.useEffect(() => {
     setActiveTab(
       parseTabFromHubSearchParams(searchParams.get(EDUCATION_HUB_TAB_PARAM))
     );
   }, [searchParams]);
 
-  const goToArticlePage = React.useCallback((page: number) => {
-    setArticlesPage(page);
-    articlesAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
+  const goToArticlePage = React.useCallback(
+    (page: number) => {
+      router.replace(
+        educationHubHref(activeTab, page > 1 ? page : undefined),
+        { scroll: false }
+      );
+      articlesAnchorRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    },
+    [activeTab, router]
+  );
+
+  // Reset to page 1 when filters change (clears stale ?page= from URL).
+  const resetPageForFilterChange = React.useCallback(() => {
+    if ((Number(searchParams.get(EDUCATION_HUB_PAGE_PARAM)) || 1) !== 1) {
+      router.replace(educationHubHref(activeTab), { scroll: false });
+    }
+  }, [activeTab, router, searchParams]);
 
   return (
     <section className="section-padding bg-gray-50">
@@ -215,7 +230,10 @@ export function EducationHub({
                   {uniqueCategories.map((category) => (
                     <button
                       key={category}
-                      onClick={() => setSelectedCategory(category)}
+                      onClick={() => {
+                        setSelectedCategory(category);
+                        resetPageForFilterChange();
+                      }}
                       className={cn(
                         "rounded-full px-4 py-2 text-sm font-medium transition-colors",
                         selectedCategory === category
@@ -236,7 +254,10 @@ export function EducationHub({
                       type="text"
                       placeholder="Search for SMSF topics, fact sheets, or blogs…"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => {
+                        setSearchQuery(e.target.value);
+                        resetPageForFilterChange();
+                      }}
                       className="w-full rounded-full border border-gray-300 bg-white py-3 pl-12 pr-4 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
                     />
                   </div>
@@ -258,7 +279,7 @@ export function EducationHub({
                       delay={index * 0.05}
                     >
                       <Link
-                        href={educationPostHref(article.slug, "articles")}
+                        href={educationPostHref(article.slug, "articles", articlePageSafe)}
                         className="relative flex h-full min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
                         aria-label={`Open article: ${article.title}`}
                       >

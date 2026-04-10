@@ -56,7 +56,7 @@ const team = [
   },
   {
     name: "Emma Magee",
-    role: "Associate Director - Operations and Compliance",
+    role: "Associate Director - HR, Risk and Compliance",
     image: "/profile_emma.jpg",
     shortIntro:
       "Emma has been with SuperGuardian since 2007 and is Associate Director - Operations and Compliance. A specialist in governance, risk and team leadership.",

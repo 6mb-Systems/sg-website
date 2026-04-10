@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import {
   educationHubHref,
   parseTabFromPostSearchParams,
+  EDUCATION_HUB_PAGE_PARAM,
 } from "@/lib/education-hub-tab";
 
 function BackToEducationHubLink({ href }: { href: string }) {
@@ -295,7 +296,7 @@ const portableTextComponents: PortableTextComponents = {
 
 interface PageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ tab?: string | string[] }>;
+  searchParams: Promise<{ tab?: string | string[]; page?: string | string[] }>;
 }
 
 export async function generateStaticParams() {
@@ -329,9 +330,10 @@ export async function generateMetadata({
 export default async function ArticlePage({ params, searchParams }: PageProps) {
   const { slug } = await params;
   const sp = await searchParams;
-  const backToHubHref = educationHubHref(
-    parseTabFromPostSearchParams(sp.tab) === "webinars" ? "webinars" : "articles"
-  );
+  const tab = parseTabFromPostSearchParams(sp.tab) === "webinars" ? "webinars" : "articles";
+  const pageRaw = typeof sp.page === "string" ? parseInt(sp.page, 10) : undefined;
+  const page = pageRaw && pageRaw > 1 ? pageRaw : undefined;
+  const backToHubHref = educationHubHref(tab, page);
   const post = await getPostBySlug(slug);
 
   if (post) {

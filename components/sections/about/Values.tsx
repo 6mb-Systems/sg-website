@@ -33,7 +33,7 @@ const values = [
   },
 ];
 
-/** Honeycomb pattern with localized hover effect - matches TechnologyPartners style */
+/** Honeycomb pattern with localised hover effect - matches TechnologyPartners style */
 function ValuesHoneycombBg() {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const containerRef = useRef<SVGSVGElement>(null);

@@ -12,7 +12,7 @@ const partners = [
   { name: "Accurium", logo: "/partner_logo_accurium_webp.webp", url: "https://www.accurium.com.au/" },
 ];
 
-/** Honeycomb pattern with localized hover effect - white stroke follows cursor */
+/** Honeycomb pattern with localised hover effect - white stroke follows cursor */
 function HoneycombBg() {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const containerRef = useRef<SVGSVGElement>(null);

@@ -60,7 +60,7 @@ const fallbackArticles: Article[] = [
     category: "Tax",
     title: "Capital Gains Tax in SMSFs",
     excerpt:
-      "Understanding CGT calculations, exemptions, and optimization strategies",
+      "Understanding CGT calculations, exemptions, and optimisation strategies",
     date: "August 2024",
     downloads: 1450,
   },

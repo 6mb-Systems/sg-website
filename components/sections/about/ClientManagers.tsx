@@ -44,7 +44,7 @@ const team = [
     fullBio: [
       "Ben has been in the accounting industry since 2008, working in business services prior to joining SuperGuardian in 2016. He has specialised in superannuation accounting since 2015.",
       "He completed a Bachelor of Business at University of Tasmania, majoring in Accounting and Business Management. He is RG146 qualified and is an SMSF Specialist Advisor (SSA).",
-      "As a Senior Client Manager his role involves managing all aspects of accounting, tax and compliance for his clients and advisors.",
+      "As a Senior Client Manager his role involves managing all aspects of accounting, tax and compliance for his clients and advisers.",
     ],
   },
   {
@@ -71,7 +71,7 @@ const team = [
     role: "Senior Client Manager",
     image: "/profile_jennifer.jpg",
     fullBio: [
-      "Jennifer is a CPA, Specialist SMSF advisor and holds a Bachelor of Commerce (Accounting & Finance). Having worked with SMSF since 2016, Jennifer has built extensive knowledge and experience in the field.",
+      "Jennifer is a CPA, Specialist SMSF adviser and holds a Bachelor of Commerce (Accounting & Finance). Having worked with SMSF since 2016, Jennifer has built extensive knowledge and experience in the field.",
       "She has built her career in small to medium accounting and advisory firms where she can focus on developing and maintaining solid relationships with her clients to deliver a tailored service.",
       "Jennifer takes pride in offering the highest level of ongoing quality service in a timely manner. She is an excellent communicator and is committed to helping clients achieve their financial goals.",
     ],

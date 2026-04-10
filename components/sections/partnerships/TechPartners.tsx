@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { FadeIn } from "@/components/ui/fade-in";
 
-/** Honeycomb pattern with localized hover effect - matches Our Partners on home */
+/** Honeycomb pattern with localised hover effect - matches Our Partners on home */
 function HoneycombBg() {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const containerRef = useRef<SVGSVGElement>(null);

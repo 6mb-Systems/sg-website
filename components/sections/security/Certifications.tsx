@@ -36,7 +36,7 @@ const certifications = [
     description:
       "Industry-leading framework guiding our approach to cybersecurity and risk management",
     features: [
-      "Risk-based cybersecurity program aligned with global best practices",
+      "Risk-based cybersecurity programme aligned with global best practices",
       "Continuous improvement to stay ahead of evolving threats",
       "Strong detection, response, and recovery capabilities",
       "Structured approach to managing cyber risk across people, processes, and technology",

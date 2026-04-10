@@ -39,7 +39,7 @@ const team = [
       "Josh has been with SuperGuardian since 2011 and serves as Chief Operating Officer. A respected leader within the SMSF community.",
     fullBio: [
       "He is highly regarded throughout the SMSF community, contributing to many industry events.",
-      "Josh is passionate about providing a high level of service and advice to trustees of SMSFs, as well as providing a supportive role for brokers, financial advisors and accounting practices.",
+      "Josh is passionate about providing a high level of service and advice to trustees of SMSFs, as well as providing a supportive role for brokers, financial advisers and accounting practices.",
       "Josh brings a mature perspective to the SuperGuardian team, having been responsible for governance, compliance and leadership in many organisational contexts in both past and current committee and board roles.",
     ],
   },

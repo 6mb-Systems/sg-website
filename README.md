@@ -98,7 +98,7 @@ The Education section is powered by Sanity CMS. Document schemas live in `sanity
 - **Post**: Articles and fact sheets
 - **Webinar**: Video content and recordings
 - **Event**: Upcoming events
-- **Category**: Content categorization
+- **Category**: Content categorisation
 - **Author**: Content authors
 
 ## Scripts

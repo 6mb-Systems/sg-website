@@ -5,7 +5,7 @@ const measures = [
   {
     title: "Access Controls",
     description:
-      "Multi-factor authentication and role-based access to ensure only authorized personnel can access sensitive data",
+      "Multi-factor authentication and role-based access to ensure only authorised personnel can access sensitive data",
     image: "/security_framework_Access_Controls.png",
   },
   {

@@ -12,7 +12,7 @@ const benefits = [
     icon: RefreshCw,
     title: "Real-time Sync",
     description:
-      "Live data synchronization ensures your information is always current",
+      "Live data synchronisation ensures your information is always current",
   },
   {
     icon: BarChart3,
@@ -24,7 +24,7 @@ const benefits = [
     icon: FileText,
     title: "Document Management",
     description:
-      "Centralized document storage with automatic version control",
+      "Centralised document storage with automatic version control",
   },
 ];
 

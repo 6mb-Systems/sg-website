@@ -119,6 +119,7 @@ export default async function EducationPage({
       id: p._id,
       slug: typeof p.slug === "string" ? p.slug : (p.slug as any).current,
       category: p.category?.title ?? "General",
+      secondaryCategory: p.secondaryCategory?.title,
       title: p.title,
       excerpt: p.excerpt ?? "",
       date: formatDate(p.publishedAt),

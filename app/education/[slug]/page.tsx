@@ -341,6 +341,10 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
       typeof post.category === "object" && post.category
         ? post.category.title
         : "General";
+    const secondaryCategoryTitle =
+      typeof post.secondaryCategory === "object" && post.secondaryCategory
+        ? post.secondaryCategory.title
+        : null;
     const postSlug =
       typeof post.slug === "string" ? post.slug : post.slug?.current;
     const dateFormatted = new Date(post.publishedAt).toLocaleDateString(
@@ -354,9 +358,16 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
             <BackToEducationHubLink href={backToHubHref} />
 
             <header className="mt-8">
-              <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-sm font-medium text-brand-blue">
-                {categoryTitle}
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-sm font-medium text-brand-blue">
+                  {categoryTitle}
+                </span>
+                {secondaryCategoryTitle && (
+                  <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-sm font-medium text-brand-blue">
+                    {secondaryCategoryTitle}
+                  </span>
+                )}
+              </div>
               <h1 className="mt-4 text-4xl font-bold text-gray-900">
                 {post.title}
               </h1>

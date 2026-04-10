@@ -21,6 +21,10 @@ export interface SanityPost {
     title: string;
     slug: { current: string };
   };
+  secondaryCategory?: {
+    title: string;
+    slug: { current: string };
+  };
   author?: {
     name: string;
     image?: {
@@ -93,6 +97,7 @@ const postFields = `
   publishedAt,
   mainImage,
   "category": category->{title, "slug": slug.current},
+  "secondaryCategory": secondaryCategory->{title, "slug": slug.current},
   "author": author->{name, image},
   readTime,
   downloadCount,
@@ -221,8 +226,10 @@ export async function getCategories(): Promise<
     "past events", "events", "uncategorized", "sg blog", "blog",
     "segregations", // duplicate of "segregation"
   ];
+  // Only count posts whose PRIMARY tag references this category — secondary tags
+  // don't drive the filter bar.
   const query = `*[_type == "category"
-    && count(*[_type == "post" && !(_id in path("drafts.**")) && references(^._id)]) > 0
+    && count(*[_type == "post" && !(_id in path("drafts.**")) && category._ref == ^._id]) > 0
     && !(lower(title) in ${JSON.stringify(excluded)})
   ] | order(title asc) {
     title,

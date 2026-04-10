@@ -65,9 +65,19 @@ export const post = defineType({
     }),
     defineField({
       name: "category",
-      title: "Category",
+      title: "Primary Tag",
       type: "reference",
       to: [{ type: "category" }],
+      description:
+        "Main tag shown on the Insights card and at the top of the article.",
+    }),
+    defineField({
+      name: "secondaryCategory",
+      title: "Secondary Tag",
+      type: "reference",
+      to: [{ type: "category" }],
+      description:
+        "Optional second tag. Only shown next to the primary tag on the article detail page — not on the Insights card grid or filter bar.",
     }),
     defineField({
       name: "author",

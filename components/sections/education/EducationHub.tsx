@@ -32,6 +32,8 @@ export interface Article {
   id?: string;
   slug: string;
   category: string;
+  /** Optional second tag — not rendered on the card grid; detail page only. */
+  secondaryCategory?: string;
   title: string;
   excerpt: string;
   date: string;
@@ -129,8 +131,12 @@ export function EducationHub({
     const matchesSearch =
       article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    // Match against both the primary tag (shown on the card) and the
+    // secondary tag (hidden on the card but still a valid filter target).
     const matchesCategory =
-      selectedCategory === "All" || article.category === selectedCategory;
+      selectedCategory === "All" ||
+      article.category === selectedCategory ||
+      article.secondaryCategory === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 

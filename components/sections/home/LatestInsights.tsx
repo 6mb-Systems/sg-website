@@ -142,7 +142,11 @@ export async function LatestInsights() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <Button size="lg" className="bg-brand-orange text-white hover:bg-brand-orange/90 w-full md:w-auto px-8" asChild>
+          <Button
+            size="lg"
+            className="w-full max-w-[280px] bg-brand-orange text-white hover:bg-brand-orange/90 sm:w-auto sm:max-w-none px-8"
+            asChild
+          >
             <Link href="/education">
               View All Resources
             </Link>

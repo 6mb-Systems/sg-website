@@ -83,6 +83,22 @@ function renderFallbackHtml(content: string): string {
     .join("");
 }
 
+/**
+ * Accept only links whose scheme we control. Sanity editors are trusted, but
+ * defence-in-depth: never let a "javascript:", "data:", or "vbscript:" URL
+ * reach the rendered DOM via CMS content.
+ */
+function safeLinkHref(href: unknown): string | undefined {
+  if (typeof href !== "string") return undefined;
+  const trimmed = href.trim();
+  if (!trimmed) return undefined;
+  // Relative links (no scheme, no protocol-relative) are always safe.
+  if (trimmed.startsWith("/") || trimmed.startsWith("#")) return trimmed;
+  // Allow only an explicit allow-list of protocols.
+  if (/^(https?:|mailto:|tel:)/i.test(trimmed)) return trimmed;
+  return undefined;
+}
+
 const tableCellPortableTextComponents: PortableTextComponents = {
   block: {
     // Render cell content as paragraphs so separate blocks appear on new lines
@@ -93,16 +109,20 @@ const tableCellPortableTextComponents: PortableTextComponents = {
       <strong className="font-semibold text-gray-900">{children}</strong>
     ),
     em: ({ children }) => <em>{children}</em>,
-    link: ({ value, children }) => (
-      <a
-        href={value?.href}
-        target={value?.href?.startsWith("http") ? "_blank" : undefined}
-        rel={value?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
-        className="text-brand-blue underline hover:text-brand-blue-600"
-      >
-        {children}
-      </a>
-    ),
+    link: ({ value, children }) => {
+      const href = safeLinkHref(value?.href);
+      const external = !!href && /^https?:/i.test(href);
+      return (
+        <a
+          href={href}
+          target={external ? "_blank" : undefined}
+          rel={external ? "noopener noreferrer" : undefined}
+          className="text-brand-blue underline hover:text-brand-blue-600"
+        >
+          {children}
+        </a>
+      );
+    },
   },
   list: {
     bullet: ({ children }) => (
@@ -188,16 +208,20 @@ const portableTextComponents: PortableTextComponents = {
       <strong className="font-semibold text-gray-900">{children}</strong>
     ),
     em: ({ children }) => <em>{children}</em>,
-    link: ({ value, children }) => (
-      <a
-        href={value?.href}
-        target={value?.href?.startsWith("http") ? "_blank" : undefined}
-        rel={value?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
-        className="text-brand-blue underline hover:text-brand-blue-600"
-      >
-        {children}
-      </a>
-    ),
+    link: ({ value, children }) => {
+      const href = safeLinkHref(value?.href);
+      const external = !!href && /^https?:/i.test(href);
+      return (
+        <a
+          href={href}
+          target={external ? "_blank" : undefined}
+          rel={external ? "noopener noreferrer" : undefined}
+          className="text-brand-blue underline hover:text-brand-blue-600"
+        >
+          {children}
+        </a>
+      );
+    },
   },
   types: {
     image: ({ value }) => {

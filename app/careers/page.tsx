@@ -106,7 +106,7 @@ export default function CareersPage() {
           <FadeIn delay={0.1}>
             <div className="md:hidden grid grid-cols-2 gap-2">
               <div className="col-span-2 relative overflow-hidden rounded-xl" style={{ height: "240px" }}>
-                <Image src="/career_04.jpg" alt="SuperGuardian workspace" fill className="object-cover" style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }} sizes="100vw" priority />
+                <Image src="/career_04.jpg" alt="SuperGuardian workspace" fill className="object-cover" style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }} sizes="(max-width: 768px) 100vw, 0px" priority />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
               {[
@@ -116,7 +116,7 @@ export default function CareersPage() {
                 { src: "/career_05.jpg", alt: "SuperGuardian culture" },
               ].map(({ src, alt }) => (
                 <div key={src} className="relative overflow-hidden rounded-xl" style={{ height: "150px" }}>
-                  <Image src={src} alt={alt} fill className="object-cover" style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }} sizes="50vw" />
+                  <Image src={src} alt={alt} fill className="object-cover" style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }} sizes="(max-width: 768px) 50vw, 0px" />
                   <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
                 </div>
               ))}

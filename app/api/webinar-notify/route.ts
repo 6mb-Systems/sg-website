@@ -1,45 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import {
+  checkRateLimit,
+  escapeHtml,
+  getClientIp,
+  readJsonBody,
+  sanitizeEmail,
+  sanitizeString,
+  verifyRecaptcha,
+} from "@/lib/api-security";
 
-// Rate limiting map (in production, use Redis or similar)
-const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const RATE_LIMIT_MAX = 5; // 5 requests per minute
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
-
-  if (!record || now - record.lastReset > RATE_LIMIT_WINDOW) {
-    rateLimitMap.set(ip, { count: 1, lastReset: now });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT_MAX) {
-    return false;
-  }
-
-  record.count++;
-  return true;
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+const MAX_NAME = 120;
+const MAX_ORGANISATION = 200;
+const MAX_PHONE = 40;
+const MAX_HEAR_ABOUT_US = 2000;
 
 export async function POST(request: NextRequest) {
   try {
-    // Get client IP for rate limiting
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0] ||
-      request.headers.get("x-real-ip") ||
-      "unknown";
-
+    // ---- Rate limit ----
+    const ip = getClientIp(request);
     if (!checkRateLimit(ip)) {
       return NextResponse.json(
         { error: "Too many requests. Please try again later." },
@@ -47,69 +26,57 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
+    // ---- Parse body ----
+    const parsed = await readJsonBody<Record<string, unknown>>(request);
+    if (!parsed.ok) {
+      return NextResponse.json({ error: parsed.error }, { status: 400 });
+    }
+    const body = parsed.data;
 
-    // Honeypot check - if this field has a value, it's likely a bot
-    if (body.website) {
+    // ---- Honeypot ----
+    if (typeof body.website === "string" && body.website.trim() !== "") {
       return NextResponse.json({ success: true });
     }
 
-    // reCAPTCHA verification (skipped in development)
-    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
-    if (recaptchaSecret && process.env.NODE_ENV !== "development") {
-      const token = body.recaptchaToken;
-      if (!token) {
-        return NextResponse.json(
-          { error: "reCAPTCHA verification failed. Please try again." },
-          { status: 400 }
-        );
-      }
-
-      const verifyRes = await fetch(
-        `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${token}`,
-        { method: "POST" }
+    // ---- reCAPTCHA (fail-closed in production) ----
+    const recaptcha = await verifyRecaptcha(body.recaptchaToken, "webinar_notify");
+    if (!recaptcha.ok) {
+      return NextResponse.json(
+        { error: recaptcha.error },
+        { status: recaptcha.status }
       );
-      const verifyData = await verifyRes.json();
-      console.log("reCAPTCHA result (webinar-notify):", verifyData);
-
-      if (!verifyData.success || verifyData.score < 0.5) {
-        return NextResponse.json(
-          { error: "reCAPTCHA verification failed. Please try again." },
-          { status: 400 }
-        );
-      }
     }
 
-    const { fullName, organisation, email, phone, hearAboutUs } = body as {
-      fullName?: string;
-      organisation?: string;
-      email?: string;
-      phone?: string;
-      hearAboutUs?: string;
-    };
+    // ---- Validate + sanitize each input ----
+    const fullName = sanitizeString(body.fullName, MAX_NAME);
+    const organisation = sanitizeString(body.organisation, MAX_ORGANISATION);
+    const email = sanitizeEmail(body.email);
+    const phone = sanitizeString(body.phone, MAX_PHONE);
+    const hearAboutUs = sanitizeString(body.hearAboutUs, MAX_HEAR_ABOUT_US, {
+      multiline: true,
+    });
 
-    if (!fullName || !email) {
+    if (
+      !fullName ||
+      !email ||
+      organisation === null ||
+      phone === null ||
+      hearAboutUs === null
+    ) {
       return NextResponse.json(
         { error: "Please provide your name and email address." },
         { status: 400 }
       );
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: "Invalid email address" },
-        { status: 400 }
-      );
-    }
-
+    // ---- Email service config ----
     const resendApiKey = process.env.RESEND_API_KEY;
     const toEmail = "education@superguardian.com.au";
     const fromEmail =
       process.env.CONTACT_EMAIL_FROM || "noreply@superguardian.com.au";
 
     if (!resendApiKey) {
-      console.error("RESEND_API_KEY is not set");
+      console.error("[security] RESEND_API_KEY is not set");
       return NextResponse.json(
         { error: "Email service is not configured." },
         { status: 500 }
@@ -126,6 +93,10 @@ export async function POST(request: NextRequest) {
       hearAboutUs: hearAboutUs ? escapeHtml(hearAboutUs) : "",
     };
 
+    const submittedAt = new Date().toLocaleString("en-AU", {
+      timeZone: "Australia/Sydney",
+    });
+
     await resend.emails.send({
       from: `SuperGuardian Webinar Signup <${fromEmail}>`,
       to: toEmail,
@@ -140,7 +111,7 @@ export async function POST(request: NextRequest) {
           ${safe.phone ? `<tr${safe.organisation ? ' style="background:#f9f9f9;"' : ""}><td style="padding:8px;font-weight:bold;">Phone</td><td style="padding:8px;">${safe.phone}</td></tr>` : ""}
           ${safe.hearAboutUs ? `<tr><td style="padding:8px;font-weight:bold;vertical-align:top;">How did you hear about us?</td><td style="padding:8px;white-space:pre-wrap;">${safe.hearAboutUs}</td></tr>` : ""}
         </table>
-        <p style="color:#888;font-size:12px;margin-top:24px;">Submitted at ${new Date().toLocaleString("en-AU", { timeZone: "Australia/Sydney" })} AEST</p>
+        <p style="color:#888;font-size:12px;margin-top:24px;">Submitted at ${submittedAt} AEST</p>
       `,
     });
 
@@ -149,7 +120,7 @@ export async function POST(request: NextRequest) {
       message: "Thank you — we'll let you know about upcoming webinars.",
     });
   } catch (error) {
-    console.error("Webinar notify error:", error);
+    console.error("[security] Webinar notify error:", error);
     return NextResponse.json(
       { error: "Something went wrong. Please try again." },
       { status: 500 }

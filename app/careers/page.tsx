@@ -11,8 +11,8 @@ export default function CareersPage() {
         description={
           <>
             Join our team of specialists and help shape
-            <br />
-            the future of SMSF administration in Australia
+            <br className="hidden md:block" />
+            {" "}the future of SMSF administration in Australia
           </>
         }
       />
@@ -174,8 +174,8 @@ export default function CareersPage() {
         description={
           <>
             Check out our SEEK profile for all the latest
-            <br />
-            career opportunities at SuperGuardian
+            <br className="hidden md:block" />
+            {" "}career opportunities at SuperGuardian
           </>
         }
         primaryButtonText="View on SEEK"

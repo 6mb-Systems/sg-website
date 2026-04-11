@@ -1,5 +1,5 @@
 import { createClient, type SanityClient } from "@sanity/client";
-import imageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder } from "@sanity/image-url";
 
 interface SanityImageSource {
   asset: {
@@ -70,6 +70,6 @@ export function urlFor(source: SanityImageSource) {
   if (!client) {
     throw new Error("Sanity is not configured. Cannot build image URL.");
   }
-  const builder = imageUrlBuilder(client);
+  const builder = createImageUrlBuilder(client);
   return builder.image(source);
 }

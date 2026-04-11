@@ -20,8 +20,8 @@ export default function HomePage() {
         description={
           <>
             Join hundreds of professionals who trust SuperGuardian
-            <br />
-            with their clients&apos; retirement futures
+            <br className="hidden md:block" />
+            {" "}with their clients&apos; retirement futures
           </>
         }
         primaryButtonText="Get Started Today"

@@ -167,7 +167,7 @@ export function Footer() {
               <p>AFSL {siteConfig.afsl} | ABN {siteConfig.abn} | TAN {siteConfig.tan}</p>
               <div className="flex flex-wrap items-center justify-center gap-x-2">
                 <Link
-                  href="PDF/Privacy Policy - April 2026.pdf"
+                  href="/PDF/Privacy Policy - April 2026.pdf"
                   className="hover:text-brand-orange transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"

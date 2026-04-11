@@ -34,8 +34,8 @@ export default function SecurityPage() {
         description={
           <>
             Our Leadership is happy to discuss our security practices
-            <br />
-            and compliance in detail
+            <br className="hidden md:block" />
+            {" "}and compliance in detail
           </>
         }
         primaryButtonText="Chat to our Leadership"

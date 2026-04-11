@@ -6,9 +6,10 @@ import type { WebinarVideo } from "@/lib/webinar-videos";
 
 interface YouTubePlaylistProps {
   videos: WebinarVideo[];
+  playlistLabel?: string;
 }
 
-export function YouTubePlaylist({ videos }: YouTubePlaylistProps) {
+export function YouTubePlaylist({ videos, playlistLabel }: YouTubePlaylistProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = videos[activeIndex];
 
@@ -46,9 +47,11 @@ export function YouTubePlaylist({ videos }: YouTubePlaylistProps) {
         <div className="flex flex-col lg:flex-row gap-6">
           {/* ── Left: Player ── */}
           <div className="flex-1 min-w-0">
-            <div className="mb-3 inline-flex items-center rounded-full border border-brand-blue/20 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-blue">
-              Past webinars
-            </div>
+            {playlistLabel && (
+              <div className="mb-3 inline-flex items-center rounded-full border border-brand-blue/20 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-blue">
+                {playlistLabel}
+              </div>
+            )}
             {/* 16:9 responsive iframe */}
             <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-900" style={{ paddingBottom: "56.25%" }}>
               {hasRealId(active.id) ? (

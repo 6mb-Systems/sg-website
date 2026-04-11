@@ -27,6 +27,7 @@ import {
 import { YouTubePlaylist } from "@/components/sections/webinars/YouTubePlaylist";
 import { webinarVideos } from "@/lib/webinar-videos";
 import { UpcomingSeminarPromo } from "@/components/sections/webinars/UpcomingSeminarPromo";
+import { WebinarNotifyForm } from "@/components/sections/education/WebinarNotifyForm";
 
 export interface Article {
   id?: string;
@@ -448,7 +449,10 @@ export function EducationHub({
                 <div className="mt-8">
                   <UpcomingSeminarPromo />
                   <div className="mt-8">
-                  <YouTubePlaylist videos={webinarVideos} />
+                    <YouTubePlaylist videos={webinarVideos} playlistLabel="Past webinars" />
+                  </div>
+                  <div className="mt-8">
+                    <WebinarNotifyForm />
                   </div>
                 </div>
               </motion.div>

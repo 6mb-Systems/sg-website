@@ -64,7 +64,7 @@ const audiences: Audience[] = [
         title: "SMSF Setup & Administration",
         description: "Complete establishment and ongoing administration services",
         items: [
-          "Fast 5-7 day setup*",
+          "Fast 1-3 business days setup*",
           "Monthly reconciliations",
           "Direct client communication",
         ],

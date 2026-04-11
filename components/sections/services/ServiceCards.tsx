@@ -21,7 +21,7 @@ const services = [
       "Bank account establishment assistance",
       "Limited investment strategy forms and guide",
       "Death Benefit Nomination form and guide",
-      "Corporate trustee establishment",
+      "Corporate trustee establishment - $890",
     ],
   },
   {
@@ -41,7 +41,7 @@ const services = [
       "Dedicated specialist Client Manager",
       "Fund Mailhouse",
       "Australian listed investments",
-      "Term deposits via Australian Money Markets",
+      "Term deposits via Australian Money Market",
     ],
   },
   {

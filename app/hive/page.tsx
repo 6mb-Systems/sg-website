@@ -11,6 +11,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HiveDemoSection } from "@/components/sections/hive/HiveDemoSection";
+import { YouTubePlaylist } from "@/components/sections/webinars/YouTubePlaylist";
+import type { WebinarVideo } from "@/lib/webinar-videos";
 
 export const metadata: Metadata = {
   title: "Hive by SuperGuardian",
@@ -48,14 +50,14 @@ const CYBERSECURITY_ITEMS = [
   "Backup and resilience controls, including daily database backups and tested restore procedures",
 ];
 
-const VIDEOS = [
+const HIVE_VIDEOS: WebinarVideo[] = [
   {
+    id: "k7Hj0uadtVU",
     title: "How to Activate your Hive Account",
-    embedId: "k7Hj0uadtVU",
   },
   {
+    id: "SlGFWwM4lQs",
     title: "General Hive Navigation and Dashboard Overview",
-    embedId: "SlGFWwM4lQs",
   },
 ];
 
@@ -230,25 +232,8 @@ export default function HivePage() {
             </div>
           </FadeIn>
 
-          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
-            {VIDEOS.map((video, index) => (
-              <FadeIn key={video.embedId} direction="up" delay={index * 0.1}>
-                <div className="overflow-hidden rounded-xl border border-gray-200">
-                  <div className="relative aspect-video bg-gray-100">
-                    <iframe
-                      title={video.title}
-                      src={`https://www.youtube.com/embed/${video.embedId}`}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      className="absolute inset-0 h-full w-full"
-                    />
-                  </div>
-                  <div className="bg-gray-50 px-4 py-3">
-                    <h3 className="text-sm font-semibold text-gray-900">{video.title}</h3>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
+          <div className="mt-12">
+            <YouTubePlaylist videos={HIVE_VIDEOS} />
           </div>
         </div>
       </section>

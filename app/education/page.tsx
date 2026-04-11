@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { EducationHub } from "@/components/sections/education/EducationHub";
 import { PageHero } from "@/components/sections/shared/PageHero";
+import { Providers } from "@/components/Providers";
 import { getFactsheetPosts, getCategories } from "@/lib/sanity/queries";
 import type { Article } from "@/components/sections/education/EducationHub";
 import { urlFor } from "@/lib/sanity/client";
@@ -139,7 +140,7 @@ export default async function EducationPage({
       : fallbackCategories;
 
   return (
-    <>
+    <Providers>
       <PageHero
         title="SMSF Education Hub"
         description="Whether it's catching up on the latest changes to the SMSF environment, or refreshing your memory on those issues that only arise every so often we've got your SMSF professional development needs covered"
@@ -158,6 +159,6 @@ export default async function EducationPage({
           initialTab={initialHubTab}
         />
       </Suspense>
-    </>
+    </Providers>
   );
 }

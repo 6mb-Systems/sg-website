@@ -3,27 +3,36 @@ import { TSB_THRESHOLD_3M, TSB_THRESHOLD_10M } from "@/lib/division296";
 const rows: { label: string; detail: string }[] = [
   {
     label: "Realised Earnings",
-    detail: "Dividends, interest, rent and realised capital gains",
+    detail:
+      "Taxable income attributed to the member, adjusted for assessable contributions, net exempt current pension income and any non-arm's length or pooled superannuation trust components.",
+  },
+  {
+    label: "TSB reference amount",
+    detail:
+      "The higher of the individual's TSB at the open or close of the relevant financial year, except for the 2026/27 year, which is based on closing balance only.",
   },
   {
     label: "Proportion of TSB over $3m threshold",
-    detail: `(End of year TSB − $${(TSB_THRESHOLD_3M / 1_000_000).toFixed(0)}m) / End of year TSB`,
+    detail: `(TSB reference amount − $${(TSB_THRESHOLD_3M / 1_000_000).toFixed(0)}m) / TSB reference amount`,
   },
   {
     label: "Proportion of TSB over $10m threshold",
-    detail: `(End of year TSB − $${(TSB_THRESHOLD_10M / 1_000_000).toFixed(0)}m) / End of year TSB`,
+    detail: `(TSB reference amount − $${(TSB_THRESHOLD_10M / 1_000_000).toFixed(0)}m) / TSB reference amount`,
   },
   {
-    label: "Taxable Earnings over $3m",
-    detail: "Earnings × Proportion of TSB above the $3m threshold",
+    label: "Realised Earnings over $3m",
+    detail:
+      "Earnings × Proportion of TSB reference amount above the $3m threshold",
   },
   {
-    label: "Taxable Earnings over $10m",
-    detail: "Earnings × Proportion of TSB above the $10m threshold",
+    label: "Realised Earnings over $10m",
+    detail:
+      "Earnings × Proportion of TSB reference amount above the $10m threshold",
   },
   {
     label: "Estimated Division 296 Tax Payable",
-    detail: "(Taxable Earnings over $3m × 15%) + (Taxable Earnings over $10m × 10%)",
+    detail:
+      "(Realised Earnings over $3m × 15%) + (Realised Earnings over $10m × 10%)",
   },
 ];
 

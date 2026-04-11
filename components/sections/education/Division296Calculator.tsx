@@ -149,13 +149,13 @@ export function Division296Calculator() {
                 htmlFor="div296-tsb"
                 className="text-sm font-medium text-gray-800"
               >
-                Total Super Balance (TSB) at the End of Year
+                Total Super Balance (TSB) at the reference amount
               </label>
-              <InfoDialog title="What does end of year TSB mean?">
+              <InfoDialog title="What is TSB for the purposes of Division 296?">
                 <p>
-                  The end of year total super balance (TSB) for the purposes of Division 296 is the
-                  individual&apos;s total superannuation balance at the close of the financial year,
-                  which is 30 June.
+                The total super balance (TSB) for the purposes of Division 296 is the higher of the 
+                individual's TSB at the open or close of the relevant financial year, except for the 
+                2026/27 year, which is based on closing balance only.
                 </p>
               </InfoDialog>
             </div>
@@ -181,9 +181,11 @@ export function Division296Calculator() {
               </label>
               <InfoDialog title="What does realised earnings mean?">
                 <p>
-                  Realised earnings includes dividends, interest, rent and realised capital gains. It
-                  will be calculated by the fund and attributed to members with balances above the
-                  threshold.
+                Realised earnings are based on taxable income attributed to the member, adjusted 
+                for assessable contributions, net exempt current pension income and any non-arm's 
+                length or pooled superannuation trust components. Realised earnings includes dividends, 
+                interest, rent and realised capital gains. It will be calculated by the fund and attributed 
+                to members with balances above the threshold.
                 </p>
               </InfoDialog>
             </div>

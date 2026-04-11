@@ -10,7 +10,13 @@ interface PageHeroProps {
 }
 
 /* Honeycomb: Mathematically correct flat-top hexagonal tiling. Uses unique ids per instance so multiple sections (e.g. Who We Are page) each have their own working hover effect. */
-export const HivePattern = () => {
+export const HivePattern = ({
+  stroke = "rgba(255,255,255,0.1)",
+  strokeBright = "rgba(255,255,255,0.7)",
+}: {
+  stroke?: string;
+  strokeBright?: string;
+} = {}) => {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const containerRef = useRef<SVGSVGElement>(null);
   const id = useId().replace(/:/g, "");
@@ -49,7 +55,7 @@ export const HivePattern = () => {
           <path
             d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60"
             fill="none"
-            stroke="rgba(255,255,255,0.1)"
+            stroke={stroke}
             strokeWidth="1"
           />
         </pattern>
@@ -87,7 +93,7 @@ export const HivePattern = () => {
           <path
             d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60"
             fill="none"
-            stroke="rgba(255,255,255,0.7)"
+            stroke={strokeBright}
             strokeWidth="1.2"
           />
         </pattern>

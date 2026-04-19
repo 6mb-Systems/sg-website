@@ -26,6 +26,84 @@ function BackToEducationHubLink({ href }: { href: string }) {
 
 export const revalidate = 60;
 
+/** Education Insight post “SMSF Windups” — embedded video below article body */
+const SMSF_WINDUPS_SLUG = "smsf-windups";
+const SMSF_WINDUPS_YOUTUBE_WATCH =
+  "https://www.youtube.com/watch?v=_QhqiR9S85M";
+const SMSF_WINDUPS_YOUTUBE_EMBED =
+  "https://www.youtube.com/embed/_QhqiR9S85M";
+
+function SmsfWindupsVideo() {
+  return (
+    <div className="mt-10">
+      <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-gray-200 bg-black shadow-sm">
+        <iframe
+          className="absolute inset-0 h-full w-full"
+          src={SMSF_WINDUPS_YOUTUBE_EMBED}
+          title="SMSF windups — video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+      </div>
+      <p className="mt-3 text-center text-sm text-gray-600">
+        <a
+          href={SMSF_WINDUPS_YOUTUBE_WATCH}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-brand-blue underline hover:text-brand-blue-600"
+        >
+          Open video on YouTube
+        </a>
+      </p>
+    </div>
+  );
+}
+
+/**
+ * “Step by Step Instructions to Appointing SuperGuardian as your Tax Agent” — local MP4.
+ * Sanity slug may be the title slug or the legacy name tied to this file in assign-blog-images.
+ */
+const AGENT_LINKING_VIDEO_SRC = "/video/Agent-Linking-Instructions.mp4";
+const AGENT_LINKING_VIDEO_SLUGS = new Set([
+  "step-by-step-instructions-to-appointing-superguardian-as-your-tax-agent",
+  "videos-agent-linking-instructions-mp4",
+]);
+
+function AgentLinkingInstructionsVideo() {
+  return (
+    <div className="mt-10">
+      <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-gray-200 bg-black shadow-sm">
+        <video
+          className="h-full w-full object-contain"
+          controls
+          playsInline
+          preload="metadata"
+          aria-label="Step by step instructions: appointing SuperGuardian as your tax agent"
+        >
+          <source src={AGENT_LINKING_VIDEO_SRC} type="video/mp4" />
+          <a
+            href={AGENT_LINKING_VIDEO_SRC}
+            className="block p-4 text-center text-sm text-white underline"
+          >
+            Download or open the MP4 video
+          </a>
+        </video>
+      </div>
+      <p className="mt-3 text-center text-sm text-gray-600">
+        <a
+          href={AGENT_LINKING_VIDEO_SRC}
+          download
+          className="text-brand-blue underline hover:text-brand-blue-600"
+        >
+          Download video (MP4)
+        </a>
+      </p>
+    </div>
+  );
+}
+
 const fallbackArticle = {
   title: "2024 SMSF Compliance Update",
   category: "Compliance",
@@ -427,6 +505,10 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
                 />
               </div>
             )}
+
+            {slug === SMSF_WINDUPS_SLUG && <SmsfWindupsVideo />}
+
+            {AGENT_LINKING_VIDEO_SLUGS.has(slug) && <AgentLinkingInstructionsVideo />}
 
             {post.pdfFile?.asset?.url && (
               <div className="mt-4 rounded-lg border border-brand-blue-100 bg-brand-blue-50 p-6">

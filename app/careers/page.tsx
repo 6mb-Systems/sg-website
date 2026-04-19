@@ -1,10 +1,20 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+import { Providers } from "@/components/Providers";
+import { CareersApplicationForm } from "@/components/sections/careers/CareersApplicationForm";
 import { PageHero } from "@/components/sections/shared/PageHero";
 import { CTASection } from "@/components/sections/shared/CTASection";
 import { FadeIn } from "@/components/ui/fade-in";
 
+export const metadata: Metadata = {
+  title: "Careers",
+  description:
+    "Join SuperGuardian in Adelaide or Melbourne. Apply for roles or express your interest through our careers form.",
+};
+
 export default function CareersPage() {
   return (
+    <Providers>
     <>
       <PageHero
         title="Careers at SuperGuardian"
@@ -73,10 +83,10 @@ export default function CareersPage() {
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
 
-              {/* career_01 — bottom left */}
+              {/* career_07 — bottom left */}
               <div className="relative overflow-hidden rounded-xl">
                 <Image
-                  src="/career_01.jpg"
+                  src="/career_07.jpg"
                   alt="SuperGuardian team"
                   fill
                   className="object-cover object-[center_30%]"
@@ -86,10 +96,10 @@ export default function CareersPage() {
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
 
-              {/* career_05 — bottom right wide */}
+              {/* career_06 — bottom right wide */}
               <div className="col-span-2 relative overflow-hidden rounded-xl">
                 <Image
-                  src="/career_05.jpg"
+                  src="/career_06.jpg"
                   alt="SuperGuardian culture"
                   fill
                   className="object-cover object-[center_30%]"
@@ -112,8 +122,8 @@ export default function CareersPage() {
               {[
                 { src: "/career_02.jpg", alt: "SuperGuardian office" },
                 { src: "/career_03.jpg", alt: "SuperGuardian collaboration" },
-                { src: "/career_01.jpg", alt: "SuperGuardian team" },
-                { src: "/career_05.jpg", alt: "SuperGuardian culture" },
+                { src: "/career_07.jpg", alt: "SuperGuardian team" },
+                { src: "/career_06.jpg", alt: "SuperGuardian culture" },
               ].map(({ src, alt }) => (
                 <div key={src} className="relative overflow-hidden rounded-xl" style={{ height: "150px" }}>
                   <Image src={src} alt={alt} fill className="object-cover" style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }} sizes="(max-width: 768px) 50vw, 0px" />
@@ -169,6 +179,14 @@ export default function CareersPage() {
         </div>
       </section>
 
+      <section className="section-padding bg-gray-50">
+        <div className="container-width">
+          <div className="mx-auto max-w-2xl lg:max-w-3xl">
+            <CareersApplicationForm />
+          </div>
+        </div>
+      </section>
+
       <CTASection
         title="Ready to join the team?"
         description={
@@ -183,5 +201,6 @@ export default function CareersPage() {
         isExternal={true}
       />
     </>
+    </Providers>
   );
 }

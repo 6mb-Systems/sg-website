@@ -3,9 +3,9 @@ import type { NextRequest } from "next/server";
 /**
  * Shared security helpers for the public form API routes.
  *
- * Keeping this in one place so both /api/contact and /api/webinar-notify
- * share the exact same rate-limiting, HTML escaping, input validation, and
- * reCAPTCHA verification behaviour — a bug fixed here gets fixed for both.
+ * Keeping this in one place so /api/contact, /api/careers-application, and
+ * /api/webinar-notify share the same rate-limiting, HTML escaping, input
+ * validation, and reCAPTCHA verification behaviour.
  */
 
 // ---------- HTML escaping ----------

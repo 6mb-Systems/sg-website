@@ -12,6 +12,11 @@ export interface WebinarVideo {
  */
 export const webinarVideos: WebinarVideo[] = [
   {
+    id: "vY6WciZMt_I",
+    title: "Reviewing your SMSF contribution strategies",
+    date: "April 2026",
+  },
+  {
     id: "Siz96Ohin48",
     title: "The impact of indexation on your SMSF clients",
     date: "March 2026",

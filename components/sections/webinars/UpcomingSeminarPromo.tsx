@@ -3,21 +3,28 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const SEMINAR = {
-  title: "Reviewing your SMSF contribution strategies",
+  title:
+    "Division 296 Strategic considerations for SMSF trustees and members",
   blurb:
-    "With upcoming indexation changes and Division 296 on the horizon, now is a great time to revisit your client contribution strategies and ensure compliance. Higher caps create real opportunities, but they also make it important to understand how each strategy works and what compliance and record keeping is required.",
-  details:
-    "In this webinar, Tim Miller from Smarter SMSF will step through a catalogue of contribution strategies and the key points to watch for, including eligibility, notices and elections, and other practical considerations you should have on your checklist.",
+    "Division 296 is now in force. Assessments may still be some time away, but funds should start planning for added administration and decisions at the member, fund and beneficiary levels. Tim Miller from Smarter SMSF outlines the 30 June 2026 CGT cost base reset, how the rules affect reversionary and non reversionary pensions including death benefit outcomes, and why advice needs to be tailored to each client rather than a simple decision to withdraw or retain funds.",
   presenter: "Tim Miller",
   presenterTitle: "SMSF Technical & Education Manager at Smarter SMSF",
   presenterBio:
     "Leading SMSF educator with 25+ years of experience. Since 1999, he’s supported trustees, accountants and advisers with practical legislative and compliance guidance.",
-  date: "Tuesday 14 April 2026",
-  time: "12:30pm - 1:30pm AEDT",
+  date: "Tuesday 19th May 2026",
+  time: "12:30pm - 1:30pm AEST",
   cost: "Free",
   registerHref:
-    "https://us02web.zoom.us/webinar/register/WN_8bdqzXweQayhtg_sUgUM5A#/registration",
+    "https://us02web.zoom.us/webinar/register/WN_qfFR7dIKS2KYHjilDvQKtg",
 } as const;
+
+const LEARNING_OUTCOMES = [
+  "The advantages and drawbacks of CGT cost base adjustments.",
+  "How pension terms can influence who pays Division 296 and when.",
+  "The importance of early and proactive estate planning discussions.",
+  "The broader impact of Division 296 beyond members with balances over $3 million.",
+  "Why advice needs to be tailored to each client's specific circumstances.",
+] as const;
 
 export function UpcomingSeminarPromo() {
   return (
@@ -88,31 +95,23 @@ export function UpcomingSeminarPromo() {
             </Button>
           </div>
 
-          <div className="mt-7 min-h-[234px] p-5 flex flex-col justify-center">
+          <div className="mt-7 flex flex-col">
             <p className="text-lg font-semibold text-brand-blue">
-              What you&apos;ll learn
+              Learning outcomes
             </p>
-            <ul className="mt-4 grid grid-cols-1 gap-3 text-sm text-gray-700">
-              <li className="flex items-start gap-3">
-                <Check className="mt-0.5 h-4 w-4 text-brand-blue shrink-0" aria-hidden />
-                <span>Contribution caps and thresholds for 2026/27.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="mt-0.5 h-4 w-4 text-brand-blue shrink-0" aria-hidden />
-                <span>Strategies across different lifecycle stages.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="mt-0.5 h-4 w-4 text-brand-blue shrink-0" aria-hidden />
-                <span>Notice and election requirements for compliance.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="mt-0.5 h-4 w-4 text-brand-blue shrink-0" aria-hidden />
-                <span>Qualification criteria and key implementation checks.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="mt-0.5 h-4 w-4 text-brand-blue shrink-0" aria-hidden />
-                <span>The impact of getting strategies wrong.</span>
-              </li>
+            <p className="mt-2 text-sm text-gray-600">
+              At the end of this webinar, participants will have an appreciation for:
+            </p>
+            <ul className="m-0 mt-4 list-none space-y-3 p-0 text-left text-sm text-gray-700">
+              {LEARNING_OUTCOMES.map((line) => (
+                <li key={line} className="flex items-start gap-3 pl-0">
+                  <Check
+                    className="mt-0.5 h-4 w-4 shrink-0 text-brand-blue"
+                    aria-hidden
+                  />
+                  <span className="min-w-0 flex-1">{line}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

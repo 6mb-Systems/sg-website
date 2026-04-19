@@ -149,7 +149,7 @@ export function Division296Calculator() {
                 htmlFor="div296-tsb"
                 className="text-sm font-medium text-gray-800"
               >
-                Total Super Balance (TSB) at the reference amount
+                Total Super Balance (TSB) reference amount
               </label>
               <InfoDialog title="What is TSB for the purposes of Division 296?">
                 <p>

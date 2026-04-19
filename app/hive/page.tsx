@@ -59,6 +59,11 @@ const HIVE_VIDEOS: WebinarVideo[] = [
     id: "SlGFWwM4lQs",
     title: "General Hive Navigation and Dashboard Overview",
   },
+  {
+    id: "pxj35a0m0aA",
+    title:
+      "Hive: Client walk-through - Securely share information from your email inbox",
+  },
 ];
 
 export default function HivePage() {

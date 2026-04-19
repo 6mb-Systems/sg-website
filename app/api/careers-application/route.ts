@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
     }
 
     const resendApiKey = process.env.RESEND_API_KEY;
-    const toEmail = "mark.ma@jaqminns.com.au";
+    const toEmail = "emma@superguardian.com.au";
     const fromEmail =
       process.env.CONTACT_EMAIL_FROM || "noreply@superguardian.com.au";
 

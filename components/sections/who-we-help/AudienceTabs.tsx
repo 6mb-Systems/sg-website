@@ -83,7 +83,6 @@ const audiences: Audience[] = [
       },
     ],
     benefits: [
-      { title: "White Label Service", description: "Our services appear as your own, maintaining your client relationships" },
       { title: "Dedicated Support", description: "Direct access and personalised support to your dedicated Client Manager" },
       { title: "Scalable Solutions", description: "Grow your SMSF book without increasing internal resources" },
       { title: "Competitive Pricing", description: "Volume discounts available for practices with multiple SMSFs" },
@@ -116,6 +115,10 @@ const audiences: Audience[] = [
     benefits: [
       { title: "Practice Growth", description: "Resources to help you expand your SMSF client base" },
       { title: "Technical Excellence", description: "Stay current with regulatory changes and best practices" },
+      {
+        title: "White Label Service",
+        description: "Our services appear as your own, maintaining your client relationships",
+      },
       { title: "Flexible Service Levels", description: "Choose the level of involvement that suits your practice" },
     ],
   },
@@ -169,7 +172,7 @@ const audiences: Audience[] = [
           </>
         ),
       },
-      { question: "How much does it cost to run an SMSF?", answer: "Costs vary based on fund complexity. Our services start from $215 per month for administration." },
+      { question: "How much does it cost to run an SMSF?", answer: "Costs vary based on fund complexity. Our services start from $215 per month for administration, accounting, tax and audit." },
       { question: "Can I invest in property through my SMSF?", answer: "Yes, SMSFs can invest in property, including residential and commercial real estate, subject to certain rules." },
       { question: "What happens if I make a mistake?", answer: "We're here to help you stay compliant every step of the way. With a dedicated Client Manager, every SuperGuardian client benefits from personalised support and a seamless experience. Our proactive monitoring means we identify and resolve issues early before they become problems." },
     ],

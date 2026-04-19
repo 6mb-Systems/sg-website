@@ -1,4 +1,4 @@
-import { Target, RefreshCw, Clock, FileSearch } from "lucide-react";
+import { Target, RefreshCw, Clock, FileSearch, Landmark } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
 
 const services = [
@@ -22,6 +22,12 @@ const services = [
     title: "Audit Services",
     description: "Independent SMSF audits by qualified SMSF auditors",
   },
+  {
+    icon: Landmark,
+    title: "UK Pension Funds",
+    description:
+      "Establishment, administration and ongoing HMRC reporting for ROPS funds",
+  },
 ];
 
 export function SpecialistServices() {
@@ -39,7 +45,7 @@ export function SpecialistServices() {
           </div>
         </FadeIn>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {services.map((service, index) => (
             <FadeIn key={service.title} direction="up" delay={index * 0.1}>
               <div className="relative h-full overflow-hidden rounded-xl border border-gray-200">

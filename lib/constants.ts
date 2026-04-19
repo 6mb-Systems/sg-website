@@ -13,13 +13,13 @@ export const siteConfig = {
       name: "Adelaide",
       address: "65 Gilbert Street",
       city: "Adelaide SA 5000",
-      hours: "Monday – Friday: 8:30 AM – 5:00 PM (ACDT)",
+      hours: "Monday - Friday: 8:30 AM - 5:00 PM (ACST)",
     },
     melbourne: {
       name: "Melbourne",
       address: "Level 30, 35 Collins Street",
       city: "Melbourne VIC 3000",
-      hours: "Monday – Friday: 8:30 AM – 5:00 PM (AEST)",
+      hours: "Monday - Friday: 8:30 AM - 5:00 PM (AEST)",
     },
   },
   social: {

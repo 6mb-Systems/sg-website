@@ -36,7 +36,7 @@ export function ContactInfo() {
           <div className="mt-4">
             <p className="text-sm font-medium text-gray-900">Business Hours</p>
             <p className="text-sm text-gray-600">
-              Monday - Friday: 8:30 AM - 5:00 PM (ACDT)
+              Monday - Friday: 8:30 AM - 5:00 PM (ACST)
             </p>
           </div>
           </div>

@@ -11,7 +11,7 @@ type FormItem = {
 
 const engagementForms: FormItem[] = [
   { label: "Terms and Conditions", file: "TermsandConditions.pdf" },
-  { label: "Direct Debit Agreement (2021)", file: "SG-Direct-Debit-Agreement-2021.pdf" },
+  { label: "Direct Debit Agreement", file: "SG-Direct-Debit-Agreement-2021.pdf" },
   { label: "Financial Services Guide", file: "Financial-Services-Guide.pdf" },
 ];
 

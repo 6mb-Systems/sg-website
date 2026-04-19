@@ -7,8 +7,12 @@ import {
   readJsonBody,
   sanitizeEmail,
   sanitizeString,
+  verifyOrigin,
   verifyRecaptcha,
 } from "@/lib/api-security";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const enquiryLabels: Record<string, string> = {
   "establish-smsf": "I would like to establish an SMSF",
@@ -30,9 +34,17 @@ const MAX_MESSAGE = 5000;
 
 export async function POST(request: NextRequest) {
   try {
+    // ---- Origin check (lightweight CSRF defence) ----
+    if (!verifyOrigin(request)) {
+      return NextResponse.json(
+        { error: "Invalid request origin." },
+        { status: 403 }
+      );
+    }
+
     // ---- Rate limit ----
     const ip = getClientIp(request);
-    if (!checkRateLimit(ip)) {
+    if (!(await checkRateLimit(ip))) {
       return NextResponse.json(
         { error: "Too many requests. Please try again later." },
         { status: 429 }

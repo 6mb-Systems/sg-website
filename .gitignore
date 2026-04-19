@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Sanity
 /sanity/.sanity/
+
+# Data exports (never commit — may contain PII / email addresses / CMS dumps)
+*.WordPress*.xml
+/exports/

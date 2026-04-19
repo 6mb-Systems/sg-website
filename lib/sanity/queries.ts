@@ -270,3 +270,27 @@ export async function getAllPostSlugs(): Promise<string[]> {
 
   return sanityClient.fetch(query);
 }
+
+// Get slug + last-modified timestamp for each post — used by app/sitemap.ts.
+// `_updatedAt` is a Sanity built-in that moves whenever the document changes,
+// which is the right signal for <lastmod> in a sitemap.
+export async function getAllPostsForSitemap(): Promise<
+  Array<{ slug: string; updatedAt: string }>
+> {
+  if (!isSanityConfigured()) return [];
+
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && defined(slug.current)]{
+    "slug": slug.current,
+    "updatedAt": _updatedAt
+  }`;
+
+  const rows = (await sanityClient.fetch(query)) as
+    | Array<{ slug?: string; updatedAt?: string }>
+    | null;
+  if (!Array.isArray(rows)) return [];
+  return rows
+    .filter((r): r is { slug: string; updatedAt: string } =>
+      typeof r.slug === "string" && typeof r.updatedAt === "string"
+    )
+    .map((r) => ({ slug: r.slug, updatedAt: r.updatedAt }));
+}

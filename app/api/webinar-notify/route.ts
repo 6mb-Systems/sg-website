@@ -7,8 +7,12 @@ import {
   readJsonBody,
   sanitizeEmail,
   sanitizeString,
+  verifyOrigin,
   verifyRecaptcha,
 } from "@/lib/api-security";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const MAX_NAME = 120;
 const MAX_ORGANISATION = 200;
@@ -17,9 +21,17 @@ const MAX_HEAR_ABOUT_US = 2000;
 
 export async function POST(request: NextRequest) {
   try {
+    // ---- Origin check ----
+    if (!verifyOrigin(request)) {
+      return NextResponse.json(
+        { error: "Invalid request origin." },
+        { status: 403 }
+      );
+    }
+
     // ---- Rate limit ----
     const ip = getClientIp(request);
-    if (!checkRateLimit(ip)) {
+    if (!(await checkRateLimit(ip))) {
       return NextResponse.json(
         { error: "Too many requests. Please try again later." },
         { status: 429 }
@@ -56,6 +68,9 @@ export async function POST(request: NextRequest) {
       multiline: true,
     });
 
+    // `sanitizeString` returns null for invalid input and "" for a missing
+    // optional field. Name + email are required; the other three are optional
+    // but must still be well-formed if supplied.
     if (
       !fullName ||
       !email ||
@@ -64,7 +79,7 @@ export async function POST(request: NextRequest) {
       hearAboutUs === null
     ) {
       return NextResponse.json(
-        { error: "Please provide your name and email address." },
+        { error: "Please check your details and try again." },
         { status: 400 }
       );
     }

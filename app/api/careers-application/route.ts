@@ -4,10 +4,15 @@ import {
   checkRateLimit,
   escapeHtml,
   getClientIp,
+  isAllowedResumeSignature,
   sanitizeEmail,
   sanitizeString,
+  verifyOrigin,
   verifyRecaptcha,
 } from "@/lib/api-security";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const MAX_NAME = 200;
 const MAX_MESSAGE = 5000;
@@ -26,6 +31,9 @@ function extensionAllowed(filename: string): boolean {
 
 function isAllowedResume(file: File): boolean {
   if (!extensionAllowed(file.name)) return false;
+  // Unknown / generic MIME is allowed at this stage; the magic-number check
+  // after buffering the file catches masqueraded content regardless of what
+  // the browser reported.
   if (!file.type || file.type === "application/octet-stream") return true;
   return ALLOWED_MIME.has(file.type);
 }
@@ -38,8 +46,15 @@ function safeResumeFilename(original: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    if (!verifyOrigin(request)) {
+      return NextResponse.json(
+        { error: "Invalid request origin." },
+        { status: 403 }
+      );
+    }
+
     const ip = getClientIp(request);
-    if (!checkRateLimit(ip)) {
+    if (!(await checkRateLimit(ip))) {
       return NextResponse.json(
         { error: "Too many requests. Please try again later." },
         { status: 429 }
@@ -127,6 +142,16 @@ export async function POST(request: NextRequest) {
     }
 
     const buffer = Buffer.from(await resume.arrayBuffer());
+
+    // Magic-number check — rejects files whose bytes don't match their
+    // advertised extension/MIME (renamed .exe/.html disguised as .pdf, etc).
+    if (!isAllowedResumeSignature(buffer.subarray(0, 8))) {
+      return NextResponse.json(
+        { error: "Resume file does not appear to be a valid PDF or Word document." },
+        { status: 400 }
+      );
+    }
+
     const resend = new Resend(resendApiKey);
     const safe = {
       name: escapeHtml(name),

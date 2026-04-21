@@ -2,13 +2,20 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { CountUp } from "@/components/ui/count-up";
 import Image from "next/image";
 
-const stats: { end: number; suffix: string; label: string; decimals?: number }[] = [
-  { end: 3500, suffix: "+", label: "Funds" },
-  { 
-    end: 4.9, 
-    suffix: "★", 
-    decimals: 1, 
-    label: "Client Satisfaction"
+const stats: {
+  end: number;
+  suffix: string;
+  label: string;
+  decimals?: number;
+  subLabel?: string;
+}[] = [
+  { end: 3500, suffix: "+", label: "SMSF Funds" },
+  {
+    end: 4.9,
+    suffix: "★",
+    decimals: 1,
+    label: "Client Satisfaction",
+    subLabel: "on ProductReview",
   },
   { end: 24, suffix: "+", label: "Years Industry Experience" },
 ];
@@ -66,7 +73,12 @@ export function AboutIntro() {
                         startOnView
                       />
                     </div>
-                    <div className="mt-1 text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{stat.label}</div>
+                    <div className="mt-1 text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
+                      {stat.label}
+                    </div>
+                    {stat.subLabel ? (
+                      <div className="mt-0.5 text-xs text-gray-500">{stat.subLabel}</div>
+                    ) : null}
                   </>
                 );
 

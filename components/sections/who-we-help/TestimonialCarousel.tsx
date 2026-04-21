@@ -65,6 +65,60 @@ const testimonials: Testimonial[] = [
     name: "George",
     title: "SA",
   },
+  {
+    quote:
+      "I find SuperGuardian\u2019s service extremely efficient and user-friendly, making the entire process simple and straightforward. What I value most is how easy they make it to manage my super fund\u2019s tax requirements, removing complexity and saving me time.",
+    name: "Terry",
+    title: "QLD",
+  },
+  {
+    quote:
+      "It\u2019s always easy to connect with the right person and get the right advice, and Jenna-lee makes the experience even smoother. I really value SuperGuardian\u2019s accessibility, expertise, and friendly service, which makes managing my super effortless.",
+    name: "Barbara",
+    title: "QLD",
+  },
+  {
+    quote:
+      "SuperGuardian has successfully managed my SMSF for over 15 years. I have been extremely pleased with their efficiency and professionalism. This has been delivered by several amazing staff members. Jenna-lee and recently Alyssa, who have been a joy to work with on a personal and professional level. Always helpful, cheerful and very competent. They are a credit to the company. When they say, \u201cyour call is important to us\u201d - THEY REALLY MEAN IT. A rare thing nowadays. My wish is that ALL businesses could have such excellent personnel.",
+    name: "David",
+    title: "VIC",
+  },
+  {
+    quote:
+      "I\u2019m very satisfied with the support I\u2019ve received from SuperGuardian to date. What I value most about their service can be summed up in one word: Jenna-lee, whose professionalism and attentiveness make all the difference.",
+    name: "Ralph",
+    title: "NSW",
+  },
+  {
+    quote:
+      "SuperGuardian delivers excellent service with clear and consistent communication, all handled seamlessly via email, with Client Manager, Dharshi, always ensuring everything runs smoothly. I particularly value the personalised approach, along with the reliability of having everything completed on time and delivered efficiently through DocuSign.",
+    name: "Andrew",
+    title: "NSW",
+  },
+  {
+    quote:
+      "SuperGuardian provides a highly competent, reliable, and efficient service, with Jenna-lee consistently delivering support to a high standard. What I value most is their reliability and expertise, giving me confidence that everything is handled with care and professionalism.",
+    name: "Jan",
+    title: "NSW",
+  },
+  {
+    quote:
+      "I can\u2019t fault the service provided by SuperGuardian, with Jenna-lee consistently delivering a high standard of support. What I value most is the courteous and prompt communication, which makes every interaction easy and efficient.",
+    name: "Ian",
+    title: "QLD",
+  },
+  {
+    quote:
+      "I\u2019ve been very happy with my experience with SuperGuardian over time, with Dharshi always ensuring everything is managed professionally. What I value most is the confidence that my fund is always up to date with all legal requirements, giving me complete peace of mind.",
+    name: "Brenton",
+    title: "SA",
+  },
+  {
+    quote:
+      "SuperGuardian provides a professional, trustworthy, and highly reliable compliance service that is ideal for investors and self-managed super fund members. What I value most is my efficient, friendly, and professional Senior Client Manager, Cissy, and the ability to focus my time on managing my investments without the complications of administration. Knowing that SuperGuardian is handling the complexities of taxation and superannuation compliance gives me real peace of mind.",
+    name: "Barbara",
+    title: "NSW",
+  },
 ];
 
 const AUTO_PLAY_MS = 7000;

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { CheckCircle, Users, Building2, UserCircle, type LucideIcon } from "lucide-react";
 
@@ -328,9 +329,18 @@ export function AudienceTabs() {
                 {/* Hive section — advisers only */}
                 {activeAudience.id === "advisers" && (
                   <div className="mt-8 border-t border-brand-blue-100 pt-8">
+                    <div className="mb-6">
+                      <Image 
+                        src="/Hive Banner Promo.png" 
+                        alt="Hive by SuperGuardian" 
+                        width={400} 
+                        height={120} 
+                        className="h-auto max-w-full object-contain"
+                      />
+                    </div>
                     <h4 className="text-lg font-semibold text-gray-900">
                       Better Support for Your Clients with{" "}
-                      <a href="/hive" className="text-brand-blue underline hover:text-brand-blue-700">Hive</a>
+                      <a href="/hive" className="text-brand-yellow-500 underline hover:text-brand-yellow-600">Hive</a>
                     </h4>
                     <p className="mt-2 text-sm text-gray-600 leading-relaxed">
                       SuperGuardian&apos;s Hive platform connects advisers, accountants, and clients in one streamlined ecosystem. Gain greater visibility, faster reporting, and seamless collaboration with Hive - our purpose-built platform designed to help advisers deliver more informed, timely advice to their clients.

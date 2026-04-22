@@ -83,10 +83,10 @@ export default function CareersPage() {
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
 
-              {/* career_07 — bottom left */}
+              {/* career_01 — bottom left */}
               <div className="relative overflow-hidden rounded-xl">
                 <Image
-                  src="/career_07.jpg"
+                  src="/career_01.jpg"
                   alt="SuperGuardian team"
                   fill
                   className="object-cover object-[center_30%]"
@@ -122,7 +122,7 @@ export default function CareersPage() {
               {[
                 { src: "/career_02.jpg", alt: "SuperGuardian office" },
                 { src: "/career_03.jpg", alt: "SuperGuardian collaboration" },
-                { src: "/career_07.jpg", alt: "SuperGuardian team" },
+                { src: "/career_01.jpg", alt: "SuperGuardian team" },
                 { src: "/career_06.jpg", alt: "SuperGuardian culture" },
               ].map(({ src, alt }) => (
                 <div key={src} className="relative overflow-hidden rounded-xl" style={{ height: "150px" }}>

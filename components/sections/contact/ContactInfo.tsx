@@ -81,15 +81,6 @@ export function ContactInfo() {
                 applications@superguardian.com.au
               </a>
             </div>
-            <div>
-              <p className="text-sm text-gray-600">Technical Support</p>
-              <a
-                href="mailto:support@superguardian.com.au"
-                className="text-sm font-medium text-brand-orange hover:text-brand-orange-600"
-            >
-              support@superguardian.com.au
-              </a>
-            </div>
           </div>
           </div>
         </div>

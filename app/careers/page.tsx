@@ -12,6 +12,14 @@ export const metadata: Metadata = {
     "Join SuperGuardian in Adelaide or Melbourne. Apply for roles or express your interest through our careers form.",
 };
 
+/** Unified colour + perceived clarity: same filter on every mosaic tile (contrast helps edges read similarly; cannot fix true resolution differences between source files). */
+const CAREER_MOSAIC_IMAGE_STYLE = {
+  filter: "brightness(1.03) contrast(1.11) saturate(1.07)",
+} as const;
+
+/** Allowed by `images.qualities` in next.config — same on all tiles so JPEG/WebP encoding is consistent. */
+const CAREER_MOSAIC_IMAGE_QUALITY = 90;
+
 export default function CareersPage() {
   return (
     <Providers>
@@ -49,7 +57,9 @@ export default function CareersPage() {
                   alt="SuperGuardian workspace"
                   fill
                   className="object-cover object-right"
+                  style={CAREER_MOSAIC_IMAGE_STYLE}
                   sizes="66vw"
+                  quality={CAREER_MOSAIC_IMAGE_QUALITY}
                   priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-blue-950/50 to-transparent pointer-events-none" />
@@ -63,7 +73,9 @@ export default function CareersPage() {
                   alt="SuperGuardian office"
                   fill
                   className="object-cover"
+                  style={CAREER_MOSAIC_IMAGE_STYLE}
                   sizes="33vw"
+                  quality={CAREER_MOSAIC_IMAGE_QUALITY}
                 />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
@@ -75,7 +87,9 @@ export default function CareersPage() {
                   alt="SuperGuardian team collaboration"
                   fill
                   className="object-cover"
+                  style={CAREER_MOSAIC_IMAGE_STYLE}
                   sizes="33vw"
+                  quality={CAREER_MOSAIC_IMAGE_QUALITY}
                 />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
@@ -87,7 +101,9 @@ export default function CareersPage() {
                   alt="SuperGuardian team"
                   fill
                   className="object-cover object-[center_30%]"
+                  style={CAREER_MOSAIC_IMAGE_STYLE}
                   sizes="33vw"
+                  quality={CAREER_MOSAIC_IMAGE_QUALITY}
                 />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
@@ -99,7 +115,9 @@ export default function CareersPage() {
                   alt="SuperGuardian culture"
                   fill
                   className="object-cover object-[center_30%]"
+                  style={CAREER_MOSAIC_IMAGE_STYLE}
                   sizes="66vw"
+                  quality={CAREER_MOSAIC_IMAGE_QUALITY}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-brand-blue-950/40 to-transparent pointer-events-none" />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
@@ -111,7 +129,7 @@ export default function CareersPage() {
           <FadeIn delay={0.1}>
             <div className="md:hidden grid grid-cols-2 gap-2">
               <div className="col-span-2 relative overflow-hidden rounded-xl" style={{ height: "240px" }}>
-                <Image src="/career_04_colour.jpg" alt="SuperGuardian workspace" fill className="object-cover" sizes="(max-width: 768px) 100vw, 0px" priority />
+                <Image src="/career_04_colour.jpg" alt="SuperGuardian workspace" fill className="object-cover" style={CAREER_MOSAIC_IMAGE_STYLE} sizes="(max-width: 768px) 100vw, 0px" quality={CAREER_MOSAIC_IMAGE_QUALITY} priority />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
               {[
@@ -121,7 +139,7 @@ export default function CareersPage() {
                 { src: "/career_06_colour.jpg", alt: "SuperGuardian culture" },
               ].map(({ src, alt }) => (
                 <div key={src} className="relative overflow-hidden rounded-xl" style={{ height: "150px" }}>
-                  <Image src={src} alt={alt} fill className="object-cover" sizes="(max-width: 768px) 50vw, 0px" />
+                  <Image src={src} alt={alt} fill className="object-cover" style={CAREER_MOSAIC_IMAGE_STYLE} sizes="(max-width: 768px) 50vw, 0px" quality={CAREER_MOSAIC_IMAGE_QUALITY} />
                   <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
                 </div>
               ))}

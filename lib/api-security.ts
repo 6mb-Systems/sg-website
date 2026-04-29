@@ -62,11 +62,20 @@ function allowedOrigins(): string[] {
   const list: string[] = [];
   const site = process.env.NEXT_PUBLIC_SITE_URL;
   if (site) list.push(site);
-  // Vercel sets this to the deployment hostname (no scheme), e.g. *.vercel.app.
-  // Without it, preview URLs fail verifyOrigin when NEXT_PUBLIC_SITE_URL is the
-  // production domain only.
-  const vercelUrl = process.env.VERCEL_URL;
-  if (vercelUrl) list.push(`https://${vercelUrl}`);
+  // Vercel populates these (no scheme) on every deployment. Including all
+  // three lets verifyOrigin pass for the production alias, branch alias, and
+  // the deployment-specific hostname without manual ALLOWED_ORIGINS upkeep.
+  //   VERCEL_PROJECT_PRODUCTION_URL  -> the project's production domain
+  //   VERCEL_BRANCH_URL              -> the branch alias (e.g. previews)
+  //   VERCEL_URL                     -> the unique per-deployment URL
+  for (const key of [
+    "VERCEL_PROJECT_PRODUCTION_URL",
+    "VERCEL_BRANCH_URL",
+    "VERCEL_URL",
+  ] as const) {
+    const host = process.env[key];
+    if (host) list.push(`https://${host}`);
+  }
   const extra = process.env.ALLOWED_ORIGINS;
   if (extra) list.push(...extra.split(","));
   return list

@@ -143,7 +143,7 @@ export default async function EducationPage({
     <Providers>
       <PageHero
         title="SMSF Education Hub"
-        description="Whether it's catching up on the latest changes to the SMSF environment, or refreshing your memory on those issues that only arise every so often we've got your SMSF professional development needs covered"
+        description="Whether it's catching up on the latest changes to the SMSF environment, or refreshing your memory on those issues that only arise every so often, we've got your SMSF professional development needs covered"
       />
 
       <Suspense

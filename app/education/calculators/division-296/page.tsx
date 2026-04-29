@@ -30,14 +30,28 @@ export default function Division296CalculatorPage() {
             </Link>
           </Button>
 
-          <div className="mt-10">
-            <h2 className="text-2xl font-bold text-brand-blue md:text-3xl">
-              Calculate how Division 296 will affect you
-            </h2>
-            <p className="mt-4 text-gray-600 leading-relaxed">
-              Want to see how much you might pay under Division 296? Enter your details in the
-              calculator and review the illustrative results.
-            </p>
+          <div className="mt-10 space-y-8">
+            <div className="rounded-lg border border-brand-blue-100 bg-brand-blue-50 px-3 py-3 md:px-4 md:py-3.5">
+              <h3 className="text-xs font-semibold text-brand-blue-800">
+                What is TSB?
+              </h3>
+              <p className="mt-1.5 text-[11px] leading-snug text-gray-600 sm:text-xs">
+                TSB (Total Superannuation Balance) is the total value of all your
+                super accounts combined at a point in time, used by the Australian
+                Taxation Office to determine your super contribution limits and
+                whether additional taxes like Division 296 tax may apply.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-brand-blue md:text-3xl">
+                Calculate how Division 296 will affect you
+              </h2>
+              <p className="mt-4 text-gray-600 leading-relaxed">
+                Want to see how much you might pay under Division 296? Enter your details in the
+                calculator and review the illustrative results.
+              </p>
+            </div>
           </div>
 
           <div className="mt-10">

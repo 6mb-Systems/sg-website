@@ -42,14 +42,13 @@ export default function CareersPage() {
               className="hidden md:grid grid-cols-3 gap-3"
               style={{ gridTemplateRows: "260px 260px 280px" }}
             >
-              {/* career_04 — large left, spans 2 rows */}
+              {/* career_04 — large left, spans 2 rows (colour) */}
               <div className="col-span-2 row-span-2 relative overflow-hidden rounded-xl">
                 <Image
-                  src="/career_04.jpg"
+                  src="/career_04_colour.jpg"
                   alt="SuperGuardian workspace"
                   fill
                   className="object-cover object-right"
-                  style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }}
                   sizes="66vw"
                   priority
                 />
@@ -57,53 +56,49 @@ export default function CareersPage() {
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
 
-              {/* career_02 — top right */}
+              {/* career_02 — top right (colour) */}
               <div className="relative overflow-hidden rounded-xl">
                 <Image
-                  src="/career_02.jpg"
+                  src="/career_02_colour.jpg"
                   alt="SuperGuardian office"
                   fill
                   className="object-cover"
-                  style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }}
                   sizes="33vw"
                 />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
 
-              {/* career_03 — bottom right */}
+              {/* career_03 — bottom right (colour) */}
               <div className="relative overflow-hidden rounded-xl">
                 <Image
-                  src="/career_03.jpg"
+                  src="/career_03_colour.jpg"
                   alt="SuperGuardian team collaboration"
                   fill
                   className="object-cover"
-                  style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }}
                   sizes="33vw"
                 />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
 
-              {/* career_01 — bottom left */}
+              {/* career_01 — bottom left (colour) */}
               <div className="relative overflow-hidden rounded-xl">
                 <Image
-                  src="/career_01.jpg"
+                  src="/career_01_colour.png"
                   alt="SuperGuardian team"
                   fill
                   className="object-cover object-[center_30%]"
-                  style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }}
                   sizes="33vw"
                 />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
 
-              {/* career_06 — bottom right wide */}
+              {/* career_06 — bottom right wide (colour) */}
               <div className="col-span-2 relative overflow-hidden rounded-xl">
                 <Image
-                  src="/career_06.jpg"
+                  src="/career_06_colour.jpg"
                   alt="SuperGuardian culture"
                   fill
                   className="object-cover object-[center_30%]"
-                  style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }}
                   sizes="66vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-brand-blue-950/40 to-transparent pointer-events-none" />
@@ -116,17 +111,17 @@ export default function CareersPage() {
           <FadeIn delay={0.1}>
             <div className="md:hidden grid grid-cols-2 gap-2">
               <div className="col-span-2 relative overflow-hidden rounded-xl" style={{ height: "240px" }}>
-                <Image src="/career_04.jpg" alt="SuperGuardian workspace" fill className="object-cover" style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }} sizes="(max-width: 768px) 100vw, 0px" priority />
+                <Image src="/career_04_colour.jpg" alt="SuperGuardian workspace" fill className="object-cover" sizes="(max-width: 768px) 100vw, 0px" priority />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
               </div>
               {[
-                { src: "/career_02.jpg", alt: "SuperGuardian office" },
-                { src: "/career_03.jpg", alt: "SuperGuardian collaboration" },
-                { src: "/career_01.jpg", alt: "SuperGuardian team" },
-                { src: "/career_06.jpg", alt: "SuperGuardian culture" },
+                { src: "/career_02_colour.jpg", alt: "SuperGuardian office" },
+                { src: "/career_03_colour.jpg", alt: "SuperGuardian collaboration" },
+                { src: "/career_01_colour.png", alt: "SuperGuardian team" },
+                { src: "/career_06_colour.jpg", alt: "SuperGuardian culture" },
               ].map(({ src, alt }) => (
                 <div key={src} className="relative overflow-hidden rounded-xl" style={{ height: "150px" }}>
-                  <Image src={src} alt={alt} fill className="object-cover" style={{ filter: "brightness(1.06) contrast(1.12) saturate(1.2)" }} sizes="(max-width: 768px) 50vw, 0px" />
+                  <Image src={src} alt={alt} fill className="object-cover" sizes="(max-width: 768px) 50vw, 0px" />
                   <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%)" }} />
                 </div>
               ))}
@@ -142,17 +137,20 @@ export default function CareersPage() {
           {/* Intro: oversized stat + text */}
           <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-10 md:mb-6">
             <FadeIn direction="right">
-              <div className="relative">
-                <span
-                  className="block font-bold leading-none text-brand-blue select-none"
-                  style={{ fontSize: "clamp(5rem, 14vw, 9rem)", opacity: 0.08 }}
+              <div className="flex flex-col gap-1.5 md:gap-2">
+                <p
+                  className="m-0 font-bold leading-none text-brand-blue select-none tracking-tight"
+                  style={{
+                    fontSize: "clamp(2.75rem, 9vw, 5rem)",
+                    opacity: 0.1,
+                  }}
                 >
-                  24
-                </span>
-                <div className="-mt-10 md:-mt-14">
-                  <span className="text-4xl md:text-5xl font-bold text-brand-blue leading-tight">
-                    years of<br />expertise
-                  </span>
+                  Est. 2002
+                </p>
+                <div>
+                  <p className="m-0 text-4xl md:text-5xl font-bold text-brand-blue leading-tight text-pretty">
+                    decades of SMSF experience
+                  </p>
                   <div className="mt-5 h-1 w-14 bg-brand-orange rounded-full" />
                 </div>
               </div>
@@ -165,8 +163,8 @@ export default function CareersPage() {
                 </h2>
                 <p className="text-gray-600 leading-relaxed">
                   SuperGuardian is an independently owned Chartered Accounting firm and specialist
-                  self-managed super fund (SMSF) Administrator. With more than 24 years of experience,
-                  we provide a premium service to Accountants, Financial Advisers, and Trustees.
+                  self-managed super fund (SMSF) Administrator. Established in 2002,
+                  we provide a premium service to Accountants, Financial Advisers and Trustees.
                 </p>
                 <p className="mt-4 text-gray-600 leading-relaxed">
                   We are always on the lookout for talented, motivated individuals to join our team in

@@ -148,7 +148,7 @@ export function PageHero({ title, description, subtitle }: PageHeroProps) {
           <h1 className="animate-fade-in-up text-4xl font-bold text-white md:text-5xl">
             {title}
           </h1>
-          <p className="animate-fade-in-up mt-4 text-xl text-brand-orange font-medium" style={{ animationDelay: '0.1s' }}>
+          <p className="animate-fade-in-up mt-4 text-pretty text-xl text-brand-orange font-medium" style={{ animationDelay: '0.1s' }}>
             {description}
           </p>
           {subtitle && (

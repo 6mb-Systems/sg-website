@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const SEMINAR = {
   title:
-    "Division 296 Strategic Considerations for your SMSF Clients",
+    "Division 296 Strategic Considerations for Your SMSF Clients",
   blurb:
     "Division 296 is now in force. Assessments may still be some time away, but funds should start planning for added administration and decisions at the member, fund and beneficiary levels. Tim Miller from Smarter SMSF outlines the 30 June 2026 CGT cost base reset, how the rules affect reversionary and non reversionary pensions including death benefit outcomes, and why advice needs to be tailored to each client rather than a simple decision to withdraw or retain funds.",
   presenter: "Tim Miller",

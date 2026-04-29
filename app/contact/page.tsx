@@ -8,7 +8,7 @@ import { PageHero } from "@/components/sections/shared/PageHero";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Talk to one of our experts. If you would like to find out further information on the SuperGuardian service please give us a call.",
+    "Talk to one of our experts. If you would like to receive further information regarding SuperGuardian's services, please call us, or use the form below",
 };
 
 export default function ContactPage() {
@@ -16,7 +16,7 @@ export default function ContactPage() {
     <Providers>
       <PageHero
         title="Talk to one of our experts"
-        description="If you would like to find out further information on the SuperGuardian service please give us a call"
+        description="If you would like to receive further information regarding SuperGuardian's services, please call us, or use the form below"
       />
 
       {/* Contact Form and Info */}

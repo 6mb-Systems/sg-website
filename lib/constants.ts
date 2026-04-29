@@ -1,7 +1,9 @@
+import { educationHubHref } from "@/lib/education-hub-tab";
+
 export const siteConfig = {
   name: "SuperGuardian",
   description:
-    "SuperGuardian is an independently owned Chartered Accounting firm and specialist self-managed super fund (SMSF) Administrator with more than 24 years experience",
+    "SuperGuardian is an independently owned Chartered Accounting firm and specialist self-managed super fund (SMSF) Administrator, established in 2002",
   url: "https://www.superguardian.com.au",
   phone: "1300 787 576",
   email: "info@superguardian.com.au",
@@ -25,6 +27,7 @@ export const siteConfig = {
   social: {
     linkedin: "https://www.linkedin.com/company/superguardian-pty-ltd/",
     facebook: "https://www.facebook.com/SuperGuardianPtyLtd",
+    youtube: "https://www.youtube.com/@SuperGuardianPtyLtd",
   },
   externalLinks: {
     /** Landing page for Log In button in header */
@@ -52,7 +55,15 @@ export const navigation = {
     { name: "Partnerships", href: "/partnerships" },
     { name: "Pricing", href: "/pricing" },
     { name: "Security", href: "/security" },
-    { name: "Education", href: "/education" },
+    {
+      name: "Education",
+      href: "/education",
+      children: [
+        { name: "Insights", href: educationHubHref("articles") },
+        { name: "Webinars", href: educationHubHref("webinars") },
+        { name: "Calculators", href: educationHubHref("calculators") },
+      ],
+    },
     {
       name: "Contact",
       href: "/contact",

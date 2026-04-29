@@ -88,7 +88,7 @@ export function CareersApplicationForm() {
         <div className="relative z-10 p-8">
           <h2 className="text-xl font-semibold text-gray-900">Join Our Team</h2>
           <p className="mt-2 text-sm text-gray-600">
-            Tell us a little about yourself and attach your resume
+            Tell us a little about yourself and attach your resume.
           </p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-6">
@@ -131,7 +131,7 @@ export function CareersApplicationForm() {
                 name="message"
                 rows={4}
                 required
-                placeholder="A short note about the role you are interested in or your background..."
+                placeholder="A short note about the role you are interested in, or your background..."
                 className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue"
               />
             </div>

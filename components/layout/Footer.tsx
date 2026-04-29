@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Linkedin, Facebook } from "lucide-react";
+import { Linkedin, Facebook, Youtube } from "lucide-react";
 import { siteConfig, navigation } from "@/lib/constants";
 
 export function Footer() {
@@ -28,6 +28,15 @@ export function Footer() {
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
+              </a>
+              <a
+                href={siteConfig.social.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:text-brand-orange transition-colors"
+                aria-label="YouTube"
+              >
+                <Youtube className="h-5 w-5" />
               </a>
             </div>
             <div>
@@ -147,7 +156,7 @@ export function Footer() {
               information.
             </p>
             <p>
-              By accessing and/or using information at or through this site each
+              By accessing and/or using information at or through this site, each
               user waives and releases SuperGuardian to the full extent
               permitted by law from any and all claims relating to the usage of
               the material made available through the website. In no event shall

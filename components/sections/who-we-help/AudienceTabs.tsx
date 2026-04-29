@@ -343,7 +343,7 @@ export function AudienceTabs() {
                       <a href="/hive" className="text-brand-yellow-500 underline hover:text-brand-yellow-600">Hive</a>
                     </h4>
                     <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                      SuperGuardian&apos;s Hive platform connects advisers, accountants, and clients in one streamlined ecosystem. Gain greater visibility, faster reporting, and seamless collaboration with Hive - our purpose-built platform designed to help advisers deliver more informed, timely advice to their clients.
+                      SuperGuardian&apos;s Hive platform connects advisers, accountants, and clients in one streamlined ecosystem. Gain greater visibility, faster reporting, and seamless collaboration with Hive, our purpose-built platform designed to help advisers deliver more informed, timely advice to their clients.
                     </p>
                   </div>
                 )}

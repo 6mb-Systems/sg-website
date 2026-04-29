@@ -62,6 +62,11 @@ function allowedOrigins(): string[] {
   const list: string[] = [];
   const site = process.env.NEXT_PUBLIC_SITE_URL;
   if (site) list.push(site);
+  // Vercel sets this to the deployment hostname (no scheme), e.g. *.vercel.app.
+  // Without it, preview URLs fail verifyOrigin when NEXT_PUBLIC_SITE_URL is the
+  // production domain only.
+  const vercelUrl = process.env.VERCEL_URL;
+  if (vercelUrl) list.push(`https://${vercelUrl}`);
   const extra = process.env.ALLOWED_ORIGINS;
   if (extra) list.push(...extra.split(","));
   return list
@@ -96,6 +101,18 @@ export function verifyOrigin(request: NextRequest): boolean {
   // than silently accepting everything.
   if (allow.length === 0) return false;
   return allow.some((a) => a === candidateOrigin);
+}
+
+function allowedHostnames(): string[] {
+  return allowedOrigins()
+    .map((origin) => {
+      try {
+        return new URL(origin).hostname;
+      } catch {
+        return null;
+      }
+    })
+    .filter((hostname): hostname is string => Boolean(hostname));
 }
 
 // ---------- Rate limiting ----------
@@ -264,8 +281,34 @@ export function sanitizeEmail(value: unknown): string | null {
  *   - DOCX : ZIP archive (504B0304)       — modern Word, also Pages/etc
  *            plus the deprecated legacy ZIP signatures (PK 0506, PK 0708)
  */
-export function isAllowedResumeSignature(bytes: Uint8Array): boolean {
+function hasAsciiSequence(bytes: Uint8Array, needle: string): boolean {
+  const encoded = new TextEncoder().encode(needle);
+  if (encoded.length === 0 || bytes.length < encoded.length) return false;
+
+  for (let i = 0; i <= bytes.length - encoded.length; i += 1) {
+    let matched = true;
+    for (let j = 0; j < encoded.length; j += 1) {
+      if (bytes[i + j] !== encoded[j]) {
+        matched = false;
+        break;
+      }
+    }
+    if (matched) return true;
+  }
+
+  return false;
+}
+
+export function isAllowedResumeSignature(
+  bytes: Uint8Array,
+  filename?: string
+): boolean {
   if (bytes.length < 4) return false;
+
+  const lowerFilename = filename?.toLowerCase();
+  const isPdfExtension = lowerFilename?.endsWith(".pdf") ?? false;
+  const isDocExtension = lowerFilename?.endsWith(".doc") ?? false;
+  const isDocxExtension = lowerFilename?.endsWith(".docx") ?? false;
 
   const b0 = bytes[0];
   const b1 = bytes[1];
@@ -273,18 +316,15 @@ export function isAllowedResumeSignature(bytes: Uint8Array): boolean {
   const b3 = bytes[3];
 
   // %PDF
-  if (
+  const isPdf =
     b0 === 0x25 &&
     b1 === 0x50 &&
     b2 === 0x44 &&
     b3 === 0x46 &&
-    bytes[4] === 0x2d
-  ) {
-    return true;
-  }
+    bytes[4] === 0x2d;
 
   // Legacy DOC (OLE compound file)
-  if (
+  const isDoc =
     bytes.length >= 8 &&
     b0 === 0xd0 &&
     b1 === 0xcf &&
@@ -293,21 +333,29 @@ export function isAllowedResumeSignature(bytes: Uint8Array): boolean {
     bytes[4] === 0xa1 &&
     bytes[5] === 0xb1 &&
     bytes[6] === 0x1a &&
-    bytes[7] === 0xe1
-  ) {
-    return true;
+    bytes[7] === 0xe1;
+
+  const isZip =
+    b0 === 0x50 &&
+    b1 === 0x4b &&
+    ((b2 === 0x03 && b3 === 0x04) ||
+      (b2 === 0x05 && b3 === 0x06) ||
+      (b2 === 0x07 && b3 === 0x08));
+
+  // DOCX is a ZIP container, so also require the core Word package markers.
+  const isDocx =
+    isZip &&
+    hasAsciiSequence(bytes, "[Content_Types].xml") &&
+    hasAsciiSequence(bytes, "word/");
+
+  if (lowerFilename) {
+    if (isPdfExtension) return isPdf;
+    if (isDocExtension) return isDoc;
+    if (isDocxExtension) return isDocx;
+    return false;
   }
 
-  // DOCX / any ZIP container
-  if (b0 === 0x50 && b1 === 0x4b) {
-    if (
-      (b2 === 0x03 && b3 === 0x04) ||
-      (b2 === 0x05 && b3 === 0x06) ||
-      (b2 === 0x07 && b3 === 0x08)
-    ) {
-      return true;
-    }
-  }
+  if (isPdf || isDoc || isDocx) return true;
 
   return false;
 }
@@ -376,18 +424,25 @@ export async function verifyRecaptcha(
       success?: boolean;
       score?: number;
       action?: string;
+      hostname?: string;
       "error-codes"?: string[];
     };
+    const hostnames = allowedHostnames();
 
     if (
       !data.success ||
       typeof data.score !== "number" ||
-      data.score < 0.5
+      data.score < 0.5 ||
+      data.action !== action ||
+      (hostnames.length > 0 &&
+        (!data.hostname || !hostnames.includes(data.hostname)))
     ) {
       // Log the score on failure so we can tune the threshold from real data.
       console.warn(
         `[security] reCAPTCHA rejected (action=${action} score=${
           data.score ?? "n/a"
+        } returnedAction=${data.action ?? "n/a"} hostname=${
+          data.hostname ?? "n/a"
         } codes=${(data["error-codes"] ?? []).join(",")})`
       );
       return {

@@ -17,6 +17,7 @@ export const dynamic = "force-dynamic";
 const MAX_NAME = 200;
 const MAX_MESSAGE = 5000;
 const MAX_FILE_BYTES = 4 * 1024 * 1024;
+const MAX_FORM_BYTES = MAX_FILE_BYTES + 64 * 1024;
 
 const ALLOWED_MIME = new Set([
   "application/pdf",
@@ -64,6 +65,19 @@ export async function POST(request: NextRequest) {
     const contentType = request.headers.get("content-type") ?? "";
     if (!contentType.includes("multipart/form-data")) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    }
+
+    const contentLength = request.headers.get("content-length");
+    if (contentLength) {
+      const bytes = /^\d+$/.test(contentLength)
+        ? Number.parseInt(contentLength, 10)
+        : Number.NaN;
+      if (!Number.isFinite(bytes) || bytes > MAX_FORM_BYTES) {
+        return NextResponse.json(
+          { error: "Request body too large." },
+          { status: 413 }
+        );
+      }
     }
 
     let formData: FormData;
@@ -145,7 +159,7 @@ export async function POST(request: NextRequest) {
 
     // Magic-number check — rejects files whose bytes don't match their
     // advertised extension/MIME (renamed .exe/.html disguised as .pdf, etc).
-    if (!isAllowedResumeSignature(buffer.subarray(0, 8))) {
+    if (!isAllowedResumeSignature(buffer, resume.name)) {
       return NextResponse.json(
         { error: "Resume file does not appear to be a valid PDF or Word document." },
         { status: 400 }

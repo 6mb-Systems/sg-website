@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/client";
+import { escapeHtml } from "@/lib/api-security";
 import { Button } from "@/components/ui/button";
 import {
   educationHubHref,
@@ -149,13 +150,13 @@ function renderFallbackHtml(content: string): string {
     .split("\n")
     .map((line) => {
       if (line.startsWith("## "))
-        return `<h2 class="text-2xl font-bold text-brand-blue mt-8 mb-4">${line.slice(3)}</h2>`;
+        return `<h2 class="text-2xl font-bold text-brand-blue mt-8 mb-4">${escapeHtml(line.slice(3))}</h2>`;
       if (line.startsWith("### "))
-        return `<h3 class="text-xl font-semibold text-gray-900 mt-6 mb-3">${line.slice(4)}</h3>`;
+        return `<h3 class="text-xl font-semibold text-gray-900 mt-6 mb-3">${escapeHtml(line.slice(4))}</h3>`;
       if (line.startsWith("- "))
-        return `<li class="text-gray-600">${line.slice(2)}</li>`;
+        return `<li class="text-gray-600">${escapeHtml(line.slice(2))}</li>`;
       if (line.trim())
-        return `<p class="text-gray-600 mb-4">${line}</p>`;
+        return `<p class="text-gray-600 mb-4">${escapeHtml(line)}</p>`;
       return "";
     })
     .join("");
@@ -170,7 +171,8 @@ function safeLinkHref(href: unknown): string | undefined {
   if (typeof href !== "string") return undefined;
   const trimmed = href.trim();
   if (!trimmed) return undefined;
-  // Relative links (no scheme, no protocol-relative) are always safe.
+  // Relative links are safe; protocol-relative URLs are not.
+  if (trimmed.startsWith("//")) return undefined;
   if (trimmed.startsWith("/") || trimmed.startsWith("#")) return trimmed;
   // Allow only an explicit allow-list of protocols.
   if (/^(https?:|mailto:|tel:)/i.test(trimmed)) return trimmed;

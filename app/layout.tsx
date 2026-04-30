@@ -10,8 +10,23 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+/** Canonical origin for metadata (og:image etc.). Preview deployments use VERCEL_URL when unset. */
+function metadataOrigin(): URL {
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+  if (fromEnv) return new URL(fromEnv);
+  if (process.env.VERCEL_URL) return new URL(`https://${process.env.VERCEL_URL}`);
+  return new URL("https://www.superguardian.com.au");
+}
+
+const defaultOgImage = {
+  url: "/sg_logo_favicon.png",
+  width: 451,
+  height: 438,
+  alt: "SuperGuardian — SMSF administration",
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.superguardian.com.au"),
+  metadataBase: metadataOrigin(),
   icons: {
     icon: "/sg_logo_favicon.png",
   },
@@ -34,17 +49,19 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_AU",
-    url: "https://www.superguardian.com.au",
+    url: metadataOrigin().href.replace(/\/$/, ""),
     siteName: "SuperGuardian",
     title: "SuperGuardian | SMSF Admin Made Simple",
     description:
       "Expert SMSF administration, accounting and compliance services for advisers, accountants and trustees across Australia.",
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "SuperGuardian | SMSF Admin Made Simple",
     description:
       "Expert SMSF administration, accounting and compliance services for advisers, accountants and trustees across Australia.",
+    images: [defaultOgImage.url],
   },
   robots: {
     index: true,

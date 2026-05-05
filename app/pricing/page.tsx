@@ -25,9 +25,8 @@ export default function PricingPage() {
         title="Ready to Get Started?"
         description="Take the first step with our free consultation and transparent pricing"
         primaryButtonText="Start Free Consultation"
-        primaryButtonHref="https://applications.superguardian.com.au/"
-        secondaryButtonText="Contact Us"
-        secondaryButtonHref="/contact"
+        primaryButtonHref="/contact"
+        isExternal={false}
       />
     </>
   );

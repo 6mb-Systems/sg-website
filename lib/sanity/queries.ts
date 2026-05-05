@@ -1,5 +1,6 @@
 import { sanityClient, isSanityConfigured } from "./client";
 import type { PortableTextBlock } from "@portabletext/types";
+import type { QueryParams } from "@sanity/client";
 
 // Type definitions
 export interface SanityPost {
@@ -106,6 +107,25 @@ const postFields = `
   videoUrl
 `;
 
+async function fetchSanity<T>(
+  query: string,
+  fallback: T,
+  params?: QueryParams
+): Promise<T> {
+  try {
+    return params
+      ? await sanityClient.fetch<T>(query, params)
+      : await sanityClient.fetch<T>(query);
+  } catch (error) {
+    if (process.env.NODE_ENV === "production") {
+      throw error;
+    }
+
+    console.warn("Sanity fetch failed in local development. Using fallback data.", error);
+    return fallback;
+  }
+}
+
 const postFieldsWithBody = `
   ${postFields},
   body,
@@ -125,7 +145,7 @@ export async function getPosts(limit?: number): Promise<SanityPost[]> {
     ${postFields}
   }`;
 
-  return sanityClient.fetch(query);
+  return fetchSanity<SanityPost[]>(query, []);
 }
 
 // Get fact-sheet posts only (not webinar/event), newest first
@@ -135,7 +155,7 @@ export async function getFactsheetPosts(limit?: number): Promise<SanityPost[]> {
   const query = `*[_type == "post" && !(_id in path("drafts.**")) && isWebinarPost != true] | order(publishedAt desc) ${limitClause} {
     ${postFields}
   }`;
-  return sanityClient.fetch(query);
+  return fetchSanity<SanityPost[]>(query, []);
 }
 
 // Get webinar/event posts only
@@ -144,7 +164,7 @@ export async function getWebinarPosts(): Promise<SanityPost[]> {
   const query = `*[_type == "post" && !(_id in path("drafts.**")) && isWebinarPost == true] | order(publishedAt desc) {
     ${postFields}
   }`;
-  return sanityClient.fetch(query);
+  return fetchSanity<SanityPost[]>(query, []);
 }
 
 // Get posts by category
@@ -157,7 +177,7 @@ export async function getPostsByCategory(
     ${postFields}
   }`;
 
-  return sanityClient.fetch(query, { categorySlug });
+  return fetchSanity<SanityPost[]>(query, [], { categorySlug });
 }
 
 // Get single post by slug
@@ -168,7 +188,7 @@ export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
     ${postFieldsWithBody}
   }`;
 
-  return sanityClient.fetch(query, { slug });
+  return fetchSanity<SanityPost | null>(query, null, { slug });
 }
 
 // Get all webinars
@@ -190,7 +210,7 @@ export async function getWebinars(): Promise<SanityWebinar[]> {
     attendeeCount
   }`;
 
-  return sanityClient.fetch(query);
+  return fetchSanity<SanityWebinar[]>(query, []);
 }
 
 // Get all events
@@ -210,7 +230,7 @@ export async function getEvents(): Promise<SanityEvent[]> {
     registrationUrl
   }`;
 
-  return sanityClient.fetch(query);
+  return fetchSanity<SanityEvent[]>(query, []);
 }
 
 // Get all categories that have at least one published post
@@ -241,7 +261,7 @@ export async function getCategories(): Promise<
     "slug": slug.current
   }`;
 
-  const raw: { title: string; slug: string }[] = await sanityClient.fetch(query);
+  const raw = await fetchSanity<Array<{ title: string; slug: string }>>(query, []);
 
   // Decode HTML entities (e.g. &amp; → &) and deduplicate by normalised title
   const seen = new Set<string>();
@@ -268,7 +288,7 @@ export async function getAllPostSlugs(): Promise<string[]> {
 
   const query = `*[_type == "post" && !(_id in path("drafts.**"))].slug.current`;
 
-  return sanityClient.fetch(query);
+  return fetchSanity<string[]>(query, []);
 }
 
 // Get slug + last-modified timestamp for each post — used by app/sitemap.ts.
@@ -284,9 +304,10 @@ export async function getAllPostsForSitemap(): Promise<
     "updatedAt": _updatedAt
   }`;
 
-  const rows = (await sanityClient.fetch(query)) as
+  const rows = await fetchSanity<
     | Array<{ slug?: string; updatedAt?: string }>
-    | null;
+    | null
+  >(query, null);
   if (!Array.isArray(rows)) return [];
   return rows
     .filter((r): r is { slug: string; updatedAt: string } =>

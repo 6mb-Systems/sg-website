@@ -12,6 +12,8 @@ export const sanityConfig = {
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   apiVersion: "2024-01-01",
   useCdn: process.env.NODE_ENV === "production",
+  maxRetries: process.env.NODE_ENV === "production" ? 5 : 0,
+  timeout: process.env.NODE_ENV === "production" ? 300_000 : 5_000,
 };
 
 export function isSanityConfigured(): boolean {

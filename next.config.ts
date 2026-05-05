@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 /**
  * Content-Security-Policy — enforced.
@@ -140,6 +141,12 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // Don't leak the Next.js version in the X-Powered-By response header.
   poweredByHeader: false,
+
+  // Turbopack otherwise picks the parent folder when another lockfile exists nearby
+  // (e.g. pnpm-lock.yaml in `C:\Users\<you>` while this project uses npm).
+  turbopack: {
+    root: path.resolve(process.cwd()),
+  },
 
   images: {
     // Next 16 only generates optimized variants for qualities listed here.

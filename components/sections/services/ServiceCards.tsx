@@ -165,6 +165,20 @@ export function ServiceCards() {
     <section className="section-padding bg-gray-50">
       <div className="container-width">
         <FadeIn direction="up">
+          <p className="mx-auto max-w-3xl text-center text-base text-pretty text-gray-700 md:text-lg">
+            Take a look at our{" "}
+            <a
+              href="/blog-pdfs/Client-Service-Guide.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-brand-blue underline underline-offset-2 decoration-brand-blue/40 transition-colors hover:text-brand-orange hover:decoration-brand-orange/50"
+            >
+              Client Service Guide
+            </a>{" "}
+            for a detailed overview of our services.
+          </p>
+        </FadeIn>
+        <FadeIn direction="up" className="mt-8">
           <p className="mx-auto max-w-2xl text-center text-xs text-gray-500">
             All fees quoted are inclusive of GST. We are independently owned
             and do not accept trails or commissions.

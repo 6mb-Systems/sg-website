@@ -164,6 +164,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/blog-pdfs/Client-Service-Guide.pdf",
+        destination: "/pdfs/Client-Service-Guide.pdf",
+        permanent: true,
+      },
+      {
         // RFC 9116 canonical location is /.well-known/security.txt, but many
         // automated scanners still probe /security.txt at the root. Redirect
         // so both work and we don't get false-positive "missing security.txt"

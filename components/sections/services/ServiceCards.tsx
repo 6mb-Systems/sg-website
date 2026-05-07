@@ -168,7 +168,7 @@ export function ServiceCards() {
           <p className="mx-auto max-w-3xl text-center text-base text-pretty text-gray-700 md:text-lg">
             Take a look at our{" "}
             <a
-              href="/blog-pdfs/Client-Service-Guide.pdf"
+              href="/pdfs/Client-Service-Guide.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-brand-blue underline underline-offset-2 decoration-brand-blue/40 transition-colors hover:text-brand-orange hover:decoration-brand-orange/50"

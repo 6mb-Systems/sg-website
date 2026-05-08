@@ -9,7 +9,7 @@ const stats: {
   decimals?: number;
   subLabel?: string;
 }[] = [
-  { end: 3500, suffix: "+", label: "SMSF Funds" },
+  { end: 3300, suffix: "+", label: "SMSF Funds" },
   {
     end: 4.9,
     suffix: "★",
@@ -35,7 +35,7 @@ export function AboutIntro() {
               <p className="mt-6 text-lg font-medium text-gray-900">
                 SuperGuardian is a privately owned Chartered Accounting firm and
                 specialist SMSF administrator, with more than 24 years of
-                experience and administering more than 3,500 SMSFs.
+                experience and administering more than 3,300 SMSFs.
               </p>
             </FadeIn>
             <FadeIn direction="up" delay={0.2}>

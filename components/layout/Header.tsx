@@ -3,12 +3,48 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { siteConfig, navigation } from "@/lib/constants";
 
+type MainNavItem = (typeof navigation.main)[number];
+
+/** Path segment only: strips ?query and #hash (Next.js pathname never includes those). */
+function pathFromHref(href: string): string {
+  const noHash = href.split("#")[0] ?? "";
+  const noQuery = noHash.split("?")[0] ?? "";
+  return noQuery || "/";
+}
+
+function pathMatchesRoute(pathname: string, href: string): boolean {
+  const base = pathFromHref(href);
+  if (base === "/") return pathname === "/";
+  return pathname === base || pathname.startsWith(`${base}/`);
+}
+
+/** Active orange for current section; Home is never marked active (per site UX). */
+function isMainNavActive(item: MainNavItem, pathname: string): boolean {
+  if (item.name === "Home") return false;
+  if (item.name === "Education") {
+    if (pathname === "/webinars" || pathname.startsWith("/webinars/")) return true;
+  }
+  if (item.children) {
+    return item.children.some((c) => pathMatchesRoute(pathname, c.href));
+  }
+  return pathMatchesRoute(pathname, item.href);
+}
+
+function navLinkTone(active: boolean) {
+  return cn(
+    "transition-colors hover:text-brand-orange",
+    active ? "text-brand-orange" : "text-gray-700"
+  );
+}
+
 export function Header() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [openMobileMenuId, setOpenMobileMenuId] = React.useState<string | null>(null);
 
@@ -29,20 +65,27 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:items-center lg:gap-1 mt-[3px] mb-[-4px]">
-          {navigation.main.map((item) =>
-            item.children ? (
+          {navigation.main.map((item) => {
+            const active = isMainNavActive(item, pathname);
+            return item.children ? (
               <div key={item.name} className="relative group">
                 {item.href !== "#" ? (
                   <Link
                     href={item.href}
-                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-brand-orange transition-colors"
+                    className={cn(
+                      "flex items-center gap-1 px-3 py-2 text-sm font-medium",
+                      navLinkTone(active)
+                    )}
                   >
                     {item.name}
                     <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
                   </Link>
                 ) : (
                   <button
-                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-brand-orange transition-colors"
+                    className={cn(
+                      "flex items-center gap-1 px-3 py-2 text-sm font-medium",
+                      navLinkTone(active)
+                    )}
                     aria-expanded="false"
                   >
                     {item.name}
@@ -67,12 +110,15 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-brand-orange transition-colors"
+                className={cn(
+                  "px-3 py-2 text-sm font-medium",
+                  navLinkTone(active)
+                )}
               >
                 {item.name}
               </Link>
-            )
-          )}
+            );
+          })}
         </div>
 
         {/* Desktop CTA Buttons */}
@@ -120,12 +166,21 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-t bg-white">
           <div className="container-width py-4 space-y-2">
-            {navigation.main.map((item) =>
-              item.children ? (
+            {navigation.main.map((item) => {
+              const active = isMainNavActive(item, pathname);
+              return item.children ? (
                 <div key={item.name}>
-                  <div className="flex w-full items-center justify-between py-2 text-sm font-medium text-gray-700">
+                  <div
+                    className={cn(
+                      "flex w-full items-center justify-between py-2 text-sm font-medium",
+                      navLinkTone(active)
+                    )}
+                  >
                     {item.href !== "#" ? (
-                      <Link href={item.href} className="hover:text-brand-orange" onClick={() => setMobileMenuOpen(false)}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         {item.name}
                       </Link>
                     ) : (
@@ -162,13 +217,16 @@ export function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block py-2 text-sm font-medium text-gray-700 hover:text-brand-orange"
+                  className={cn(
+                    "block py-2 text-sm font-medium",
+                    navLinkTone(active)
+                  )}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
-              )
-            )}
+              );
+            })}
             <div className="pt-4 flex flex-col gap-2">
               <Button variant="secondary" asChild>
                 {siteConfig.externalLinks.login.startsWith("/") ? (

@@ -2,6 +2,8 @@
 
 Marketing website for SuperGuardian - SMSF administration services.
 
+**Repository:** [github.com/6mb-systems/sg-website](https://github.com/6mb-systems/sg-website)
+
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
@@ -24,7 +26,7 @@ Marketing website for SuperGuardian - SMSF administration services.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/markma27/sg-website.git
+   git clone https://github.com/6mb-systems/sg-website.git
    cd sg-website
    ```
 
@@ -116,7 +118,7 @@ npm run typecheck  # Run TypeScript checks
 
 The site is configured for Vercel deployment:
 
-1. Connect your repository to Vercel
+1. Connect [6mb-systems/sg-website](https://github.com/6mb-systems/sg-website) to Vercel (Git integration)
 2. Configure environment variables
 3. Deploy
 

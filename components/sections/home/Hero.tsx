@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useState, ReactNode } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/lib/constants";
 
 /* Honeycomb: Mathematically correct flat-top hexagonal tiling to prevent overlap */
 const HivePattern = () => {

@@ -253,10 +253,8 @@ export function sanitizeString(
   if (trimmed.length === 0) return "";
   if (trimmed.length > maxLength) return null;
   const re = opts.multiline
-    ? // eslint-disable-next-line no-control-regex
-      /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/
-    : // eslint-disable-next-line no-control-regex
-      /[\u0000-\u001F]/;
+    ? /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/
+    : /[\u0000-\u001F]/;
   if (re.test(trimmed)) return null;
   return trimmed;
 }
@@ -272,7 +270,6 @@ export function sanitizeEmail(value: unknown): string | null {
   const trimmed = value.trim();
   if (trimmed.length === 0 || trimmed.length > 254) return null;
   if (!EMAIL_RE.test(trimmed)) return null;
-  // eslint-disable-next-line no-control-regex
   if (/[\u0000-\u001F\u007F]/.test(trimmed)) return null;
   return trimmed;
 }

@@ -160,7 +160,7 @@ const audiences: Audience[] = [
         question: "What are my responsibilities as an SMSF trustee?",
         answer: (
           <>
-            As a trustee, you're responsible for ensuring your SMSF complies with super laws and is run for the sole purpose of providing retirement benefits. For more information on the implications of having a self-managed super fund (SMSF), please review{" "}
+            As a trustee, you&apos;re responsible for ensuring your SMSF complies with super laws and is run for the sole purpose of providing retirement benefits. For more information on the implications of having a self-managed super fund (SMSF), please review{" "}
             <a
               href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf/before-you-start-an-smsf"
               target="_blank"

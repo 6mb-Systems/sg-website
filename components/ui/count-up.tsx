@@ -29,10 +29,7 @@ export function CountUp({
   const [hasStarted, setHasStarted] = useState(!startOnView);
 
   useEffect(() => {
-    if (!startOnView) {
-      setHasStarted(true);
-      return;
-    }
+    if (!startOnView) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {

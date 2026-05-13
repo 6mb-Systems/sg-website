@@ -154,7 +154,7 @@ export function Division296Calculator() {
               <InfoDialog title="What is TSB for the purposes of Division 296?">
                 <p>
                 The total super balance (TSB) for the purposes of Division 296 is the higher of the 
-                individual's TSB at the open or close of the relevant financial year, except for the 
+                individual&apos;s TSB at the open or close of the relevant financial year, except for the 
                 2026/27 year, which is based on closing balance only.
                 </p>
               </InfoDialog>
@@ -182,7 +182,7 @@ export function Division296Calculator() {
               <InfoDialog title="What does realised earnings mean?">
                 <p>
                 Realised earnings are based on taxable income attributed to the member, adjusted 
-                for assessable contributions, net exempt current pension income and any non-arm's 
+                for assessable contributions, net exempt current pension income and any non-arm&apos;s 
                 length or pooled superannuation trust components. Realised earnings includes dividends, 
                 interest, rent and realised capital gains. It will be calculated by the fund and attributed 
                 to members with balances above the threshold.

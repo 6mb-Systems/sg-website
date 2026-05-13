@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Calendar, FileText } from "lucide-react";
+import { Calendar, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
 import Image from "next/image";

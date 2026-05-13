@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import {
   educationHubHref,
   parseTabFromPostSearchParams,
-  EDUCATION_HUB_PAGE_PARAM,
 } from "@/lib/education-hub-tab";
 
 function BackToEducationHubLink({ href }: { href: string }) {
@@ -449,8 +448,6 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
       typeof post.secondaryCategory === "object" && post.secondaryCategory
         ? post.secondaryCategory.title
         : null;
-    const postSlug =
-      typeof post.slug === "string" ? post.slug : post.slug?.current;
     const dateFormatted = new Date(post.publishedAt).toLocaleDateString(
       "en-AU",
       { day: "numeric", month: "long", year: "numeric" }

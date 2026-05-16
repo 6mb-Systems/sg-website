@@ -9,7 +9,12 @@ export const metadata: Metadata = {
     "Watch SuperGuardian's SMSF webinars and events. Stay up to date with the latest SMSF regulatory changes, compliance updates, and professional development content.",
 };
 
-export default function WebinarsPage() {
+interface WebinarsPageProps {
+  searchParams: Promise<{ v?: string }>;
+}
+
+export default async function WebinarsPage({ searchParams }: WebinarsPageProps) {
+  const { v } = await searchParams;
   return (
     <>
       <PageHero
@@ -19,7 +24,7 @@ export default function WebinarsPage() {
       />
       <section className="section-padding bg-gray-50">
         <div className="container-width">
-          <YouTubePlaylist videos={webinarVideos} />
+          <YouTubePlaylist videos={webinarVideos} initialVideoId={v} />
         </div>
       </section>
     </>

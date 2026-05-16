@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { HivePattern } from "@/components/sections/shared/PageHero";
+import { SiteSearchForm } from "@/components/search/SiteSearchForm";
 import { searchSite, sanitiseSearchQuery, type SearchResult } from "@/lib/search";
 import { cn } from "@/lib/utils";
 
@@ -90,33 +89,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
       <section className="section-padding bg-gray-50">
         <div className="container-width">
-          <form
-            action="/search"
-            method="GET"
-            className="mx-auto flex max-w-4xl flex-col gap-3 rounded-2xl border border-brand-blue/10 bg-white p-4 shadow-sm sm:flex-row sm:items-center"
-            role="search"
-          >
-            <label className="sr-only" htmlFor="search-page-input">
-              Search SuperGuardian
-            </label>
-            <div className="relative flex-1">
-              <Search
-                className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-blue/55"
-                aria-hidden
-              />
-              <input
-                id="search-page-input"
-                name="q"
-                type="search"
-                defaultValue={query}
-                placeholder="What are you looking for?"
-                className="h-12 w-full rounded-lg border border-gray-200 bg-gray-50 pl-12 pr-4 text-base text-gray-900 outline-none transition-colors placeholder:text-gray-500 focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-brand-blue/15"
-              />
-            </div>
-            <Button type="submit" className="h-12 px-7">
-              Search
-            </Button>
-          </form>
+          <SiteSearchForm variant="page" inputId="search-page-input" defaultValue={query} />
 
           {query ? (
             <div className="mt-10 grid gap-8 lg:grid-cols-[240px_1fr]">

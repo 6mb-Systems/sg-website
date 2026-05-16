@@ -1,5 +1,6 @@
 import { getPosts } from "@/lib/sanity/queries";
 import type { SanityPost } from "@/lib/sanity/queries";
+import { webinarVideos } from "@/lib/webinar-videos";
 
 export type SearchResultType = "Page" | "Education";
 
@@ -328,6 +329,26 @@ async function educationResults(
     .filter((result) => result.score > 0);
 }
 
+function webinarResults(
+  tokens: string[],
+  phrase: string
+): Array<SearchResult & { score: number }> {
+  return webinarVideos
+    .map((video) => {
+      const result: SearchResult & { keywords: string[] } = {
+        title: video.title,
+        href: `/webinars?v=${video.id}`,
+        excerpt: video.description ?? "Watch this SuperGuardian SMSF webinar covering compliance, administration and technical updates.",
+        type: "Education",
+        label: "Webinar",
+        date: video.date,
+        keywords: ["webinar", "smsf", "video", "replay"],
+      };
+      return { ...result, score: scoreResult(result, tokens, phrase) };
+    })
+    .filter((r) => r.score > 0);
+}
+
 export async function searchSite(query: string): Promise<SearchResult[]> {
   const tokens = tokensFor(query);
   if (tokens.length === 0) return [];
@@ -344,7 +365,11 @@ export async function searchSite(query: string): Promise<SearchResult[]> {
     }))
     .filter((result) => result.score > 0);
 
-  const results = [...pageResults, ...(await educationResults(tokens, phrase))]
+  const results = [
+    ...pageResults,
+    ...(await educationResults(tokens, phrase)),
+    ...webinarResults(tokens, phrase),
+  ]
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
     .map(({ score: _score, ...result }) => result);
 

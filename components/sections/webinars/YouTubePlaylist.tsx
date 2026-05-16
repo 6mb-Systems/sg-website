@@ -7,10 +7,14 @@ import type { WebinarVideo } from "@/lib/webinar-videos";
 interface YouTubePlaylistProps {
   videos: WebinarVideo[];
   playlistLabel?: string;
+  initialVideoId?: string;
 }
 
-export function YouTubePlaylist({ videos, playlistLabel }: YouTubePlaylistProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+export function YouTubePlaylist({ videos, playlistLabel, initialVideoId }: YouTubePlaylistProps) {
+  const initialIndex = initialVideoId
+    ? Math.max(0, videos.findIndex((v) => v.id === initialVideoId))
+    : 0;
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
   const active = videos[activeIndex];
 
   const hasRealId = (id: string) => id !== "REPLACE_WITH_VIDEO_ID";

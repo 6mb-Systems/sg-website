@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { SiteSearchForm } from "@/components/search/SiteSearchForm";
 import { siteConfig, navigation } from "@/lib/constants";
 
 type MainNavItem = (typeof navigation.main)[number];
@@ -219,34 +220,11 @@ export function Header() {
           className="absolute left-0 top-full w-full border-t border-brand-blue/10 bg-white shadow-lg"
         >
           <div className="container-width py-4">
-            <form
-              action="/search"
-              method="GET"
-              className="mx-auto flex max-w-3xl flex-col gap-3 rounded-xl border border-brand-blue/10 bg-white p-3 shadow-sm sm:flex-row sm:items-center"
-              role="search"
-            >
-              <label className="sr-only" htmlFor="site-search-input">
-                Search SuperGuardian
-              </label>
-              <div className="relative flex-1">
-                <Search
-                  className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-blue/55"
-                  aria-hidden
-                />
-                <input
-                  ref={searchInputRef}
-                  id="site-search-input"
-                  name="q"
-                  type="search"
-                  required
-                  placeholder="Search SuperGuardian..."
-                  className="h-11 w-full rounded-md border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-500 focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-brand-blue/15"
-                />
-              </div>
-              <Button type="submit" className="h-11 px-6">
-                Search
-              </Button>
-            </form>
+            <SiteSearchForm
+              ref={searchInputRef}
+              variant="header"
+              inputId="site-search-input"
+            />
           </div>
         </div>
       )}

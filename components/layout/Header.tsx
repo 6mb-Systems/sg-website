@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { siteConfig, navigation } from "@/lib/constants";
@@ -47,12 +47,25 @@ export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [openMobileMenuId, setOpenMobileMenuId] = React.useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = React.useState(false);
+  const searchInputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (searchOpen) {
+      window.setTimeout(() => searchInputRef.current?.focus(), 0);
+    }
+  }, [searchOpen]);
+
+  function toggleSearch() {
+    setSearchOpen((open) => !open);
+    setMobileMenuOpen(false);
+  }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <nav className="container-width flex py-3 md:py-5 items-end justify-between">
+    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 relative">
+      <nav className="container-width grid grid-cols-[1fr_auto] items-end gap-x-4 py-3 md:py-5 lg:grid-cols-[1fr_auto_1fr]">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center justify-self-start lg:col-start-1">
           <Image
             src="/sg_logo.svg"
             alt="SuperGuardian"
@@ -63,8 +76,8 @@ export function Header() {
           />
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex lg:items-center lg:gap-1 mt-[3px] mb-[-4px]">
+        {/* Desktop Navigation — centered in header; equal 1fr tracks avoid shifting left when CTAs grow */}
+        <div className="hidden lg:col-start-2 lg:flex lg:items-center lg:justify-self-center lg:gap-1 lg:mt-[3px] lg:mb-[-4px]">
           {navigation.main.map((item) => {
             const active = isMainNavActive(item, pathname);
             return item.children ? (
@@ -122,7 +135,25 @@ export function Header() {
         </div>
 
         {/* Desktop CTA Buttons */}
-        <div className="hidden lg:flex lg:items-center lg:gap-3 mt-1 mb-1">
+        <div className="hidden lg:col-start-3 lg:flex lg:items-center lg:justify-self-end lg:gap-3 lg:mt-1 lg:mb-1">
+          <button
+            type="button"
+            onClick={toggleSearch}
+            className={cn(
+              "inline-flex h-9 w-9 items-center justify-center rounded-full text-brand-blue transition-colors",
+              "hover:bg-brand-orange/10 hover:text-brand-orange",
+              "focus-visible:outline-none focus-visible:bg-brand-orange/10"
+            )}
+            aria-label={searchOpen ? "Close search" : "Open search"}
+            aria-expanded={searchOpen}
+            aria-controls="site-search-popover"
+          >
+            {searchOpen ? (
+              <X className="h-4 w-4" aria-hidden />
+            ) : (
+              <Search className="h-4 w-4" aria-hidden />
+            )}
+          </button>
           <Button variant="secondary" size="sm" asChild>
             {siteConfig.externalLinks.login.startsWith("/") ? (
               <Link href={siteConfig.externalLinks.login}>Log In</Link>
@@ -147,20 +178,78 @@ export function Header() {
           </Button>
         </div>
 
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          className="lg:hidden p-2 text-gray-700 mb-2"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          <span className="sr-only">Toggle menu</span>
-          {mobileMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
-        </button>
+        <div className="col-start-2 flex items-center justify-self-end gap-1 mb-2 lg:hidden">
+          <button
+            type="button"
+            className="rounded-full p-2 text-brand-blue transition-colors hover:bg-brand-blue/5 hover:text-brand-orange focus-visible:outline-none focus-visible:bg-brand-orange/10"
+            onClick={toggleSearch}
+            aria-label={searchOpen ? "Close search" : "Open search"}
+            aria-expanded={searchOpen}
+            aria-controls="site-search-popover"
+          >
+            {searchOpen ? (
+              <X className="h-5 w-5" aria-hidden />
+            ) : (
+              <Search className="h-5 w-5" aria-hidden />
+            )}
+          </button>
+
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            className="p-2 text-gray-700"
+            onClick={() => {
+              setMobileMenuOpen(!mobileMenuOpen);
+              setSearchOpen(false);
+            }}
+          >
+            <span className="sr-only">Toggle menu</span>
+            {mobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+        </div>
       </nav>
+
+      {searchOpen && (
+        <div
+          id="site-search-popover"
+          className="absolute left-0 top-full w-full border-t border-brand-blue/10 bg-white shadow-lg"
+        >
+          <div className="container-width py-4">
+            <form
+              action="/search"
+              method="GET"
+              className="mx-auto flex max-w-3xl flex-col gap-3 rounded-xl border border-brand-blue/10 bg-white p-3 shadow-sm sm:flex-row sm:items-center"
+              role="search"
+            >
+              <label className="sr-only" htmlFor="site-search-input">
+                Search SuperGuardian
+              </label>
+              <div className="relative flex-1">
+                <Search
+                  className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-blue/55"
+                  aria-hidden
+                />
+                <input
+                  ref={searchInputRef}
+                  id="site-search-input"
+                  name="q"
+                  type="search"
+                  required
+                  placeholder="Search SuperGuardian..."
+                  className="h-11 w-full rounded-md border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-500 focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-brand-blue/15"
+                />
+              </div>
+              <Button type="submit" className="h-11 px-6">
+                Search
+              </Button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (

@@ -12,6 +12,13 @@ export interface SearchResult {
   date?: string;
 }
 
+const STOP_WORDS = new Set([
+  "a", "an", "the", "and", "or", "of", "in", "on", "at", "to", "for",
+  "is", "are", "was", "were", "be", "it", "its", "by", "we", "our",
+  "us", "you", "do", "how", "what", "with", "that", "this", "as", "so",
+  "my", "me", "i", "he", "she", "they", "about", "can", "will", "from",
+]);
+
 const staticPages: Array<SearchResult & { keywords: string[] }> = [
   {
     title: "Home",
@@ -19,7 +26,11 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     excerpt:
       "SuperGuardian provides specialist SMSF administration, accounting and compliance support for trustees, advisers and accountants.",
     type: "Page",
-    keywords: ["smsf", "administration", "superguardian", "home"],
+    keywords: [
+      "smsf", "administration", "superguardian", "home",
+      "self managed super fund", "self-managed superannuation", "specialist",
+      "superannuation", "chartered accounting",
+    ],
   },
   {
     title: "Who We Are",
@@ -27,7 +38,34 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     excerpt:
       "Learn about SuperGuardian, what we do, who we help, and how our SMSF administration team supports clients.",
     type: "Page",
-    keywords: ["about", "team", "what we do", "who we help", "smsf"],
+    keywords: [
+      "about", "team", "what we do", "who we help", "smsf", "history",
+      "values", "leadership", "accountants", "advisers", "trustees",
+      "company", "firm", "established", "2002",
+    ],
+  },
+  {
+    title: "What We Do",
+    href: "/who-we-are#what-we-do",
+    excerpt:
+      "Comprehensive SMSF services including establishment, administration, accounting, tax, compliance and reporting.",
+    type: "Page",
+    keywords: [
+      "services", "establishment", "administration", "accounting", "tax",
+      "compliance", "reporting", "smsf", "what we do", "set up",
+      "annual return", "audit", "financial statements",
+    ],
+  },
+  {
+    title: "Who We Help",
+    href: "/who-we-are#who-we-help",
+    excerpt:
+      "Tailored SMSF solutions for financial advisers, accounting practices, and SMSF trustees across Australia.",
+    type: "Page",
+    keywords: [
+      "advisers", "accountants", "trustees", "financial advisers",
+      "who we help", "smsf", "professionals", "practices",
+    ],
   },
   {
     title: "Partnerships",
@@ -35,7 +73,10 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     excerpt:
       "Explore SuperGuardian's technology partners, integrations and industry relationships.",
     type: "Page",
-    keywords: ["partners", "integrations", "technology", "industry"],
+    keywords: [
+      "partners", "integrations", "technology", "industry",
+      "class", "xplan", "bgl", "software", "platform", "connected",
+    ],
   },
   {
     title: "Pricing",
@@ -43,7 +84,10 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     excerpt:
       "Transparent SMSF administration pricing with predictable fees and no hidden surprises.",
     type: "Page",
-    keywords: ["pricing", "fees", "cost", "administration fee", "smsf"],
+    keywords: [
+      "pricing", "fees", "cost", "administration fee", "smsf",
+      "annual fee", "transparent", "plan", "flat fee", "no hidden",
+    ],
   },
   {
     title: "Security",
@@ -51,7 +95,11 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     excerpt:
       "How SuperGuardian protects client information with security controls, compliance practices and certifications.",
     type: "Page",
-    keywords: ["security", "privacy", "compliance", "certifications"],
+    keywords: [
+      "security", "privacy", "compliance", "certifications",
+      "data protection", "iso", "cyber", "safe", "encryption",
+      "information security", "controls",
+    ],
   },
   {
     title: "Education Hub",
@@ -59,15 +107,55 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     excerpt:
       "Access SMSF fact sheets, webinars, calculators and expert insights from SuperGuardian.",
     type: "Page",
-    keywords: ["education", "insights", "webinars", "calculators", "factsheets"],
+    keywords: [
+      "education", "insights", "webinars", "calculators", "factsheets",
+      "articles", "resources", "learning", "hub", "fact sheets",
+    ],
   },
   {
-    title: "Division 296 Calculator",
+    title: "SMSF Insights & Articles",
+    href: "/education",
+    excerpt:
+      "Expert SMSF articles, fact sheets and insights from SuperGuardian covering compliance, investment, and superannuation topics.",
+    type: "Page",
+    keywords: [
+      "articles", "insights", "fact sheets", "factsheets", "blog",
+      "smsf", "education", "resources", "news",
+    ],
+  },
+  {
+    title: "SMSF Webinars",
+    href: "/education?tab=webinars",
+    excerpt:
+      "Watch SuperGuardian SMSF webinars and education sessions covering administration, compliance and technical updates.",
+    type: "Page",
+    keywords: [
+      "webinars", "education", "smsf", "online", "video", "replay",
+      "upcoming", "events", "watch", "register",
+    ],
+  },
+  {
+    title: "SMSF Calculators",
+    href: "/education?tab=calculators",
+    excerpt:
+      "Use SuperGuardian's SMSF calculators to model tax, retirement income, contributions and more.",
+    type: "Page",
+    keywords: [
+      "calculators", "tools", "smsf", "tax", "retirement",
+      "contributions", "model", "estimate", "calculate",
+    ],
+  },
+  {
+    title: "Division 296 Tax Calculator",
     href: "/education/calculators/division-296",
     excerpt:
-      "Estimate the potential impact of Division 296 tax changes using SuperGuardian's SMSF calculator.",
+      "Estimate the potential impact of Division 296 tax on super balances above $3 million using SuperGuardian's calculator.",
     type: "Page",
-    keywords: ["division 296", "calculator", "tax", "smsf"],
+    keywords: [
+      "division 296", "div 296", "calculator", "tax", "smsf",
+      "super balance", "3 million", "high balance", "unrealised gains",
+      "earnings tax", "296 tax",
+    ],
   },
   {
     title: "Webinars",
@@ -75,15 +163,22 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     excerpt:
       "Watch SuperGuardian webinars and education sessions covering SMSF administration and technical updates.",
     type: "Page",
-    keywords: ["webinars", "education", "events", "smsf"],
+    keywords: [
+      "webinars", "education", "events", "smsf", "video", "replay",
+      "watch", "online", "sessions",
+    ],
   },
   {
-    title: "Contact",
+    title: "Contact Us",
     href: "/contact",
     excerpt:
-      "Get in touch with SuperGuardian or find office, phone and email contact details.",
+      "Get in touch with SuperGuardian or find our Adelaide and Melbourne office, phone and email contact details.",
     type: "Page",
-    keywords: ["contact", "phone", "email", "office", "support"],
+    keywords: [
+      "contact", "phone", "email", "office", "support",
+      "adelaide", "melbourne", "get in touch", "enquiry",
+      "1300 787 576", "info@superguardian.com.au",
+    ],
   },
   {
     title: "Careers",
@@ -91,15 +186,21 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     excerpt:
       "Explore career opportunities at SuperGuardian and apply to join the team.",
     type: "Page",
-    keywords: ["careers", "jobs", "employment", "apply"],
+    keywords: [
+      "careers", "jobs", "employment", "apply", "work",
+      "hire", "position", "vacancy", "opportunities",
+    ],
   },
   {
-    title: "Forms",
+    title: "Forms & Documents",
     href: "/sg-forms",
     excerpt:
       "Find SuperGuardian forms and documents for SMSF administration support.",
     type: "Page",
-    keywords: ["forms", "documents", "downloads", "smsf"],
+    keywords: [
+      "forms", "documents", "downloads", "smsf", "paperwork",
+      "application", "template", "pdf",
+    ],
   },
   {
     title: "Hive",
@@ -107,7 +208,22 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     excerpt:
       "Learn about Hive, SuperGuardian's connected technology experience for SMSF administration.",
     type: "Page",
-    keywords: ["hive", "technology", "platform", "smsf"],
+    keywords: [
+      "hive", "technology", "platform", "smsf", "portal",
+      "connected", "app", "tools", "experience",
+    ],
+  },
+  {
+    title: "Online Reporting & Client Portal",
+    href: "/login",
+    excerpt:
+      "Access your SuperGuardian SMSF portal for daily reports, portfolio valuations, investment performance and key documents.",
+    type: "Page",
+    keywords: [
+      "login", "portal", "online reporting", "reports", "client login",
+      "adviser login", "key documents", "access", "smsf portal",
+      "performance", "valuations", "log in", "sign in",
+    ],
   },
 ];
 
@@ -118,27 +234,37 @@ function normalise(value: string): string {
 function tokensFor(query: string): string[] {
   return normalise(query)
     .split(" ")
-    .filter((token) => token.length > 1);
+    .filter((token) => token.length > 1 && !STOP_WORDS.has(token));
 }
 
 function scoreResult(
   result: Pick<SearchResult, "title" | "excerpt" | "label"> & {
     keywords?: string[];
   },
-  tokens: string[]
+  tokens: string[],
+  phrase: string
 ): number {
   const title = normalise(result.title);
   const excerpt = normalise(result.excerpt);
   const label = normalise(result.label ?? "");
   const keywords = normalise((result.keywords ?? []).join(" "));
 
-  return tokens.reduce((score, token) => {
-    if (title.includes(token)) score += 6;
-    if (excerpt.includes(token)) score += 3;
-    if (label.includes(token)) score += 2;
-    if (keywords.includes(token)) score += 2;
-    return score;
+  let score = tokens.reduce((s, token) => {
+    if (title.includes(token)) s += 6;
+    if (excerpt.includes(token)) s += 3;
+    if (label.includes(token)) s += 2;
+    if (keywords.includes(token)) s += 2;
+    return s;
   }, 0);
+
+  // Bonus when the full query appears as a contiguous phrase
+  if (phrase.length >= 3) {
+    if (title.includes(phrase)) score += 8;
+    if (excerpt.includes(phrase)) score += 4;
+    if (keywords.includes(phrase)) score += 3;
+  }
+
+  return score;
 }
 
 function postSlug(post: SanityPost): string {
@@ -153,7 +279,10 @@ function formatDate(isoDate: string): string {
   });
 }
 
-async function educationResults(tokens: string[]): Promise<Array<SearchResult & { score: number }>> {
+async function educationResults(
+  tokens: string[],
+  phrase: string
+): Promise<Array<SearchResult & { score: number }>> {
   const posts = await getPosts();
 
   return posts
@@ -161,18 +290,28 @@ async function educationResults(tokens: string[]): Promise<Array<SearchResult & 
       const label = post.isWebinarPost
         ? "Webinar"
         : post.category?.title ?? "Insight";
-      const result: SearchResult = {
+
+      // Include category, secondaryCategory, and content type as searchable keywords
+      const keywords = [
+        post.category?.title,
+        post.secondaryCategory?.title,
+        post.isWebinarPost ? "webinar" : "article",
+        post.author?.name,
+      ].filter((k): k is string => Boolean(k));
+
+      const result: SearchResult & { keywords: string[] } = {
         title: post.title,
         href: `/education/${postSlug(post)}`,
         excerpt: post.excerpt ?? "",
         type: "Education",
         label,
         date: post.publishedAt ? formatDate(post.publishedAt) : undefined,
+        keywords,
       };
 
       return {
         ...result,
-        score: scoreResult(result, tokens),
+        score: scoreResult(result, tokens, phrase),
       };
     })
     .filter((result) => result.score > 0);
@@ -182,17 +321,19 @@ export async function searchSite(query: string): Promise<SearchResult[]> {
   const tokens = tokensFor(query);
   if (tokens.length === 0) return [];
 
+  const phrase = normalise(query);
+
   const pageResults = staticPages
     .map((page) => ({
       title: page.title,
       href: page.href,
       excerpt: page.excerpt,
       type: page.type,
-      score: scoreResult(page, tokens),
+      score: scoreResult(page, tokens, phrase),
     }))
     .filter((result) => result.score > 0);
 
-  const results = [...pageResults, ...(await educationResults(tokens))]
+  const results = [...pageResults, ...(await educationResults(tokens, phrase))]
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
     .map(({ score: _score, ...result }) => result);
 

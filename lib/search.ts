@@ -2,6 +2,7 @@ import { getPosts } from "@/lib/sanity/queries";
 import type { SanityPost } from "@/lib/sanity/queries";
 import { webinarVideos } from "@/lib/webinar-videos";
 import { UPCOMING_WEBINAR, UPCOMING_WEBINAR_OUTCOMES } from "@/lib/upcoming-webinar";
+import { leadershipTeam, clientServiceTeam } from "@/lib/staff";
 
 export type SearchResultType = "Page" | "Education";
 
@@ -336,6 +337,23 @@ async function educationResults(
     .filter((result) => result.score > 0);
 }
 
+function staffResults(
+  tokens: string[],
+  phrase: string
+): Array<SearchResult & { score: number }> {
+  return [...leadershipTeam, ...clientServiceTeam].map((member) => {
+    const result: SearchResult & { keywords: string[] } = {
+      title: `${member.name} – ${member.role}`,
+      href: "/who-we-are",
+      excerpt: member.shortIntro ?? member.fullBio[0] ?? "",
+      type: "Page",
+      label: member.role,
+      keywords: [member.name, member.role, "team", "staff", "who we are"],
+    };
+    return { ...result, score: scoreResult(result, tokens, phrase) };
+  }).filter((r) => r.score >= MIN_SCORE);
+}
+
 function webinarResults(
   tokens: string[],
   phrase: string
@@ -398,7 +416,7 @@ export async function searchSite(query: string): Promise<SearchResult[]> {
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
     .slice(0, MAX_EDUCATION_RESULTS);
 
-  const results = [...pageResults, ...educationAndWebinarResults]
+  const results = [...pageResults, ...staffResults(tokens, phrase), ...educationAndWebinarResults]
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
     .map(({ score: _score, ...result }) => result);
 

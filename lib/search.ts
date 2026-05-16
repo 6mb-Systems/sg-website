@@ -195,11 +195,22 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     title: "Forms & Documents",
     href: "/sg-forms",
     excerpt:
-      "Find SuperGuardian forms and documents for SMSF administration support.",
+      "Download SuperGuardian forms including Direct Debit Authority, Terms and Conditions, Financial Services Guide, pension forms, LRBA instructions and SMSF wind-up forms.",
     type: "Page",
     keywords: [
-      "forms", "documents", "downloads", "smsf", "paperwork",
-      "application", "template", "pdf",
+      // generic
+      "forms", "documents", "downloads", "smsf", "paperwork", "pdf",
+      // engagement forms
+      "terms and conditions", "terms", "conditions",
+      "direct debit", "direct debit authority", "direct debit agreement", "debit",
+      "financial services guide", "fsg",
+      // event-based forms
+      "pension establishment", "pension",
+      "pension consolidation", "consolidation",
+      "pension commutation", "commutation",
+      "wind up", "wind-up", "winding up", "smsf wind up",
+      "limited recourse borrowing", "lrba", "borrowing arrangement",
+      "private lender", "commercial lender",
     ],
   },
   {

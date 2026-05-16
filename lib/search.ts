@@ -1,6 +1,7 @@
 import { getPosts } from "@/lib/sanity/queries";
 import type { SanityPost } from "@/lib/sanity/queries";
 import { webinarVideos } from "@/lib/webinar-videos";
+import { UPCOMING_WEBINAR, UPCOMING_WEBINAR_OUTCOMES } from "@/lib/upcoming-webinar";
 
 export type SearchResultType = "Page" | "Education";
 
@@ -333,20 +334,38 @@ function webinarResults(
   tokens: string[],
   phrase: string
 ): Array<SearchResult & { score: number }> {
-  return webinarVideos
-    .map((video) => {
-      const result: SearchResult & { keywords: string[] } = {
-        title: video.title,
-        href: `/webinars?v=${video.id}`,
-        excerpt: video.description ?? "Watch this SuperGuardian SMSF webinar covering compliance, administration and technical updates.",
-        type: "Education",
-        label: "Webinar",
-        date: video.date,
-        keywords: ["webinar", "smsf", "video", "replay"],
-      };
-      return { ...result, score: scoreResult(result, tokens, phrase) };
-    })
-    .filter((r) => r.score > 0);
+  const videos = webinarVideos.map((video) => {
+    const result: SearchResult & { keywords: string[] } = {
+      title: video.title,
+      href: `/webinars?v=${video.id}`,
+      excerpt: video.description ?? "Watch this SuperGuardian SMSF webinar covering compliance, administration and technical updates.",
+      type: "Education",
+      label: "Webinar",
+      date: video.date,
+      keywords: ["webinar", "smsf", "video", "replay"],
+    };
+    return { ...result, score: scoreResult(result, tokens, phrase) };
+  });
+
+  const upcoming: SearchResult & { keywords: string[]; score: number } = (() => {
+    const result: SearchResult & { keywords: string[] } = {
+      title: `Upcoming Webinar: ${UPCOMING_WEBINAR.title}`,
+      href: "/education?tab=webinars",
+      excerpt: UPCOMING_WEBINAR.blurb,
+      type: "Education",
+      label: "Upcoming Webinar",
+      date: UPCOMING_WEBINAR.date,
+      keywords: [
+        "upcoming", "webinar", "register", "free", "smsf",
+        UPCOMING_WEBINAR.presenter,
+        UPCOMING_WEBINAR.presenterTitle,
+        ...UPCOMING_WEBINAR_OUTCOMES,
+      ],
+    };
+    return { ...result, score: scoreResult(result, tokens, phrase) };
+  })();
+
+  return [...videos, ...(upcoming.score > 0 ? [upcoming] : [])];
 }
 
 export async function searchSite(query: string): Promise<SearchResult[]> {

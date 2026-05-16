@@ -250,6 +250,9 @@ function tokensFor(query: string): string[] {
     .filter((token) => token.length > 1 && !STOP_WORDS.has(token));
 }
 
+const MIN_SCORE = 4;
+const MAX_EDUCATION_RESULTS = 8;
+
 function scoreResult(
   result: Pick<SearchResult, "title" | "excerpt" | "label"> & {
     keywords?: string[];
@@ -270,8 +273,11 @@ function scoreResult(
     return s;
   }, 0);
 
-  // Bonus when the full query appears as a contiguous phrase
-  if (phrase.length >= 3) {
+  // Phrase bonus only applies to multi-word queries — for single words the
+  // token score already captures every match, so adding the phrase bonus too
+  // would inflate scores for incidental mentions (e.g. "security interest"
+  // in an unrelated SMSF article matching a "security" search).
+  if (tokens.length > 1 && phrase.length >= 3) {
     if (title.includes(phrase)) score += 8;
     if (excerpt.includes(phrase)) score += 4;
     if (keywords.includes(phrase)) score += 3;
@@ -382,13 +388,17 @@ export async function searchSite(query: string): Promise<SearchResult[]> {
       type: page.type,
       score: scoreResult(page, tokens, phrase),
     }))
-    .filter((result) => result.score > 0);
+    .filter((result) => result.score >= MIN_SCORE);
 
-  const results = [
-    ...pageResults,
+  const educationAndWebinarResults = [
     ...(await educationResults(tokens, phrase)),
     ...webinarResults(tokens, phrase),
   ]
+    .filter((r) => r.score >= MIN_SCORE)
+    .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
+    .slice(0, MAX_EDUCATION_RESULTS);
+
+  const results = [...pageResults, ...educationAndWebinarResults]
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
     .map(({ score: _score, ...result }) => result);
 

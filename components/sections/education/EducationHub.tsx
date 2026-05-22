@@ -3,12 +3,10 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
 import {
   Search,
   FileText,
   Video,
-  Calendar,
   Calculator,
   ChevronLeft,
   ChevronRight,
@@ -20,7 +18,6 @@ import {
   EDUCATION_HUB_TAB_PARAM,
   EDUCATION_HUB_PAGE_PARAM,
   educationHubHref,
-  educationPostHref,
   parseTabFromHubSearchParams,
   type EducationHubTabId,
 } from "@/lib/education-hub-tab";
@@ -28,6 +25,7 @@ import { YouTubePlaylist } from "@/components/sections/webinars/YouTubePlaylist"
 import { webinarVideos } from "@/lib/webinar-videos";
 import { UpcomingSeminarPromo } from "@/components/sections/webinars/UpcomingSeminarPromo";
 import { WebinarNotifyForm } from "@/components/sections/education/WebinarNotifyForm";
+import { InsightArticleCard } from "@/components/sections/education/InsightArticleCard";
 
 export interface Article {
   id?: string;
@@ -42,6 +40,10 @@ export interface Article {
   imageUrl?: string | null;
   imageAlt?: string | null;
   videoUrl?: string | null;
+  /** When set, the tile links directly to this external URL. */
+  externalUrl?: string | null;
+  /** Publisher label for external tiles, e.g. "SMSF Adviser". */
+  externalSource?: string | null;
   /** Webinar/event posts only: drives Past Event vs Upcoming Event badge */
   isUpcomingEvent?: boolean;
 }
@@ -285,64 +287,20 @@ export function EducationHub({
                       direction="up"
                       delay={index * 0.05}
                     >
-                      <Link
-                        href={educationPostHref(article.slug, "articles", articlePageSafe)}
-                        className="relative flex h-full min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
-                        aria-label={`Open article: ${article.title}`}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
-                        <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
-                          <defs>
-                            <pattern
-                              id={`edu-article-hex-${articlePageSafe}-${index}`}
-                              x="0"
-                              y="0"
-                              width="60"
-                              height="34.64"
-                              patternUnits="userSpaceOnUse"
-                              patternTransform="scale(2)"
-                            >
-                              <path d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60" fill="none" stroke="#d1d5db" strokeWidth="0.55" />
-                            </pattern>
-                          </defs>
-                          <rect width="100%" height="100%" fill={`url(#edu-article-hex-${articlePageSafe}-${index})`} />
-                        </svg>
-                        {article.imageUrl ? (
-                          <div className="relative z-10 h-[210px] w-full overflow-hidden bg-brand-blue/5">
-                            <Image
-                              src={article.imageUrl}
-                              alt={article.imageAlt || article.title}
-                              fill
-                              className="object-cover"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                          </div>
-                        ) : null}
-
-                        <article className="relative z-10 flex flex-1 flex-col p-6">
-                          <div className="flex items-center justify-between">
-                            <span className="rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
-                              {article.category}
-                            </span>
-                            <span className="flex items-center gap-2 text-xs text-gray-500">
-                              <Calendar className="h-3.5 w-3.5" />
-                              {article.date}
-                            </span>
-                          </div>
-                          <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                            {article.title}
-                          </h3>
-                          <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-grow">
-                            {article.excerpt}
-                          </p>
-                          <div className="mt-auto flex items-center pt-4 text-xs text-gray-500">
-                            <span className="inline-flex items-center text-sm font-medium text-brand-orange">
-                              <FileText className="mr-1 h-4 w-4" />
-                              Read article
-                            </span>
-                          </div>
-                        </article>
-                      </Link>
+                      <InsightArticleCard
+                        slug={article.slug}
+                        category={article.category}
+                        title={article.title}
+                        excerpt={article.excerpt}
+                        date={article.date}
+                        imageUrl={article.imageUrl}
+                        imageAlt={article.imageAlt}
+                        externalUrl={article.externalUrl}
+                        externalSource={article.externalSource}
+                        sourceTab="articles"
+                        page={articlePageSafe}
+                        patternId={`edu-article-hex-${articlePageSafe}-${index}`}
+                      />
                     </FadeIn>
                   ))}
                 </div>

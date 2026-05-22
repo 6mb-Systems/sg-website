@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { Calendar, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
-import Image from "next/image";
 import { getFactsheetPosts } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/client";
+import { InsightArticleCard } from "@/components/sections/education/InsightArticleCard";
 
 const fallbackInsights = [
   {
@@ -56,6 +55,8 @@ export async function LatestInsights() {
             date,
             slug,
             image: imageUrl,
+            externalUrl: post.externalUrl ?? null,
+            externalSource: post.externalSource ?? null,
           };
         })
       : fallbackInsights;
@@ -75,68 +76,18 @@ export async function LatestInsights() {
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
           {insights.map((insight, index) => (
             <FadeIn key={insight.slug} direction="up" delay={index * 0.1}>
-              <Link
-                href={`/education/${insight.slug}`}
-                className="relative flex h-full min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
-                aria-label={`Open article: ${insight.title}`}
-              >
-              <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100/80" aria-hidden />
-              <svg className="absolute inset-0 h-full w-full opacity-30" aria-hidden>
-                <defs>
-                  <pattern
-                    id={`insight-hex-${index}`}
-                    x="0"
-                    y="0"
-                    width="60"
-                    height="34.64"
-                    patternUnits="userSpaceOnUse"
-                    patternTransform="scale(2)"
-                  >
-                    <path
-                      d="M0 17.32L10 0H30L40 17.32L30 34.64H10L0 17.32Z M40 17.32H60"
-                      fill="none"
-                      stroke="#d1d5db"
-                      strokeWidth="0.55"
-                    />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill={`url(#insight-hex-${index})`} />
-              </svg>
-
-              {insight.image && (
-                <div className="relative z-10 h-[210px] w-full overflow-hidden bg-brand-blue/5">
-                  <Image
-                    src={insight.image}
-                    alt={insight.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </div>
-              )}
-
-              <article className="relative z-10 flex flex-1 flex-col p-6">
-                <div className="flex items-center justify-between">
-                  <span className="inline-block rounded-full bg-brand-blue-50 px-3 py-1 text-xs font-medium text-brand-blue">
-                    {insight.type}
-                  </span>
-                  <span className="flex items-center gap-2 text-xs text-gray-500">
-                    <Calendar className="h-3.5 w-3.5" />
-                    {insight.date}
-                  </span>
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                  {insight.title}
-                </h3>
-                <p className="mt-2 text-sm text-gray-600 flex-grow">{insight.description}</p>
-                <div className="mt-auto flex items-center pt-4 text-xs text-gray-500">
-                  <span className="inline-flex items-center text-sm font-medium text-brand-orange">
-                    <FileText className="mr-1 h-4 w-4" />
-                    Read article
-                  </span>
-                </div>
-              </article>
-            </Link>
+              <InsightArticleCard
+                slug={insight.slug}
+                category={insight.type}
+                title={insight.title}
+                excerpt={insight.description}
+                date={insight.date}
+                imageUrl={insight.image}
+                externalUrl={"externalUrl" in insight ? insight.externalUrl : null}
+                externalSource={"externalSource" in insight ? insight.externalSource : null}
+                internalHref={`/education/${insight.slug}`}
+                patternId={`insight-hex-${index}`}
+              />
             </FadeIn>
           ))}
         </div>

@@ -128,6 +128,8 @@ export default async function EducationPage({
       imageUrl: p.mainImage?.asset ? urlFor(p.mainImage).width(800).height(450).url() : null,
       imageAlt: p.mainImage?.alt ?? null,
       videoUrl: p.videoUrl ?? null,
+      externalUrl: p.externalUrl ?? null,
+      externalSource: p.externalSource ?? null,
       isUpcomingEvent: p.isUpcomingEvent === true,
     };
   }

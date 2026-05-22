@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Calendar, Download } from "lucide-react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/client";
@@ -438,6 +438,10 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
   const page = pageRaw && pageRaw > 1 ? pageRaw : undefined;
   const backToHubHref = educationHubHref(tab, page);
   const post = await getPostBySlug(slug);
+
+  if (post?.externalUrl?.trim()) {
+    redirect(post.externalUrl.trim());
+  }
 
   if (post) {
     const categoryTitle =

@@ -330,17 +330,20 @@ async function educationResults(
         ? "Webinar"
         : post.category?.title ?? "Insight";
 
-      // Include category, secondaryCategory, and content type as searchable keywords
+      // Include category, secondaryCategory, publisher, and content type as searchable keywords
       const keywords = [
         post.category?.title,
         post.secondaryCategory?.title,
+        post.externalSource,
         post.isWebinarPost ? "webinar" : "article",
+        post.externalUrl ? "external" : null,
         post.author?.name,
       ].filter((k): k is string => Boolean(k));
 
+      const slug = postSlug(post);
       const result: SearchResult & { keywords: string[] } = {
         title: post.title,
-        href: `/education/${postSlug(post)}`,
+        href: post.externalUrl?.trim() || `/education/${slug}`,
         excerpt: post.excerpt ?? "",
         type: "Education",
         label,

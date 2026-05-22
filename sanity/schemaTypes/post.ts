@@ -25,6 +25,22 @@ export const post = defineType({
       rows: 3,
     }),
     defineField({
+      name: "externalUrl",
+      title: "External URL",
+      type: "url",
+      description:
+        "Optional. When set, the Insights tile links directly to this page (e.g. a press article on SMSF Adviser) instead of opening an on-site article.",
+      validation: (rule) =>
+        rule.uri({ scheme: ["http", "https"], allowRelative: false }),
+    }),
+    defineField({
+      name: "externalSource",
+      title: "External Source",
+      type: "string",
+      description:
+        'Publisher name shown on the tile CTA, e.g. "SMSF Adviser". Only used when External URL is set.',
+    }),
+    defineField({
       name: "publishedAt",
       title: "Published At",
       type: "datetime",
@@ -47,6 +63,8 @@ export const post = defineType({
       name: "body",
       title: "Body",
       type: "array",
+      description:
+        "Optional when External URL is set — leave empty for press links that open on another website.",
       of: [
         { type: "block" },
         { type: "richTableBlock" },
@@ -122,7 +140,18 @@ export const post = defineType({
     select: {
       title: "title",
       subtitle: "category.title",
+      externalSource: "externalSource",
+      externalUrl: "externalUrl",
       media: "mainImage",
+    },
+    prepare({ title, subtitle, externalSource, externalUrl, media }) {
+      return {
+        title,
+        subtitle: externalUrl
+          ? `External${externalSource ? `: ${externalSource}` : ""}`
+          : subtitle,
+        media,
+      };
     },
   },
   orderings: [

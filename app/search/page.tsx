@@ -154,12 +154,23 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                           )}
                         </div>
                         <h2 className="mt-3 text-2xl font-bold text-brand-blue">
-                          <Link
-                            href={result.href}
-                            className="underline decoration-brand-orange/30 underline-offset-4 transition-colors hover:text-brand-orange"
-                          >
-                            {result.title}
-                          </Link>
+                          {/^https?:\/\//i.test(result.href) ? (
+                            <a
+                              href={result.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline decoration-brand-orange/30 underline-offset-4 transition-colors hover:text-brand-orange"
+                            >
+                              {result.title}
+                            </a>
+                          ) : (
+                            <Link
+                              href={result.href}
+                              className="underline decoration-brand-orange/30 underline-offset-4 transition-colors hover:text-brand-orange"
+                            >
+                              {result.title}
+                            </Link>
+                          )}
                         </h2>
                         <p className="mt-3 leading-7 text-gray-600">
                           {result.excerpt ||

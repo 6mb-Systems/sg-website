@@ -53,6 +53,8 @@ export interface SanityPost {
   isWebinarPost?: boolean;
   isUpcomingEvent?: boolean;
   videoUrl?: string;
+  externalUrl?: string;
+  externalSource?: string;
 }
 
 export interface SanityWebinar {
@@ -104,7 +106,9 @@ const postFields = `
   downloadCount,
   isWebinarPost,
   isUpcomingEvent,
-  videoUrl
+  videoUrl,
+  externalUrl,
+  externalSource
 `;
 
 async function fetchSanity<T>(
@@ -286,7 +290,7 @@ export async function getCategories(): Promise<
 export async function getAllPostSlugs(): Promise<string[]> {
   if (!isSanityConfigured()) return [];
 
-  const query = `*[_type == "post" && !(_id in path("drafts.**"))].slug.current`;
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && !defined(externalUrl)].slug.current`;
 
   return fetchSanity<string[]>(query, []);
 }
@@ -299,7 +303,7 @@ export async function getAllPostsForSitemap(): Promise<
 > {
   if (!isSanityConfigured()) return [];
 
-  const query = `*[_type == "post" && !(_id in path("drafts.**")) && defined(slug.current)]{
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && defined(slug.current) && !defined(externalUrl)]{
     "slug": slug.current,
     "updatedAt": _updatedAt
   }`;

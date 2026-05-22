@@ -78,7 +78,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation — centered in header; equal 1fr tracks avoid shifting left when CTAs grow */}
-        <div className="hidden lg:col-start-2 lg:flex lg:items-center lg:justify-self-center lg:gap-1 lg:mt-[3px] lg:mb-[-4px]">
+        <div className="relative z-20 hidden lg:col-start-2 lg:flex lg:items-center lg:justify-self-center lg:gap-1 lg:mt-[3px] lg:mb-[-4px]">
           {navigation.main.map((item) => {
             const active = isMainNavActive(item, pathname);
             return item.children ? (
@@ -106,7 +106,7 @@ export function Header() {
                     <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
                   </button>
                 )}
-                <div className="absolute left-0 top-full hidden pt-2 group-hover:block">
+                <div className="absolute left-0 top-full z-30 hidden pt-2 group-hover:block">
                   <div className="w-48 rounded-md border bg-white py-2 shadow-lg">
                     {item.children.map((child) => (
                       <Link
@@ -217,7 +217,7 @@ export function Header() {
       {searchOpen && (
         <div
           id="site-search-popover"
-          className="absolute left-0 top-full w-full border-t border-brand-blue/10 bg-white shadow-lg"
+          className="absolute left-0 top-full z-10 w-full border-t border-brand-blue/10 bg-white shadow-lg"
         >
           <div className="container-width py-4">
             <SiteSearchForm

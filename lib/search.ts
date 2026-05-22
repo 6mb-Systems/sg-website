@@ -245,9 +245,28 @@ function normalise(value: string): string {
   return value.toLowerCase().replace(/\s+/g, " ").trim();
 }
 
+/** Strip spaces/punctuation so "div296" matches "div 296" and "division-296". */
+function compact(value: string): string {
+  return normalise(value).replace(/[^a-z0-9]/g, "");
+}
+
+/** Split glued terms like "div296" or "div-296" into ["div", "296"]. */
+function splitCompoundToken(token: string): string[] {
+  const parts = token.match(/[a-z]+|\d+/g);
+  if (!parts || parts.length <= 1) return [token];
+  return parts.filter((part) => part.length > 1 || /^\d+$/.test(part));
+}
+
+function fieldContains(field: string, token: string): boolean {
+  if (field.includes(token)) return true;
+  const compactToken = compact(token);
+  return compactToken.length > 1 && compact(field).includes(compactToken);
+}
+
 function tokensFor(query: string): string[] {
   return normalise(query)
     .split(" ")
+    .flatMap(splitCompoundToken)
     .filter((token) => token.length > 1 && !STOP_WORDS.has(token));
 }
 
@@ -267,10 +286,10 @@ function scoreResult(
   const keywords = normalise((result.keywords ?? []).join(" "));
 
   let score = tokens.reduce((s, token) => {
-    if (title.includes(token)) s += 6;
-    if (excerpt.includes(token)) s += 3;
-    if (label.includes(token)) s += 2;
-    if (keywords.includes(token)) s += 2;
+    if (fieldContains(title, token)) s += 6;
+    if (fieldContains(excerpt, token)) s += 3;
+    if (fieldContains(label, token)) s += 2;
+    if (fieldContains(keywords, token)) s += 2;
     return s;
   }, 0);
 
@@ -279,9 +298,9 @@ function scoreResult(
   // would inflate scores for incidental mentions (e.g. "security interest"
   // in an unrelated SMSF article matching a "security" search).
   if (tokens.length > 1 && phrase.length >= 3) {
-    if (title.includes(phrase)) score += 8;
-    if (excerpt.includes(phrase)) score += 4;
-    if (keywords.includes(phrase)) score += 3;
+    if (fieldContains(title, phrase)) score += 8;
+    if (fieldContains(excerpt, phrase)) score += 4;
+    if (fieldContains(keywords, phrase)) score += 3;
   }
 
   return score;

@@ -48,7 +48,7 @@ export function UpcomingSeminarPromo({ webinar }: UpcomingSeminarPromoProps) {
             {webinar.title}
           </h3>
           {webinar.blurb.trim() ? (
-            <div className="mt-4 space-y-4 text-sm leading-relaxed text-gray-700 md:text-base">
+            <div className="mt-4 space-y-4 text-xs leading-relaxed text-gray-700 md:text-sm">
               {webinar.blurb
                 .split(/\n\s*\n/)
                 .map((paragraph) => paragraph.trim())
@@ -115,12 +115,12 @@ export function UpcomingSeminarPromo({ webinar }: UpcomingSeminarPromoProps) {
 
         <div className="md:col-span-5 lg:col-span-5">
           <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-            <div className="relative h-[320px] border-b border-gray-200 bg-gray-100 md:h-[360px]">
+            <div className="relative h-[380px] border-b border-gray-200 bg-gray-100 md:h-[460px]">
               <Image
                 src={presenterImageSrc}
                 alt={presenterImageAlt}
                 fill
-                className="object-cover [object-position:50%_15%]"
+                className="object-cover object-center"
                 sizes="(max-width: 768px) 100vw, 40vw"
               />
               <div

@@ -336,6 +336,18 @@ interface SanityUpcomingWebinarDoc {
   presenterImage?: {
     asset?: { _ref: string };
     alt?: string;
+    hotspot?: {
+      x: number;
+      y: number;
+      height: number;
+      width: number;
+    };
+    crop?: {
+      top: number;
+      bottom: number;
+      left: number;
+      right: number;
+    };
   };
   experienceBadge?: string;
 }
@@ -380,9 +392,12 @@ export async function getUpcomingWebinarFromSanity(): Promise<UpcomingWebinarDat
     presenterImageUrl: doc.presenterImage?.asset?._ref
       ? urlFor({
           asset: { _ref: doc.presenterImage.asset._ref },
+          hotspot: doc.presenterImage.hotspot,
+          crop: doc.presenterImage.crop,
         })
-          .width(800)
-          .height(900)
+          .width(920)
+          .height(920)
+          .fit("crop")
           .url()
       : null,
     presenterImageAlt:

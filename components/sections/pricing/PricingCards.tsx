@@ -38,7 +38,6 @@ const plans: Plan[] = [
     popular: false,
     features: [
       "Welcome call",
-      "Rollover support - $210 per member",
       "Trust deed preparation",
       "Fund establishment minutes and declaration",
       "TFN & ABN applications (ATO timeframes vary from 1 to 28 days)",

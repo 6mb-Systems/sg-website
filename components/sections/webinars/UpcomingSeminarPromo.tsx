@@ -47,9 +47,17 @@ export function UpcomingSeminarPromo({ webinar }: UpcomingSeminarPromoProps) {
           <h3 className="mt-2 text-3xl font-bold text-brand-blue md:text-4xl">
             {webinar.title}
           </h3>
-          <p className="mt-4 text-sm leading-relaxed text-gray-700 md:text-base">
-            {webinar.blurb}
-          </p>
+          {webinar.blurb.trim() ? (
+            <div className="mt-4 space-y-4 text-sm leading-relaxed text-gray-700 md:text-base">
+              {webinar.blurb
+                .split(/\n\s*\n/)
+                .map((paragraph) => paragraph.trim())
+                .filter(Boolean)
+                .map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+            </div>
+          ) : null}
 
           <div className="mt-5 flex flex-col gap-3 text-sm text-gray-600 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2">
             <div className="flex items-center gap-2">

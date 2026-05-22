@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "import-webinars": "node --use-system-ca scripts/import-webinars.mjs"
   },
   "dependencies": {
     "@bitfo/sanity-plugin-portable-table": "^1.0.2",

@@ -1,6 +1,8 @@
 import { sanityClient, isSanityConfigured } from "./client";
 import type { PortableTextBlock } from "@portabletext/types";
 import type { QueryParams } from "@sanity/client";
+import { urlFor } from "./client";
+import type { UpcomingWebinarData, WebinarVideo } from "@/lib/webinar-types";
 
 // Type definitions
 export interface SanityPost {
@@ -318,4 +320,105 @@ export async function getAllPostsForSitemap(): Promise<
       typeof r.slug === "string" && typeof r.updatedAt === "string"
     )
     .map((r) => ({ slug: r.slug, updatedAt: r.updatedAt }));
+}
+
+interface SanityUpcomingWebinarDoc {
+  isActive?: boolean;
+  title?: string;
+  blurb?: string;
+  dateLabel?: string;
+  timeLabel?: string;
+  registerUrl?: string;
+  learningOutcomes?: string[];
+  presenterName?: string;
+  presenterTitle?: string;
+  presenterBio?: string;
+  presenterImage?: {
+    asset?: { _ref: string };
+    alt?: string;
+  };
+  experienceBadge?: string;
+}
+
+interface SanityPastWebinarDoc {
+  title?: string;
+  youtubeVideoId?: string;
+  displayDate?: string;
+  description?: string;
+}
+
+export async function getUpcomingWebinarFromSanity(): Promise<UpcomingWebinarData | null> {
+  if (!isSanityConfigured()) return null;
+
+  const query = `*[_type == "upcomingWebinar" && _id == "upcomingWebinar"][0]{
+    isActive,
+    title,
+    blurb,
+    dateLabel,
+    timeLabel,
+    registerUrl,
+    learningOutcomes,
+    presenterName,
+    presenterTitle,
+    presenterBio,
+    presenterImage,
+    experienceBadge
+  }`;
+
+  const doc = await fetchSanity<SanityUpcomingWebinarDoc | null>(query, null);
+  if (!doc?.title?.trim() || !doc.registerUrl?.trim()) return null;
+
+  return {
+    title: doc.title.trim(),
+    blurb: doc.blurb?.trim() ?? "",
+    date: doc.dateLabel?.trim() ?? "",
+    time: doc.timeLabel?.trim() ?? "",
+    registerHref: doc.registerUrl.trim(),
+    presenter: doc.presenterName?.trim() ?? "",
+    presenterTitle: doc.presenterTitle?.trim() ?? "",
+    presenterBio: doc.presenterBio?.trim() ?? "",
+    presenterImageUrl: doc.presenterImage?.asset?._ref
+      ? urlFor({
+          asset: { _ref: doc.presenterImage.asset._ref },
+        })
+          .width(800)
+          .height(900)
+          .url()
+      : null,
+    presenterImageAlt:
+      doc.presenterImage?.alt ??
+      (doc.presenterName && doc.presenterTitle
+        ? `${doc.presenterName}, ${doc.presenterTitle}`
+        : doc.presenterName ?? null),
+    experienceBadge: doc.experienceBadge?.trim() || null,
+    learningOutcomes: (doc.learningOutcomes ?? []).filter(
+      (item): item is string => Boolean(item?.trim())
+    ),
+    isActive: doc.isActive !== false,
+  };
+}
+
+export async function getPastWebinarsFromSanity(): Promise<WebinarVideo[]> {
+  if (!isSanityConfigured()) return [];
+
+  const query = `*[_type == "pastWebinar" && !(_id in path("drafts.**"))] | order(publishedAt desc) {
+    title,
+    youtubeVideoId,
+    displayDate,
+    description
+  }`;
+
+  const rows = await fetchSanity<SanityPastWebinarDoc[]>(query, []);
+  return rows
+    .filter(
+      (row): row is Required<Pick<SanityPastWebinarDoc, "title" | "youtubeVideoId">> &
+        SanityPastWebinarDoc =>
+        Boolean(row.title?.trim() && row.youtubeVideoId?.trim())
+    )
+    .map((row) => ({
+      id: row.youtubeVideoId!.trim(),
+      title: row.title!.trim(),
+      date: row.displayDate?.trim() || undefined,
+      description: row.description?.trim() || undefined,
+    }));
 }

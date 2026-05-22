@@ -1,6 +1,7 @@
 import { buildLegacyTheme, defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./sanity/schemaTypes";
+import { studioStructure } from "./sanity/studioStructure";
 import { richTablePlugin } from "sanity-plugin-rich-table";
 
 const studioTheme = buildLegacyTheme({
@@ -23,7 +24,7 @@ export default defineConfig({
   dataset,
   theme: studioTheme,
   plugins: [
-    structureTool(),
+    structureTool({ structure: studioStructure }),
     richTablePlugin({}),
   ],
   schema: {

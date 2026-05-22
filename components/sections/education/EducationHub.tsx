@@ -22,9 +22,9 @@ import {
   type EducationHubTabId,
 } from "@/lib/education-hub-tab";
 import { YouTubePlaylist } from "@/components/sections/webinars/YouTubePlaylist";
-import { webinarVideos } from "@/lib/webinar-videos";
 import { UpcomingSeminarPromo } from "@/components/sections/webinars/UpcomingSeminarPromo";
 import { WebinarNotifyForm } from "@/components/sections/education/WebinarNotifyForm";
+import type { UpcomingWebinarData, WebinarVideo } from "@/lib/webinar-types";
 import { InsightArticleCard } from "@/components/sections/education/InsightArticleCard";
 
 export interface Article {
@@ -63,6 +63,8 @@ export interface WebinarItem {
 interface EducationHubProps {
   articles: Article[];
   categories: string[];
+  upcomingWebinar?: UpcomingWebinarData | null;
+  pastWebinars: WebinarVideo[];
   /** From `/education?tab=` on first render (avoids tab flash with Suspense). */
   initialTab?: EducationHubTabId;
 }
@@ -108,6 +110,8 @@ function visiblePageNumbers(current: number, total: number): (number | "gap")[] 
 export function EducationHub({
   articles,
   categories,
+  upcomingWebinar,
+  pastWebinars,
   initialTab = "articles",
 }: EducationHubProps) {
   const router = useRouter();
@@ -405,9 +409,9 @@ export function EducationHub({
                   <p className="mt-2 text-gray-600">Interactive learning with our SMSF experts</p>
                 </div>
                 <div className="mt-8">
-                  <UpcomingSeminarPromo />
-                  <div className="mt-8">
-                    <YouTubePlaylist videos={webinarVideos} playlistLabel="Past webinars" />
+                  {upcomingWebinar ? <UpcomingSeminarPromo webinar={upcomingWebinar} /> : null}
+                  <div className={upcomingWebinar ? "mt-8" : undefined}>
+                    <YouTubePlaylist videos={pastWebinars} playlistLabel="Past webinars" />
                   </div>
                   <div className="mt-8">
                     <WebinarNotifyForm />

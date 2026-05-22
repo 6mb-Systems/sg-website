@@ -10,6 +10,10 @@ import {
   parseTabFromHubSearchParams,
   type EducationHubTabId,
 } from "@/lib/education-hub-tab";
+import {
+  resolvePastWebinars,
+  resolveUpcomingWebinar,
+} from "@/lib/webinars/content";
 
 export const revalidate = 60;
 
@@ -108,10 +112,13 @@ export default async function EducationPage({
         : null;
   const initialHubTab: EducationHubTabId =
     parseTabFromHubSearchParams(tabRaw);
-  const [sanityFactsheets, sanityCategories] = await Promise.all([
-    getFactsheetPosts(),
-    getCategories(),
-  ]);
+  const [sanityFactsheets, sanityCategories, upcomingWebinar, pastWebinars] =
+    await Promise.all([
+      getFactsheetPosts(),
+      getCategories(),
+      resolveUpcomingWebinar(),
+      resolvePastWebinars(),
+    ]);
 
   const hasSanityContent = sanityFactsheets.length > 0;
 
@@ -158,6 +165,8 @@ export default async function EducationPage({
         <EducationHub
           articles={articles}
           categories={categoryList}
+          upcomingWebinar={upcomingWebinar}
+          pastWebinars={pastWebinars}
           initialTab={initialHubTab}
         />
       </Suspense>

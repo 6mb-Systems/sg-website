@@ -1,7 +1,7 @@
 import { getPosts } from "@/lib/sanity/queries";
 import type { SanityPost } from "@/lib/sanity/queries";
-import { webinarVideos } from "@/lib/webinar-videos";
-import { UPCOMING_WEBINAR, UPCOMING_WEBINAR_OUTCOMES } from "@/lib/upcoming-webinar";
+import { resolvePastWebinars, resolveUpcomingWebinar } from "@/lib/webinars/content";
+import type { WebinarVideo } from "@/lib/webinar-types";
 import { leadershipTeam, clientServiceTeam } from "@/lib/staff";
 
 export type SearchResultType = "Page" | "Education";
@@ -378,9 +378,11 @@ function staffResults(
 
 function webinarResults(
   tokens: string[],
-  phrase: string
+  phrase: string,
+  pastWebinars: WebinarVideo[],
+  upcomingWebinar: Awaited<ReturnType<typeof resolveUpcomingWebinar>>
 ): Array<SearchResult & { score: number }> {
-  const videos = webinarVideos.map((video) => {
+  const videos = pastWebinars.map((video) => {
     const result: SearchResult & { keywords: string[] } = {
       title: video.title,
       href: `/webinars?v=${video.id}`,
@@ -394,18 +396,34 @@ function webinarResults(
   });
 
   const upcoming: SearchResult & { keywords: string[]; score: number } = (() => {
+    if (!upcomingWebinar) {
+      return {
+        title: "",
+        href: "/education?tab=webinars",
+        excerpt: "",
+        type: "Education",
+        label: "Upcoming Webinar",
+        keywords: [],
+        score: 0,
+      };
+    }
+
     const result: SearchResult & { keywords: string[] } = {
-      title: `Upcoming Webinar: ${UPCOMING_WEBINAR.title}`,
+      title: `Upcoming Webinar: ${upcomingWebinar.title}`,
       href: "/education?tab=webinars",
-      excerpt: UPCOMING_WEBINAR.blurb,
+      excerpt: upcomingWebinar.blurb,
       type: "Education",
       label: "Upcoming Webinar",
-      date: UPCOMING_WEBINAR.date,
+      date: upcomingWebinar.date,
       keywords: [
-        "upcoming", "webinar", "register", "free", "smsf",
-        UPCOMING_WEBINAR.presenter,
-        UPCOMING_WEBINAR.presenterTitle,
-        ...UPCOMING_WEBINAR_OUTCOMES,
+        "upcoming",
+        "webinar",
+        "register",
+        "free",
+        "smsf",
+        upcomingWebinar.presenter,
+        upcomingWebinar.presenterTitle,
+        ...upcomingWebinar.learningOutcomes,
       ],
     };
     return { ...result, score: scoreResult(result, tokens, phrase) };
@@ -419,6 +437,10 @@ export async function searchSite(query: string): Promise<SearchResult[]> {
   if (tokens.length === 0) return [];
 
   const phrase = normalise(query);
+  const [pastWebinars, upcomingWebinar] = await Promise.all([
+    resolvePastWebinars(),
+    resolveUpcomingWebinar(),
+  ]);
 
   const pageResults = staticPages
     .map((page) => ({
@@ -432,7 +454,7 @@ export async function searchSite(query: string): Promise<SearchResult[]> {
 
   const educationAndWebinarResults = [
     ...(await educationResults(tokens, phrase)),
-    ...webinarResults(tokens, phrase),
+    ...webinarResults(tokens, phrase, pastWebinars, upcomingWebinar),
   ]
     .filter((r) => r.score >= MIN_SCORE)
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))

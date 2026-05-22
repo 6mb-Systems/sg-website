@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Play } from "lucide-react";
-import type { WebinarVideo } from "@/lib/webinar-videos";
+import type { WebinarVideo } from "@/lib/webinar-types";
 
 interface YouTubePlaylistProps {
   videos: WebinarVideo[];

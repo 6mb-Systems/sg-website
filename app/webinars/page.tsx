@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/shared/PageHero";
 import { YouTubePlaylist } from "@/components/sections/webinars/YouTubePlaylist";
-import { webinarVideos } from "@/lib/webinar-videos";
+import { resolvePastWebinars } from "@/lib/webinars/content";
 
 export const metadata: Metadata = {
   title: "Webinars",
@@ -15,6 +15,7 @@ interface WebinarsPageProps {
 
 export default async function WebinarsPage({ searchParams }: WebinarsPageProps) {
   const { v } = await searchParams;
+  const pastWebinars = await resolvePastWebinars();
   return (
     <>
       <PageHero
@@ -24,7 +25,7 @@ export default async function WebinarsPage({ searchParams }: WebinarsPageProps) 
       />
       <section className="section-padding bg-gray-50">
         <div className="container-width">
-          <YouTubePlaylist videos={webinarVideos} initialVideoId={v} />
+          <YouTubePlaylist videos={pastWebinars} initialVideoId={v} />
         </div>
       </section>
     </>

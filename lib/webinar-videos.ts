@@ -1,10 +1,6 @@
-export interface WebinarVideo {
-  id: string;         // YouTube video ID (the part after ?v= in the URL)
-  title: string;
-  date?: string;
-  duration?: string;
-  description?: string;
-}
+import type { WebinarVideo } from "@/lib/webinar-types";
+
+export type { WebinarVideo };
 
 /**
  * SuperGuardian webinar videos — newest first.

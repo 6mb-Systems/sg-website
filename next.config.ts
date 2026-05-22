@@ -177,6 +177,12 @@ const nextConfig: NextConfig = {
         destination: "/.well-known/security.txt",
         permanent: true,
       },
+      {
+        // Legacy WordPress Knowledge Centre URLs (e.g. /knowledge-centre/in-the-press).
+        source: "/knowledge-centre/:path*",
+        destination: "/education",
+        permanent: true,
+      },
     ];
   },
 

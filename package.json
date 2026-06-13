@@ -12,7 +12,6 @@
     "import-webinars": "node --use-system-ca scripts/import-webinars.mjs"
   },
   "dependencies": {
-    "@bitfo/sanity-plugin-portable-table": "^1.0.2",
     "@portabletext/react": "^6.0.2",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-dialog": "^1.1.15",

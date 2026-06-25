@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { CheckCircle, Users, Building2, UserCircle, type LucideIcon } from "lucide-react";
 
@@ -173,7 +174,18 @@ const audiences: Audience[] = [
           </>
         ),
       },
-      { question: "How much does it cost to run an SMSF?", answer: "Costs vary based on fund complexity. Our services start from $215 per month for administration, accounting, tax and audit." },
+      {
+        question: "How much does it cost to run an SMSF?",
+        answer: (
+          <>
+            Fees vary depending on fund complexity and the services required. For a detailed breakdown of our fees, please see our{" "}
+            <Link href="/pricing" className="text-brand-blue underline hover:text-brand-blue-700">
+              Pricing page
+            </Link>{" "}
+            and Fee Schedules.
+          </>
+        ),
+      },
       { question: "Can I invest in property through my SMSF?", answer: "Yes, SMSFs can invest in property, including residential and commercial real estate, subject to certain rules." },
       { question: "What happens if I make a mistake?", answer: "We're here to help you stay compliant every step of the way. With a dedicated Client Manager, every SuperGuardian client benefits from personalised support and a seamless experience. Our proactive monitoring means we identify and resolve issues early before they become problems." },
     ],

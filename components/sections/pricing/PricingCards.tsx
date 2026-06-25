@@ -30,8 +30,8 @@ const plans: Plan[] = [
     name: "Self Managed Super Fund Setup",
     description: "for new SMSF establishments",
     prices: [
-      { amount: "$690", label: "individual trustees" },
-      { amount: "$1,580", label: "corporate trustees" },
+      { amount: "$440", label: "individual trustees" },
+      { amount: "$1,370", label: "corporate trustees" },
     ],
     timeline: "1 to 3 Business days",
     badge: "New SMSFs",
@@ -51,7 +51,7 @@ const plans: Plan[] = [
   {
     name: "Standard Administration",
     description: "for SMSFs on an eligible platform",
-    prices: [{ amount: "from $215", label: "per month" }],
+    prices: [{ amount: "from $227", label: "per month" }],
     priceSubtitle: "including independent audit",
     timeline: "Ongoing service",
     badge: "Most Popular",
@@ -68,13 +68,13 @@ const plans: Plan[] = [
       "Term deposits via Australian Money Market",
     ],
     hasFeesDownload: true,
-    feesDownloadHref: "/PDF/Standard-Fee-Schedule-2025-26-SuperGuardian.pdf",
+    feesDownloadHref: "/PDF/Standard-Fee-Schedule-2026-27-SuperGuardian.pdf",
   },
   {
     name: "Flexible Administration",
     description:
       "full-service for complex SMSFs",
-    prices: [{ amount: "from $240", label: "per month" }],
+    prices: [{ amount: "from $252", label: "per month" }],
     priceSubtitle: "including independent audit",
     timeline: "Ongoing service",
     badge: "Complex SMSFs",
@@ -92,7 +92,7 @@ const plans: Plan[] = [
       "Private company, derivatives, options, warrants, artwork, crypto currency and other similar assets",
     ],
     hasFeesDownload: true,
-    feesDownloadHref: "/PDF/Flexible-Fee-Schedule-2025-26-SuperGuardian.pdf",
+    feesDownloadHref: "/PDF/Flexible-Fee-Schedule-2026-27-SuperGuardian.pdf",
   },
 ];
 

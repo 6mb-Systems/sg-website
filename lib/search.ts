@@ -239,6 +239,31 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
       "performance", "valuations", "log in", "sign in",
     ],
   },
+  {
+    title: "Death Benefit Nomination – Explanatory Document",
+    href: "/PDF/Explanatory-Document-Death-Benefit-Nomination.pdf",
+    excerpt:
+      "Explanatory document covering death benefit nominations for SMSF trustees, including binding and non-binding nominations.",
+    type: "Page",
+    keywords: [
+      "death benefit", "death benefit nomination", "binding nomination",
+      "non-binding nomination", "beneficiary", "dependant", "estate",
+      "superannuation death", "smsf death", "nomination form",
+      "trustee", "reversionary pension",
+    ],
+  },
+  {
+    title: "Privacy Policy",
+    href: "/PDF/Privacy Policy - April 2026.pdf",
+    excerpt:
+      "Read SuperGuardian's Privacy Policy outlining how we collect, use, store and protect your personal information.",
+    type: "Page",
+    keywords: [
+      "privacy", "privacy policy", "personal information", "data",
+      "collect", "store", "protect", "confidential", "information",
+      "policy", "gdpr", "disclosure", "consent",
+    ],
+  },
 ];
 
 function normalise(value: string): string {

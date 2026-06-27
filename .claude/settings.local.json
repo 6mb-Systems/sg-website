@@ -12,7 +12,8 @@
       "Bash(node scripts/upload-pdfs.mjs)",
       "Bash(node scripts/remove-pdf-text.mjs)",
       "WebFetch(domain:www.superguardian.com.au)",
-      "WebFetch(domain:superguardian.com.au)"
+      "WebFetch(domain:superguardian.com.au)",
+      "Bash(xargs grep -l \"privacy\\\\|Privacy\")"
     ]
   }
 }

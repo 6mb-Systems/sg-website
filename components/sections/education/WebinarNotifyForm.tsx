@@ -201,7 +201,7 @@ export function WebinarNotifyForm() {
             <p className="text-xs leading-relaxed text-gray-500">
               We value your privacy and take the protection of your personal information seriously. The details you provide will only be used to send invitations to our upcoming webinars and share relevant technical updates, and will never be shared with third parties without your consent. For full details on how we collect, store and handle your information, please read our{" "}
               <a
-                href="/PDF/Privacy%20Policy%20-%20April%202026.pdf"
+                href="/PDF/Privacy%20Policy%20-%20July%202026.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brand-orange underline hover:text-brand-orange-600"

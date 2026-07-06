@@ -102,6 +102,16 @@ export const clientServiceTeam: StaffMember[] = [
     ],
   },
   {
+    name: "Cissy Liu",
+    role: "Client Service Partner",
+    image: "/profile_cissy.jpg",
+    fullBio: [
+      "Cissy is an experienced SMSF specialist who has been dedicated to exceptional client support since she commenced in the industry in 2013.",
+      "Prior to joining SuperGuardian, Cissy spent a considerable amount of time working at a large Australian SMSF administration firm. Her strong focus is accounting and tax.",
+      "Cissy works hard to ensure her clients receive the highest level of service and support and feels personally rewarded when this is achieved. She has completed a Master of Business (Professional Accounting and Finance) from UniSA and a Bachelor of Law in China and she is a CPA.",
+    ],
+  },
+  {
     name: "Ben Plail",
     role: "Senior Client Manager",
     image: "/profile_ben.jpg",
@@ -118,16 +128,6 @@ export const clientServiceTeam: StaffMember[] = [
     fullBio: [
       "Nicholas has been in the accounting industry since 2010 and worked for nearly six years in a Big Four accounting practice before joining SuperGuardian. As a senior client manager Nicholas' skill set and knowledge is diverse and covers all aspects of accounting, tax and compliance.",
       "Nicholas focuses on delivering exceptional support and service to his clients. He has completed a Bachelor of Commerce and Bachelor of Arts at Deakin University. He is a Chartered Accountant (CA) and a SMSF Specialist Advisor (SSA).",
-    ],
-  },
-  {
-    name: "Cissy Liu",
-    role: "Senior Client Manager",
-    image: "/profile_cissy.jpg",
-    fullBio: [
-      "Cissy is an experienced SMSF specialist who has been dedicated to exceptional client support since she commenced in the industry in 2013.",
-      "Prior to joining SuperGuardian, Cissy spent a considerable amount of time working at a large Australian SMSF administration firm. Her strong focus is accounting and tax.",
-      "Cissy works hard to ensure her clients receive the highest level of service and support and feels personally rewarded when this is achieved. She has completed a Master of Business (Professional Accounting and Finance) from UniSA and a Bachelor of Law in China and she is a CPA.",
     ],
   },
   {

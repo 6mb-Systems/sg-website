@@ -254,7 +254,7 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
   },
   {
     title: "Privacy Policy",
-    href: "/PDF/Privacy Policy - April 2026.pdf",
+    href: "/PDF/Privacy Policy - July 2026.pdf",
     excerpt:
       "Read SuperGuardian's Privacy Policy outlining how we collect, use, store and protect your personal information.",
     type: "Page",

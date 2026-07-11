@@ -1,0 +1,64 @@
+name: Snyk Weekly Scan
+
+on:
+  schedule:
+    # Every Monday at 09:00 ACST (Sunday 23:30 UTC)
+    - cron: "30 23 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  snyk-open-source:
+    name: Open Source
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Snyk Open Source test
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+          args: --severity-threshold=high --dev
+
+      - name: Update Snyk Open Source monitor snapshot
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args: --dev
+
+  snyk-code:
+    name: Code Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Snyk Code test
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: code test
+          args: --severity-threshold=high
+
+      - name: Update Snyk Code monitor snapshot
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: code monitor

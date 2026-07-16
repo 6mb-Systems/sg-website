@@ -152,8 +152,16 @@ export function Footer() {
               should carefully read and consider any product disclosure
               statement that is relevant to any financial product that has been
               discussed before making any decision about whether to acquire the
-              financial product. Please refer to SuperGuardian FSG for contact
-              information.
+              financial product. Please refer to{" "}
+              <Link
+                href="/PDF/Financial-Services-Guide-July-2026.pdf"
+                className="hover:text-brand-orange transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                SuperGuardian FSG
+              </Link>{" "}
+              for contact information.
             </p>
             <p>
               By accessing and/or using information at or through this site, each

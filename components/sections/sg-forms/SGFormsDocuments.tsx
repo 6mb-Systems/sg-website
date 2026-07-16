@@ -10,12 +10,19 @@ type FormItem = {
 };
 
 const engagementForms: FormItem[] = [
-  { label: "Terms and Conditions", file: "TermsandConditions.pdf" },
+  { label: "Privacy Policy", file: "Privacy-Policy-July-2026.pdf" },
   {
-    label: "Direct Debit Authority Service Agreement",
-    file: "SG-Direct-Debit-Agreement-2021.pdf",
+    label: "Terms & Conditions and Service Schedule",
+    file: "Terms-and-Conditions-and-Service-Schedule-July-2026.pdf",
   },
-  { label: "Financial Services Guide", file: "Financial-Services-Guide.pdf" },
+  {
+    label: "Direct Debit Agreement",
+    file: "Direct-Debit-Agreement-July-2026.pdf",
+  },
+  {
+    label: "Financial Services Guide (FSG)",
+    file: "Financial-Services-Guide-July-2026.pdf",
+  },
 ];
 
 const eventBasedForms: FormItem[] = [

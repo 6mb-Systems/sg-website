@@ -168,6 +168,29 @@ const nextConfig: NextConfig = {
         destination: "/pdfs/Client-Service-Guide.pdf",
         permanent: true,
       },
+      // Superseded July 2026 legal / engagement form PDFs
+      {
+        source: "/SG Forms/TermsandConditions.pdf",
+        destination:
+          "/SG Forms/Terms-and-Conditions-and-Service-Schedule-July-2026.pdf",
+        permanent: true,
+      },
+      {
+        source: "/SG Forms/SG-Direct-Debit-Agreement-2021.pdf",
+        destination: "/SG Forms/Direct-Debit-Agreement-July-2026.pdf",
+        permanent: true,
+      },
+      {
+        source: "/SG Forms/Financial-Services-Guide.pdf",
+        destination: "/SG Forms/Financial-Services-Guide-July-2026.pdf",
+        permanent: true,
+      },
+      {
+        source:
+          "/PDF/SG Direct Debit Authority Service Agreement - 2021.pdf",
+        destination: "/PDF/Direct-Debit-Agreement-July-2026.pdf",
+        permanent: true,
+      },
       {
         // RFC 9116 canonical location is /.well-known/security.txt, but many
         // automated scanners still probe /security.txt at the root. Redirect

@@ -198,13 +198,14 @@ const staticPages: Array<SearchResult & { keywords: string[] }> = [
     title: "Forms & Documents",
     href: "/sg-forms",
     excerpt:
-      "Download SuperGuardian forms including Direct Debit Authority, Terms and Conditions, Financial Services Guide, pension forms, LRBA instructions and SMSF wind-up forms.",
+      "Download SuperGuardian forms including Privacy Policy, Terms & Conditions and Service Schedule, Direct Debit Agreement, Financial Services Guide (FSG), pension forms, LRBA instructions and SMSF wind-up forms.",
     type: "Page",
     keywords: [
       // generic
       "forms", "documents", "downloads", "smsf", "paperwork", "pdf",
       // engagement forms
-      "terms and conditions", "terms", "conditions",
+      "privacy policy", "privacy",
+      "terms and conditions", "terms", "conditions", "service schedule",
       "direct debit", "direct debit authority", "direct debit agreement", "debit",
       "financial services guide", "fsg",
       // event-based forms

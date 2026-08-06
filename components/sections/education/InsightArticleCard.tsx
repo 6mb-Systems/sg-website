@@ -104,9 +104,7 @@ export function InsightArticleCard({
           </span>
         </div>
         <h3 className="mt-4 text-lg font-semibold text-gray-900">{title}</h3>
-        <p className="mt-2 line-clamp-2 flex-grow text-sm text-gray-600">
-          {excerpt}
-        </p>
+        <p className="mt-2 line-clamp-2 text-sm text-gray-600">{excerpt}</p>
         <div className="mt-auto flex items-center pt-4 text-xs text-gray-500">
           <span className="inline-flex items-center text-sm font-medium text-brand-orange">
             {external ? (

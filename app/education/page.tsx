@@ -7,10 +7,6 @@ import { getFactsheetPosts, getCategories } from "@/lib/sanity/queries";
 import type { Article } from "@/components/sections/education/EducationHub";
 import { urlFor } from "@/lib/sanity/client";
 import {
-  parseTabFromHubSearchParams,
-  type EducationHubTabId,
-} from "@/lib/education-hub-tab";
-import {
   resolvePastWebinars,
   resolveUpcomingWebinar,
 } from "@/lib/webinars/content";
@@ -98,20 +94,7 @@ function formatDate(isoDate: string): string {
   });
 }
 
-export default async function EducationPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ tab?: string | string[] }>;
-}) {
-  const hubSearch = await searchParams;
-  const tabRaw =
-    typeof hubSearch.tab === "string"
-      ? hubSearch.tab
-      : Array.isArray(hubSearch.tab)
-        ? hubSearch.tab[0]
-        : null;
-  const initialHubTab: EducationHubTabId =
-    parseTabFromHubSearchParams(tabRaw);
+export default async function EducationPage() {
   const [sanityFactsheets, sanityCategories, upcomingWebinar, pastWebinars] =
     await Promise.all([
       getFactsheetPosts(),
@@ -167,7 +150,6 @@ export default async function EducationPage({
           categories={categoryList}
           upcomingWebinar={upcomingWebinar}
           pastWebinars={pastWebinars}
-          initialTab={initialHubTab}
         />
       </Suspense>
     </Providers>

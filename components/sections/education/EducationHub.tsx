@@ -65,8 +65,6 @@ interface EducationHubProps {
   categories: string[];
   upcomingWebinar?: UpcomingWebinarData | null;
   pastWebinars: WebinarVideo[];
-  /** From `/education?tab=` on first render (avoids tab flash with Suspense). */
-  initialTab?: EducationHubTabId;
 }
 
 const tabs = [
@@ -112,17 +110,16 @@ export function EducationHub({
   categories,
   upcomingWebinar,
   pastWebinars,
-  initialTab = "articles",
 }: EducationHubProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] =
-    React.useState<EducationHubTabId>(initialTab);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState("All");
   const articlesAnchorRef = React.useRef<HTMLDivElement>(null);
-  // Derive the article page from the URL so navigating back restores it.
-  // URL is the single source of truth — no local state = no sync races.
+  // URL is the single source of truth for tab + page — no sync effects.
+  const activeTab = parseTabFromHubSearchParams(
+    searchParams.get(EDUCATION_HUB_TAB_PARAM)
+  );
   const pageFromUrl = Number(searchParams.get(EDUCATION_HUB_PAGE_PARAM)) || 1;
 
   const uniqueCategories = React.useMemo(() => {
@@ -161,12 +158,6 @@ export function EducationHub({
     articleOffset + ARTICLES_PER_PAGE
   );
 
-  React.useEffect(() => {
-    setActiveTab(
-      parseTabFromHubSearchParams(searchParams.get(EDUCATION_HUB_TAB_PARAM))
-    );
-  }, [searchParams]);
-
   const goToArticlePage = React.useCallback(
     (page: number) => {
       router.replace(
@@ -199,9 +190,10 @@ export function EducationHub({
                 key={tab.id}
                 type="button"
                 onClick={() => {
-                  const id = tab.id as EducationHubTabId;
-                  setActiveTab(id);
-                  router.replace(educationHubHref(id), { scroll: false });
+                  router.replace(
+                    educationHubHref(tab.id as EducationHubTabId),
+                    { scroll: false }
+                  );
                 }}
                 className={cn(
                   "flex flex-1 min-w-0 items-center justify-center gap-1 rounded-full px-3 py-3 text-xs font-medium transition-all sm:gap-2 sm:px-6 sm:text-sm whitespace-nowrap",

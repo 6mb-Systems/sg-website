@@ -25,6 +25,13 @@ const enquiryLabels: Record<string, string> = {
   "something-else": "Something else",
 };
 
+const DEFAULT_TO_EMAIL = "info@superguardian.com.au";
+const APPLICATIONS_TO_EMAIL = "applications@superguardian.com.au";
+
+// SMSF establishment/transfer enquiries go to the applications team; everything
+// else lands in the shared inbox.
+const applicationsEnquiryTypes = new Set(["establish-smsf", "transfer-smsf"]);
+
 // Field length budgets. These are intentionally generous enough for real
 // submissions but small enough to bound email-service abuse.
 const MAX_NAME = 100;
@@ -107,8 +114,9 @@ export async function POST(request: NextRequest) {
 
     // ---- Email service config ----
     const resendApiKey = process.env.RESEND_API_KEY;
-    // Always route enquiries to the shared inbox.
-    const toEmail = "info@superguardian.com.au";
+    const toEmail = applicationsEnquiryTypes.has(enquiryTypeRaw)
+      ? APPLICATIONS_TO_EMAIL
+      : DEFAULT_TO_EMAIL;
     const fromEmail =
       process.env.CONTACT_EMAIL_FROM || "noreply@superguardian.com.au";
 

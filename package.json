@@ -47,7 +47,7 @@
     "esbuild": "0.28.1",
     "form-data": "4.0.6",
     "glob": "^10.5.0",
-    "js-yaml": "4.3.0",
+    "js-yaml": "4.3.1",
     "linkify-it": "5.0.2",
     "markdown-it": "14.2.0",
     "nanoid": "5.1.16",
@@ -65,7 +65,7 @@
       "minimatch": "^9.0.5"
     },
     "@vercel/frameworks": {
-      "js-yaml": "4.3.0"
+      "js-yaml": "3.15.1"
     },
     "minimatch": "^9.0.5"
   },

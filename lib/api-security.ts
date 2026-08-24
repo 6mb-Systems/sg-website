@@ -281,89 +281,26 @@ export function sanitizeEmail(value: unknown): string | null {
  * extension + MIME allow-lists in the route; this is the third layer so a
  * renamed .exe → .pdf doesn't get relayed to a human inbox as a real PDF.
  *
- * Recognised headers:
- *   - PDF  : "%PDF-"                      (25 50 44 46 2D)
- *   - DOC  : OLE compound file (D0CF11E0) — legacy Word .doc
- *   - DOCX : ZIP archive (504B0304)       — modern Word, also Pages/etc
- *            plus the deprecated legacy ZIP signatures (PK 0506, PK 0708)
+ * Recognised header:
+ *   - PDF : "%PDF-" (25 50 44 46 2D)
  */
-function hasAsciiSequence(bytes: Uint8Array, needle: string): boolean {
-  const encoded = new TextEncoder().encode(needle);
-  if (encoded.length === 0 || bytes.length < encoded.length) return false;
-
-  for (let i = 0; i <= bytes.length - encoded.length; i += 1) {
-    let matched = true;
-    for (let j = 0; j < encoded.length; j += 1) {
-      if (bytes[i + j] !== encoded[j]) {
-        matched = false;
-        break;
-      }
-    }
-    if (matched) return true;
-  }
-
-  return false;
-}
-
 export function isAllowedResumeSignature(
   bytes: Uint8Array,
   filename?: string
 ): boolean {
-  if (bytes.length < 4) return false;
+  if (bytes.length < 5) return false;
 
   const lowerFilename = filename?.toLowerCase();
-  const isPdfExtension = lowerFilename?.endsWith(".pdf") ?? false;
-  const isDocExtension = lowerFilename?.endsWith(".doc") ?? false;
-  const isDocxExtension = lowerFilename?.endsWith(".docx") ?? false;
+  if (lowerFilename && !lowerFilename.endsWith(".pdf")) return false;
 
-  const b0 = bytes[0];
-  const b1 = bytes[1];
-  const b2 = bytes[2];
-  const b3 = bytes[3];
-
-  // %PDF
-  const isPdf =
-    b0 === 0x25 &&
-    b1 === 0x50 &&
-    b2 === 0x44 &&
-    b3 === 0x46 &&
-    bytes[4] === 0x2d;
-
-  // Legacy DOC (OLE compound file)
-  const isDoc =
-    bytes.length >= 8 &&
-    b0 === 0xd0 &&
-    b1 === 0xcf &&
-    b2 === 0x11 &&
-    b3 === 0xe0 &&
-    bytes[4] === 0xa1 &&
-    bytes[5] === 0xb1 &&
-    bytes[6] === 0x1a &&
-    bytes[7] === 0xe1;
-
-  const isZip =
-    b0 === 0x50 &&
-    b1 === 0x4b &&
-    ((b2 === 0x03 && b3 === 0x04) ||
-      (b2 === 0x05 && b3 === 0x06) ||
-      (b2 === 0x07 && b3 === 0x08));
-
-  // DOCX is a ZIP container, so also require the core Word package markers.
-  const isDocx =
-    isZip &&
-    hasAsciiSequence(bytes, "[Content_Types].xml") &&
-    hasAsciiSequence(bytes, "word/");
-
-  if (lowerFilename) {
-    if (isPdfExtension) return isPdf;
-    if (isDocExtension) return isDoc;
-    if (isDocxExtension) return isDocx;
-    return false;
-  }
-
-  if (isPdf || isDoc || isDocx) return true;
-
-  return false;
+  // %PDF-
+  return (
+    bytes[0] === 0x25 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x44 &&
+    bytes[3] === 0x46 &&
+    bytes[4] === 0x2d
+  );
 }
 
 // ---------- reCAPTCHA v3 verification ----------

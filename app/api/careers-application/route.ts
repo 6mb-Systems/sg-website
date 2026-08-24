@@ -19,15 +19,10 @@ const MAX_MESSAGE = 5000;
 const MAX_FILE_BYTES = 4 * 1024 * 1024;
 const MAX_FORM_BYTES = MAX_FILE_BYTES + 64 * 1024;
 
-const ALLOWED_MIME = new Set([
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-]);
+const ALLOWED_MIME = new Set(["application/pdf"]);
 
 function extensionAllowed(filename: string): boolean {
-  const lower = filename.toLowerCase();
-  return lower.endsWith(".pdf") || lower.endsWith(".doc") || lower.endsWith(".docx");
+  return filename.toLowerCase().endsWith(".pdf");
 }
 
 function isAllowedResume(file: File): boolean {
@@ -123,7 +118,7 @@ export async function POST(request: NextRequest) {
     const resume = formData.get("resume");
     if (!(resume instanceof File) || resume.size === 0) {
       return NextResponse.json(
-        { error: "Please attach your resume (PDF or Word)." },
+        { error: "Please attach your resume (PDF only)." },
         { status: 400 }
       );
     }
@@ -137,7 +132,7 @@ export async function POST(request: NextRequest) {
 
     if (!isAllowedResume(resume)) {
       return NextResponse.json(
-        { error: "Resume must be a PDF or Word document (.pdf, .doc, .docx)." },
+        { error: "Resume must be a PDF document (.pdf)." },
         { status: 400 }
       );
     }
@@ -161,7 +156,7 @@ export async function POST(request: NextRequest) {
     // advertised extension/MIME (renamed .exe/.html disguised as .pdf, etc).
     if (!isAllowedResumeSignature(buffer, resume.name)) {
       return NextResponse.json(
-        { error: "Resume file does not appear to be a valid PDF or Word document." },
+        { error: "Resume file does not appear to be a valid PDF document." },
         { status: 400 }
       );
     }

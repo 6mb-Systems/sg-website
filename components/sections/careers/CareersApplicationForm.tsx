@@ -145,10 +145,12 @@ export function CareersApplicationForm() {
                 name="resume"
                 type="file"
                 required
-                accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                accept=".pdf,application/pdf"
                 className="mt-1 block w-full cursor-pointer text-sm text-gray-600 file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-brand-blue file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-brand-blue/90"
               />
-              <p className="mt-1 text-xs text-gray-500">PDF or Word, up to 4MB.</p>
+              <p className="mt-1 text-xs text-gray-500">
+                Only PDF formats will be accepted, up to 4MB.
+              </p>
             </div>
 
             <input

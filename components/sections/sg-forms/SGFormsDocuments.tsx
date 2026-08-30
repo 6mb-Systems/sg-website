@@ -13,7 +13,7 @@ const engagementForms: FormItem[] = [
   { label: "Privacy Policy", file: "Privacy-Policy-July-2026.pdf" },
   {
     label: "Terms & Conditions and Service Schedule",
-    file: "Terms-and-Conditions-and-Service-Schedule-July-2026.pdf",
+    file: "Terms-and-Conditions-and-Service-Schedule-August-2026.pdf",
   },
   {
     label: "Direct Debit Agreement",

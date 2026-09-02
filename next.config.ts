@@ -172,20 +172,33 @@ const nextConfig: NextConfig = {
       {
         source: "/SG%20Forms/TermsandConditions.pdf",
         destination:
-          "/SG%20Forms/Terms-and-Conditions-and-Service-Schedule-August-2026.pdf",
+          "/SG%20Forms/Terms-and-Conditions-and-Service-Schedule-September-2026.pdf",
         permanent: true,
       },
       {
         source:
           "/SG%20Forms/Terms-and-Conditions-and-Service-Schedule-July-2026.pdf",
         destination:
+          "/SG%20Forms/Terms-and-Conditions-and-Service-Schedule-September-2026.pdf",
+        permanent: true,
+      },
+      {
+        source:
           "/SG%20Forms/Terms-and-Conditions-and-Service-Schedule-August-2026.pdf",
+        destination:
+          "/SG%20Forms/Terms-and-Conditions-and-Service-Schedule-September-2026.pdf",
         permanent: true,
       },
       {
         source: "/PDF/Terms-and-Conditions-and-Service-Schedule-July-2026.pdf",
         destination:
-          "/PDF/Terms-and-Conditions-and-Service-Schedule-August-2026.pdf",
+          "/PDF/Terms-and-Conditions-and-Service-Schedule-September-2026.pdf",
+        permanent: true,
+      },
+      {
+        source: "/PDF/Terms-and-Conditions-and-Service-Schedule-August-2026.pdf",
+        destination:
+          "/PDF/Terms-and-Conditions-and-Service-Schedule-September-2026.pdf",
         permanent: true,
       },
       {

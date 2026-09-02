@@ -10,6 +10,7 @@ import {
   verifyOrigin,
   verifyRecaptcha,
 } from "@/lib/api-security";
+import { sanitizeEmailSubject } from "@/lib/safe-url";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -173,13 +174,13 @@ export async function POST(request: NextRequest) {
       timeZone: "Australia/Sydney",
     });
 
-    const subjectLine = `Careers application: ${name.replace(/[\r\n]/g, "")}`;
+    const subjectLine = sanitizeEmailSubject(`Careers application: ${name}`);
 
     await resend.emails.send({
       from: `SuperGuardian Careers <${fromEmail}>`,
       to: toEmail,
       replyTo: email,
-      subject: subjectLine.slice(0, 200),
+      subject: subjectLine,
       html: `
         <h2>New careers application</h2>
         <table style="border-collapse:collapse;width:100%;max-width:600px;font-family:sans-serif;font-size:14px;">

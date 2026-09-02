@@ -1,4 +1,5 @@
 import { educationPostHref } from "@/lib/education-hub-tab";
+import { safeExternalUrl } from "@/lib/safe-url";
 
 export interface ArticleLinkFields {
   slug: string;
@@ -19,7 +20,7 @@ export function articleCardHref(
     internalHref?: string;
   }
 ): string {
-  const external = article.externalUrl?.trim();
+  const external = safeExternalUrl(article.externalUrl);
   if (external) return external;
 
   if (options?.internalHref) return options.internalHref;

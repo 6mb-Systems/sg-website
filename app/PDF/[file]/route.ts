@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import path from "path";
 import { promises as fs } from "fs";
+import { safeContentDispositionFilename } from "@/lib/safe-url";
 
 export async function GET(
   _req: Request,
@@ -17,12 +18,13 @@ export async function GET(
 
   try {
     const data = await fs.readFile(filePath);
+    const safeFilename = safeContentDispositionFilename(file);
     return new NextResponse(data, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
         // Open in browser by default
-        "Content-Disposition": `inline; filename="${file}"`,
+        "Content-Disposition": `inline; filename="${safeFilename}"`,
         "Cache-Control": "public, max-age=3600",
       },
     });

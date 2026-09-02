@@ -161,23 +161,7 @@ function renderFallbackHtml(content: string): string {
     .join("");
 }
 
-/**
- * Accept only links whose scheme we control. Sanity editors are trusted, but
- * defence-in-depth: never let a "javascript:", "data:", or "vbscript:" URL
- * reach the rendered DOM via CMS content.
- */
-function safeLinkHref(href: unknown): string | undefined {
-  if (typeof href !== "string") return undefined;
-  const trimmed = href.trim();
-  if (!trimmed) return undefined;
-  // Relative links are safe; protocol-relative URLs are not.
-  if (trimmed.startsWith("//")) return undefined;
-  if (trimmed.startsWith("/") || trimmed.startsWith("#")) return trimmed;
-  // Allow only an explicit allow-list of protocols.
-  if (/^(https?:|mailto:|tel:)/i.test(trimmed)) return trimmed;
-  return undefined;
-}
-
+import { safeExternalUrl, safeLinkHref } from "@/lib/safe-url";
 const tableCellPortableTextComponents: PortableTextComponents = {
   block: {
     // Render cell content as paragraphs so separate blocks appear on new lines
@@ -439,8 +423,9 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
   const backToHubHref = educationHubHref(tab, page);
   const post = await getPostBySlug(slug);
 
-  if (post?.externalUrl?.trim()) {
-    redirect(post.externalUrl.trim());
+  if (post?.externalUrl) {
+    const externalUrl = safeExternalUrl(post.externalUrl);
+    if (externalUrl) redirect(externalUrl);
   }
 
   if (post) {

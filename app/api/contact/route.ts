@@ -10,6 +10,7 @@ import {
   verifyOrigin,
   verifyRecaptcha,
 } from "@/lib/api-security";
+import { sanitizeEmailSubject } from "@/lib/safe-url";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -149,7 +150,7 @@ export async function POST(request: NextRequest) {
       from: `SuperGuardian Contact Form <${fromEmail}>`,
       to: toEmail,
       replyTo: email,
-      subject: `New enquiry: ${enquiryLabel}`,
+      subject: sanitizeEmailSubject(`New enquiry: ${enquiryLabel}`),
       html: `
         <h2>New Contact Form Submission</h2>
         <table style="border-collapse:collapse;width:100%;max-width:600px;font-family:sans-serif;font-size:14px;">

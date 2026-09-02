@@ -3,6 +3,7 @@ import type { SanityPost } from "@/lib/sanity/queries";
 import { resolvePastWebinars, resolveUpcomingWebinar } from "@/lib/webinars/content";
 import type { WebinarVideo } from "@/lib/webinar-types";
 import { leadershipTeam, clientServiceTeam } from "@/lib/staff";
+import { safeExternalUrl } from "@/lib/safe-url";
 
 export type SearchResultType = "Page" | "Education";
 
@@ -369,7 +370,7 @@ async function educationResults(
       const slug = postSlug(post);
       const result: SearchResult & { keywords: string[] } = {
         title: post.title,
-        href: post.externalUrl?.trim() || `/education/${slug}`,
+        href: safeExternalUrl(post.externalUrl) || `/education/${slug}`,
         excerpt: post.excerpt ?? "",
         type: "Education",
         label,

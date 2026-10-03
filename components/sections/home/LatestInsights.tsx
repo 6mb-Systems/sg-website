@@ -41,7 +41,7 @@ export async function LatestInsights() {
           const slug =
             typeof post.slug === "string" ? post.slug : post.slug.current;
           const imageUrl = post.mainImage?.asset
-            ? urlFor(post.mainImage).width(600).height(340).url()
+            ? urlFor(post.mainImage).width(600).fit("max").url()
             : null;
           const date = new Date(post.publishedAt).toLocaleDateString("en-AU", {
             day: "numeric",

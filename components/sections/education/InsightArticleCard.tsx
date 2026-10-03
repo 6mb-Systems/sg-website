@@ -87,7 +87,7 @@ export function InsightArticleCard({
             src={imageUrl}
             alt={imageAlt || title}
             fill
-            className="object-cover"
+            className="object-cover object-left"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>

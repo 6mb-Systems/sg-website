@@ -479,7 +479,7 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
                   alt={post.mainImage.alt || post.title}
                   width={800}
                   height={450}
-                  className="w-full object-cover"
+                  className="w-full object-cover object-left"
                   priority
                 />
               </div>

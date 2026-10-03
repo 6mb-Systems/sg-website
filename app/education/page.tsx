@@ -115,7 +115,9 @@ export default async function EducationPage() {
       excerpt: p.excerpt ?? "",
       date: formatDate(p.publishedAt),
       downloads: p.downloadCount ?? 0,
-      imageUrl: p.mainImage?.asset ? urlFor(p.mainImage).width(800).height(450).url() : null,
+      imageUrl: p.mainImage?.asset
+        ? urlFor(p.mainImage).width(800).fit("max").url()
+        : null,
       imageAlt: p.mainImage?.alt ?? null,
       videoUrl: p.videoUrl ?? null,
       externalUrl: p.externalUrl ?? null,

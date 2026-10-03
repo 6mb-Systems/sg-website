@@ -285,7 +285,7 @@ const IMAGE_MAP = {
     "total-superannuation-balance-a-contribution-game-changer",
   ],
   "Transfer Balance Account Reporting.jpg": [
-    "smsf-expense-apportionment-and-insurances-are-you-claiming-the-right-expenses-2",
+    "transfer-balance-account-reporting",
   ],
   "UK Pension Schemes.jpg": [
     "uk-pension-schemes",

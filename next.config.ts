@@ -232,6 +232,13 @@ const nextConfig: NextConfig = {
         destination: "/education",
         permanent: true,
       },
+      {
+        // TBAR fact sheet was briefly on a mis-imported slug; canonical URL is below.
+        source:
+          "/education/smsf-expense-apportionment-and-insurances-are-you-claiming-the-right-expenses-2",
+        destination: "/education/transfer-balance-account-reporting",
+        permanent: true,
+      },
     ];
   },
 

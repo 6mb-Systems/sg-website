@@ -7,3 +7,15 @@ ignore:
           npm overrides pin braces to micromatch/braces@1f2672b3 (depth guards for
           CVE-2026-93687). No patched release on npm yet; Snyk still reports 3.0.3.
         expires: 2027-06-01T00:00:00.000Z
+  SNYK-JS-ZOD-20510278:
+    - '*':
+        reason: >-
+          Pinned to latest zod@4.6.5; Snyk reports no fixed release yet (CVE-2023-54404).
+          zod is not imported in app code—only transitive via Sanity CLI and ESLint (dev/build).
+        expires: 2027-06-01T00:00:00.000Z
+  SNYK-JS-SPRINTFJS-20532016:
+    - '*':
+        reason: >-
+          Pinned to latest sprintf-js@1.1.3; no fixed npm release (CVE-2026-97058).
+          Only used via @sanity/cli → js-yaml/argparse at build time, not production routes.
+        expires: 2027-06-01T00:00:00.000Z

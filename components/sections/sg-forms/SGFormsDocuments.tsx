@@ -30,8 +30,8 @@ const eventBasedForms: FormItem[] = [
   { label: "Pension Consolidation Instruction Form", file: "Pension-Consolidation-2025.pdf" },
   { label: "Pension Commutation Instruction Form", file: "Pension-Commutation-2025.pdf" },
   { label: "SMSF Wind up Instruction Form", file: "Wind-Up-Instruction-2025.pdf" },
-  { label: "Limited Recourse Borrowing Arrangement Instruction – Private Lender", file: "LRBA-Private-Lender-2025.pdf" },
-  { label: "Limited Recourse Borrowing Arrangement Instruction – Commercial Lender", file: "LRBA-Commercial-Lender-2025.pdf" },
+  { label: "Limited Recourse Borrowing Arrangement Instruction – Private Lender", file: "LRBA-Private-Lender-2026.pdf" },
+  { label: "Limited Recourse Borrowing Arrangement Instruction – Commercial Lender", file: "LRBA-Commercial-Lender-2026.pdf" },
 ];
 
 function FormLink({ item }: { item: FormItem }) {

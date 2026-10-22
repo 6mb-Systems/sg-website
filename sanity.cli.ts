@@ -10,4 +10,17 @@ export default defineCliConfig({
       process.env.SANITY_STUDIO_DATASET ||
       "production",
   },
+  // sanity-plugin-rich-table 2.x compiles with the React Compiler. Alias the
+  // standalone shim to React 19's runtime so nested table cells render in `sanity dev`.
+  vite: {
+    resolve: {
+      alias: [
+        {
+          find: /^react-compiler-runtime$/,
+          replacement: "react/compiler-runtime",
+        },
+      ],
+    },
+    optimizeDeps: { exclude: ["react-compiler-runtime"] },
+  },
 });

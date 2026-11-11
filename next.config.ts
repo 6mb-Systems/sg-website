@@ -202,8 +202,21 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/SG Forms/SG-Direct-Debit-Agreement-2021.pdf",
-        destination: "/SG Forms/Direct-Debit-Agreement-July-2026.pdf",
+        source: "/SG%20Forms/SG-Direct-Debit-Agreement-2021.pdf",
+        destination: "/SG%20Forms/Direct-Debit-Agreement-November-2026.pdf",
+        permanent: true,
+      },
+      {
+        // July 2026 Direct Debit Agreement superseded by November 2026
+        // version (legal correction). Old link is embedded in the engagement
+        // form, so keep it working.
+        source: "/SG%20Forms/Direct-Debit-Agreement-July-2026.pdf",
+        destination: "/SG%20Forms/Direct-Debit-Agreement-November-2026.pdf",
+        permanent: true,
+      },
+      {
+        source: "/PDF/Direct-Debit-Agreement-July-2026.pdf",
+        destination: "/SG%20Forms/Direct-Debit-Agreement-November-2026.pdf",
         permanent: true,
       },
       {
@@ -213,8 +226,8 @@ const nextConfig: NextConfig = {
       },
       {
         source:
-          "/PDF/SG Direct Debit Authority Service Agreement - 2021.pdf",
-        destination: "/PDF/Direct-Debit-Agreement-July-2026.pdf",
+          "/PDF/SG%20Direct%20Debit%20Authority%20Service%20Agreement%20-%202021.pdf",
+        destination: "/SG%20Forms/Direct-Debit-Agreement-November-2026.pdf",
         permanent: true,
       },
       {

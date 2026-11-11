@@ -17,7 +17,7 @@ const engagementForms: FormItem[] = [
   },
   {
     label: "Direct Debit Agreement",
-    file: "Direct-Debit-Agreement-July-2026.pdf",
+    file: "Direct-Debit-Agreement-November-2026.pdf",
   },
   {
     label: "Financial Services Guide (FSG)",

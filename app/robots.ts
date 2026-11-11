@@ -7,6 +7,7 @@ import type { MetadataRoute } from "next";
  *  - /studio/*  — the embedded Sanity Studio login surface
  *  - /api/*     — all POST endpoints (emails, rate-limited)
  *  - /_next/*   — build artefacts
+ *  - /cybersecurityandyoursmsf and /client-updates/ — unlisted client newsletter
  *
  * Everything else (including the blog at /education/*) is allowed.
  */
@@ -20,7 +21,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/studio", "/studio/", "/api/", "/_next/"],
+        disallow: [
+          "/studio",
+          "/studio/",
+          "/api/",
+          "/_next/",
+          "/cybersecurityandyoursmsf",
+          "/client-updates/",
+        ],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,

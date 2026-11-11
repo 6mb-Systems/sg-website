@@ -7,6 +7,8 @@ import type { NextRequest } from "next/server";
  */
 const REAL_ROUTES = new Set([
   "PDF",
+  // Unlisted client newsletter. Must stay here or middleware 301s it to /education/.
+  "cybersecurityandyoursmsf",
   "api",
   "careers",
   "contact",

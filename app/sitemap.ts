@@ -12,6 +12,7 @@ import { getAllPostsForSitemap } from "@/lib/sanity/queries";
  *   - /studio/*  (admin surface — also blocked in robots.ts)
  *   - /api/*     (POST-only form endpoints)
  *   - /login     (just an outbound-link hub, no SEO value)
+ *   - /cybersecurityandyoursmsf (unlisted client newsletter; direct link only)
  */
 
 // Regenerate at most once an hour. A blog post update will show up in the

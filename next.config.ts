@@ -83,6 +83,21 @@ const cspDirectives: Record<string, string[]> = {
   "upgrade-insecure-requests": [],
 };
 
+/**
+ * Unlisted November 2026 client newsletter.
+ *
+ * The shared link has to read exactly
+ * www.superguardian.com.au/cybersecurityandyoursmsf — the email tells
+ * trustees to check the address before they click.
+ *
+ * The PDF is ~17 MB, above Vercel's 4.5 MB function response limit, so it
+ * is a static file with a rewrite rather than app/PDF/[file]/route.ts.
+ * It is not linked from navigation, site search, or the sitemap.
+ */
+const CYBER_SMSF_NEWSLETTER_PATH = "/cybersecurityandyoursmsf";
+const CYBER_SMSF_NEWSLETTER_FILE =
+  "/client-updates/cyber-security-and-your-smsf-november-2026.pdf";
+
 const cspValue = Object.entries(cspDirectives)
   .map(([directive, sources]) =>
     sources.length === 0 ? directive : `${directive} ${sources.join(" ")}`
@@ -159,6 +174,17 @@ const nextConfig: NextConfig = {
         hostname: "cdn.sanity.io",
       },
     ],
+  },
+
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: CYBER_SMSF_NEWSLETTER_PATH,
+          destination: CYBER_SMSF_NEWSLETTER_FILE,
+        },
+      ],
+    };
   },
 
   async redirects() {
@@ -272,6 +298,27 @@ const nextConfig: NextConfig = {
         // Keep the embedded Sanity Studio out of search engines. This is a
         // defence-in-depth layer on top of the `robots` metadata and robots.txt.
         source: "/studio/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+        ],
+      },
+      {
+        // Unlisted newsletter. The address bar stays on the pretty path
+        // (rewrite, not redirect) and the PDF opens in the browser.
+        source: CYBER_SMSF_NEWSLETTER_PATH,
+        headers: [
+          { key: "Content-Type", value: "application/pdf" },
+          {
+            key: "Content-Disposition",
+            value:
+              'inline; filename="SuperGuardian-Cyber-Security-and-Your-SMSF-November-2026.pdf"',
+          },
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+          { key: "Cache-Control", value: "public, max-age=3600" },
+        ],
+      },
+      {
+        source: "/client-updates/:path*",
         headers: [
           { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
         ],

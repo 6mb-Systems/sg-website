@@ -93,6 +93,14 @@ export interface SanityEvent {
 }
 
 // GROQ Queries
+// Posts tagged with these legacy WordPress layout categories (e.g. the old
+// homepage "Home Box" tiles) are not real articles and must never appear on
+// the site — not in listings, search, the sitemap, or at their own URL.
+const HIDDEN_POST_CATEGORIES = ["home box"];
+// coalesce() keeps posts with no (secondary) category: lower(null) would make
+// the whole condition null and silently drop them.
+const visiblePostFilter = `!(lower(coalesce(category->title, "")) in ${JSON.stringify(HIDDEN_POST_CATEGORIES)}) && !(lower(coalesce(secondaryCategory->title, "")) in ${JSON.stringify(HIDDEN_POST_CATEGORIES)})`;
+
 const postFields = `
   _id,
   _type,
@@ -147,7 +155,7 @@ export async function getPosts(limit?: number): Promise<SanityPost[]> {
   }
 
   const limitClause = limit ? `[0...${limit}]` : "";
-  const query = `*[_type == "post" && !(_id in path("drafts.**"))] | order(publishedAt desc) ${limitClause} {
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && ${visiblePostFilter}] | order(publishedAt desc) ${limitClause} {
     ${postFields}
   }`;
 
@@ -158,7 +166,7 @@ export async function getPosts(limit?: number): Promise<SanityPost[]> {
 export async function getFactsheetPosts(limit?: number): Promise<SanityPost[]> {
   if (!isSanityConfigured()) return [];
   const limitClause = limit != null ? `[0...${limit}]` : "";
-  const query = `*[_type == "post" && !(_id in path("drafts.**")) && isWebinarPost != true] | order(publishedAt desc) ${limitClause} {
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && ${visiblePostFilter} && isWebinarPost != true] | order(publishedAt desc) ${limitClause} {
     ${postFields}
   }`;
   return fetchSanity<SanityPost[]>(query, []);
@@ -167,7 +175,7 @@ export async function getFactsheetPosts(limit?: number): Promise<SanityPost[]> {
 // Get webinar/event posts only
 export async function getWebinarPosts(): Promise<SanityPost[]> {
   if (!isSanityConfigured()) return [];
-  const query = `*[_type == "post" && !(_id in path("drafts.**")) && isWebinarPost == true] | order(publishedAt desc) {
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && ${visiblePostFilter} && isWebinarPost == true] | order(publishedAt desc) {
     ${postFields}
   }`;
   return fetchSanity<SanityPost[]>(query, []);
@@ -179,7 +187,7 @@ export async function getPostsByCategory(
 ): Promise<SanityPost[]> {
   if (!isSanityConfigured()) return [];
 
-  const query = `*[_type == "post" && !(_id in path("drafts.**")) && category->slug.current == $categorySlug] | order(publishedAt desc) {
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && ${visiblePostFilter} && category->slug.current == $categorySlug] | order(publishedAt desc) {
     ${postFields}
   }`;
 
@@ -190,7 +198,7 @@ export async function getPostsByCategory(
 export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
   if (!isSanityConfigured()) return null;
 
-  const query = `*[_type == "post" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
+  const query = `*[_type == "post" && slug.current == $slug && !(_id in path("drafts.**")) && ${visiblePostFilter}][0] {
     ${postFieldsWithBody}
   }`;
 
@@ -292,7 +300,7 @@ export async function getCategories(): Promise<
 export async function getAllPostSlugs(): Promise<string[]> {
   if (!isSanityConfigured()) return [];
 
-  const query = `*[_type == "post" && !(_id in path("drafts.**")) && !defined(externalUrl)].slug.current`;
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && ${visiblePostFilter} && !defined(externalUrl)].slug.current`;
 
   return fetchSanity<string[]>(query, []);
 }
@@ -305,7 +313,7 @@ export async function getAllPostsForSitemap(): Promise<
 > {
   if (!isSanityConfigured()) return [];
 
-  const query = `*[_type == "post" && !(_id in path("drafts.**")) && defined(slug.current) && !defined(externalUrl)]{
+  const query = `*[_type == "post" && !(_id in path("drafts.**")) && ${visiblePostFilter} && defined(slug.current) && !defined(externalUrl)]{
     "slug": slug.current,
     "updatedAt": _updatedAt
   }`;
